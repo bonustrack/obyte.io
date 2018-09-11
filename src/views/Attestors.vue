@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <div class="container-md p-responsive">
+      <h1 class="py-8 text-center">Attestors</h1>
+    </div>
+    <ul class="container-md p-responsive">
+      <MessageLoading v-if="attestors.length === 0"/>
+      <li v-for="attestor in attestors" class="d-block width-full py-4 clearfix border-bottom">
+        <div class="flex-content-start mb-1">
+          <router-link :to="'/@' + attestor.unit_authors[0]">
+            <span class="float-left mr-3">
+              <Avatar size="44" :address="attestor.unit_authors[0]"/>
+            </span>
+          </router-link>
+          <div>
+            <router-link :to="'/@' + attestor.unit_authors[0]" class="mr-1">
+              {{attestor.unit_authors[0]}}
+            </router-link>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div>
+            <h2 v-if="attestorsHelper[attestor.unit_authors[0]]">
+              {{attestorsHelper[attestor.unit_authors[0]].name}}
+            </h2>
+            <p>{{$n(attestor.count)}} attestation(s)</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex';
+import attestorsHelper from '@/helpers/attestors.json';
+
+export default {
+  data () {
+    return {
+      attestorsHelper,
+    };
+  },
+  computed: {
+    attestors () {
+      return this.$store.state.app.attestors || [];
+    },
+  },
+  methods: mapActions([
+   'getAttestors',
+  ]),
+  created() {
+    if (this.$store.state.app.attestors.length === 0) {
+      this.getAttestors();
+    }
+  }
+}
+</script>

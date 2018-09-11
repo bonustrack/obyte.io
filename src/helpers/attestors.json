@@ -1,0 +1,20 @@
+{
+  "H5EZTQE7ABFH27AUDTQFMZIALANK6RBG": {
+    "name": "Email attestor"
+  },
+  "I2ADHGP4HL6J37NQAD73J7E5SKFIXJOT": {
+    "name": "Real name attestor"
+  },
+  "C4O37BFHR46UP6JJ4A5PA5RIZH5IFPZF": {
+    "name": "Non-US attestor"
+  },
+  "BVVJ2K7ENPZZ3VYZFWQWK7ISPCATFIW3": {
+    "name": "Accredited investor attestor"
+  },
+  "JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725": {
+    "name": "Steem attestor"
+  },
+  "UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ": {
+    "name": "Username attestor"
+  }
+}
