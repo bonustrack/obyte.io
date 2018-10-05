@@ -1,5 +1,5 @@
 {
-  "name": "poke",
+  "name": "byteball.co",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "bluebird": "^3.5.2",
     "byteball": "^0.1.1",
     "date-fns": "^1.29.0",
+    "express": "^4.16.3",
     "identicon.js": "^2.3.2",
     "kbyte": "0.0.3",
     "lodash": "^4.17.10",
