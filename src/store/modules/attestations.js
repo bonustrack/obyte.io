@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import Promise from 'bluebird';
 import client from '@/helpers/client';
 
 const state = {};

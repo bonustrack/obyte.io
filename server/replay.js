@@ -1,4 +1,5 @@
 const byteball = require('byteball');
+const Promise = require('bluebird');
 const writer = require('./writer');
 const db = require('./db');
 const checkpoint = require('./checkpoint.json');
