@@ -80,7 +80,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import utils from 'kbyte/src/utils';
+import utils from '@/helpers/utils';
 
 export default {
   data () {

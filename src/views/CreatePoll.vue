@@ -50,7 +50,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import constants from 'byteballcore/constants';
+
+const MAX_CHOICES_PER_POLL = 128;
 
 export default {
   data () {
@@ -75,7 +76,7 @@ export default {
       if (!this.question && this.question !== null) this.errors.push('Question is required');
       if ((!this.choices[0] && this.choices[0] !== null) || (!this.choices[1] && this.choices[1] !== null)) this.errors.push('At least 2 choices are required');
 
-      if (lastChoice !== '' && lastChoice !== null && this.choices.length <= constants.MAX_CHOICES_PER_POLL) {
+      if (lastChoice !== '' && lastChoice !== null && this.choices.length <= MAX_CHOICES_PER_POLL) {
         this.choices.push('');
       }
     },

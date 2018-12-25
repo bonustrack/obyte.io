@@ -2,10 +2,8 @@ import crypto from 'crypto';
 import axios from 'axios';
 import Mnemonic from 'bitcore-mnemonic';
 import Promise from 'bluebird';
-import objectHash from 'byteballcore/object_hash';
-import wifLib from 'wif';
+import { toWif, getChash160 } from 'byteball/lib/utils';
 import store from '@/store';
-import kbyteUtils from 'kbyte/src/utils';
 import utils from '@/helpers/utils';
 import client from '@/helpers/client';
 import api from '@/helpers/api';
@@ -94,7 +92,7 @@ const actions = {
   },
   createAccount: ({ commit }, {
     name,
-    seed = kbyteUtils.generateRandomSeed(),
+    seed = utils.generateRandomSeed(),
     password,
     path = "m/44'/0'/1'/0/0",
   }) => {
@@ -104,7 +102,7 @@ const actions = {
     // const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
     const pubkey = privateKey.publicKey.toBuffer().toString('base64');
     const definition = ['sig', { pubkey }];
-    const address = objectHash.getChash160(definition);
+    const address = getChash160(definition);
 
     /** Encrypt seed */
     const cipher = crypto.createCipher('aes192', password);
@@ -188,7 +186,7 @@ const actions = {
       const xPrivKey = mnemonic.toHDPrivateKey();
       const { privateKey } = xPrivKey.derive(state.path);
       const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
-      const wif = wifLib.encode(128, privKeyBuf, false);
+      const wif = toWif(privKeyBuf, false);
 
       client.post.message(app, payload, wif).then(unit => {
         resolve(unit);

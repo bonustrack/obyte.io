@@ -1,3 +1,15 @@
+const Mnemonic = require('bitcore-mnemonic');
+
+const generateRandomSeed = () => {
+  let mnemonic = new Mnemonic();
+  while (!Mnemonic.isValid(mnemonic.toString())) {
+    mnemonic = new Mnemonic();
+  }
+  return mnemonic.phrase;
+};
+
+const isSeedValid = seed => Mnemonic.isValid(seed);
+
 const getUnspent = (history, addresses) => {
   const unspent = [];
   if (history.joints) {
@@ -47,6 +59,8 @@ const getBalances = (unspent) => {
 };
 
 export default {
+  generateRandomSeed,
+  isSeedValid,
   getUnspent,
   getBalances,
 };
