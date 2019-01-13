@@ -50,6 +50,7 @@
       <router-link to="/" style="font-size: 20px; color: black;">byteball</router-link>
       <router-link to="/assets">Assets</router-link>
       <router-link to="/attestors">Attestors</router-link>
+      <router-link to="/oracles">Oracles</router-link>
       <router-link to="/bots">Bots</router-link>
       <router-link to="/witnesses">Witnesses</router-link>
       <router-link to="/polls">Polls</router-link>

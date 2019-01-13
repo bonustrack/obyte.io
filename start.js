@@ -97,6 +97,15 @@ wss.on('connection', (ws) => {
           });
           break;
         }
+        case 'get_oracles': {
+          db.query("SELECT * FROM oracles").then((response) => {
+            console.log('Send oracles', JSON.stringify(response));
+            ws.send(JSON.stringify(['response', { tag, response }]));
+          }).catch((err) => {
+            console.log('Query get_oracles failed', err);
+          });
+          break;
+        }
         case 'get_asset_metadata': {
           db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| array[$1] AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", ['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG']).then((response) => {
             console.log('Send get_asset_metadata', JSON.stringify(response));

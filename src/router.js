@@ -7,6 +7,7 @@ import ProfileAttestations from '@/views/ProfileAttestations';
 import Unit from '@/views/Unit';
 import About from '@/views/About';
 import Attestors from '@/views/Attestors';
+import Oracles from '@/views/Oracles';
 import Bots from '@/views/Bots';
 import Witnesses from '@/views/Witnesses';
 import Polls from '@/views/Polls';
@@ -67,6 +68,7 @@ const router = new Router({
     { path: '/timeline', name: 'timeline', component: Timeline, meta: { title: 'Timeline' } },
     { path: '/assets', name: 'assets', component: Assets, meta: { title: 'Assets' } },
     { path: '/attestors', name: 'attestors', component: Attestors, meta: { title: 'Attestors' } },
+    { path: '/oracles', name: 'oracles', component: Oracles, meta: { title: 'Oracles' } },
     { path: '/bots', name: 'bots', component: Bots, meta: { title: 'Bots' } },
     { path: '/witnesses', name: 'witnesses', component: Witnesses, meta: { title: 'Witnesses' } },
     { path: '/login', name: 'login', component: Login, meta: { title: 'Log in' } },
