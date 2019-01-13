@@ -25,6 +25,13 @@ CREATE VIEW attestors AS
   GROUP BY unit_authors
   ORDER BY count DESC;
 
+CREATE VIEW oracles AS
+  SELECT unit_authors,
+  COUNT(unit) AS count FROM messages
+  WHERE app = 'data_feed'
+  GROUP BY unit_authors
+  ORDER BY count DESC;
+
 CREATE VIEW polls AS
   SELECT * FROM messages
   WHERE app = 'poll'

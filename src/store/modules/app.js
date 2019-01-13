@@ -21,6 +21,7 @@ const state = {
   unspent: null,
   witnesses: [],
   attestors: [],
+  oracles: [],
   assets: [],
   bots: [],
   path: null,
@@ -63,6 +64,9 @@ const mutations = {
   },
   saveAttestors (state, attestors) {
     state.attestors = attestors;
+  },
+  saveOracles (state, oracles) {
+    state.oracles = oracles;
   },
   saveBots (state, bots) {
     state.bots = bots;
@@ -168,6 +172,11 @@ const actions = {
   getAttestors: ({ commit }) => {
     api.requestAsync('get_attestors', null).then(attestors => {
       commit('saveAttestors', attestors);
+    });
+  },
+  getOracles: ({ commit }) => {
+    api.requestAsync('get_oracles', null).then(oracles => {
+      commit('saveOracles', oracles);
     });
   },
   getBots: ({ commit }) => {
