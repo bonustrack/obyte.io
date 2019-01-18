@@ -1,10 +1,20 @@
 const express = require('express');
+const byteball = require('byteball');
 const serveStatic = require('serve-static');
 const SocketServer = require('ws').Server;
 const db = require('./server/db');
 
+const client = new byteball.Client();
+
 let app = express();
 app.use(serveStatic(__dirname + '/dist'));
+
+app.get('/joint/:unit(*)', async (req, res) => {
+  const { unit } = req.params;
+  client.api.getJoint(unit, (err, result) => {
+    res.json(result);
+  });
+});
 
 app.get('*', function (req, res) {
   res.sendFile(__dirname + '/dist/index.html')
@@ -77,17 +87,6 @@ wss.on('connection', (ws) => {
           });
           break;
         }
-        /**
-        case 'get_attestations': {
-          db.query("SELECT * FROM messages WHERE app = 'attestation' AND payload->>'address' = $1 ORDER BY unit_creation_date DESC", [params]).then((response) => {
-            console.log('Send get_attestations', JSON.stringify(response));
-            ws.send(JSON.stringify(['response', { tag, response }]));
-          }).catch((err) => {
-            console.log('Query get_attestations failed', err);
-          });
-          break;
-        }
-        */
         case 'get_attestors': {
           db.query("SELECT * FROM attestors").then((response) => {
             console.log('Send attestors', JSON.stringify(response));
