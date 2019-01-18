@@ -46,15 +46,15 @@
           >
             <h3 class="mb-2">
               <a
-                href="https://github.com/byteball/byteballcore/wiki/Writing-chatbots-for-Byteball"
+                href="https://github.com/byteball/ocore/wiki/Writing-chatbots-for-Byteball"
                 target="_blank"
               >
-                Writing chatbots for Byteball
+                Writing chatbots for Obyte
               </a>
             </h3>
             <div class="mb-2">
               <a
-                href="https://github.com/byteball/byteballcore/wiki/Writing-chatbots-for-Byteball"
+                href="https://github.com/byteball/ocore/wiki/Writing-chatbots-for-Byteball"
                 target="_blank"
                 class="btn btn-blue"
               >

@@ -84,7 +84,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const name = 'Byteball.co';
+  const name = 'Obyte.io';
   document.title = to.meta.title ? `${to.meta.title} - ${name}` : name;
   window.scrollTo(0, 0);
   next();

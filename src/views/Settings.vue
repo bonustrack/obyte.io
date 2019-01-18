@@ -45,7 +45,7 @@
         </div>
         <!--
         <p>Node address</p>
-        <p>wss://byteball.org/ws</p>
+        <p>wss://obyte.org/ws</p>
         <p>Version</p>
         <p>0.0.1</p>
         -->

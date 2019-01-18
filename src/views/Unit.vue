@@ -2,7 +2,7 @@
   <div class="container-md p-responsive">
     <Feed :feed="{ isLoaded: true, messages }"/>
     <p class="mt-3">
-      <a :href="'https://api.byteball.co/joint/' + unit" target="_blank">
+      <a :href="'https://obyte.io/joint/' + unit" target="_blank">
         See unit detail <span class="octicon octicon-link-external f3 ml-2"/>
       </a>
     </p>

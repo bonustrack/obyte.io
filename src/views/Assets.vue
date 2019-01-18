@@ -34,7 +34,7 @@
             <a
               target="_blank"
               class="mb-3"
-               :href="'https://api.byteball.co/joint/' + asset.payload.asset">
+               :href="'https://obyte.io/joint/' + asset.payload.asset">
               #{{asset.payload.asset | truncate(5)}}
             </a>
             <p v-if="asset.payload.description">{{asset.payload.description | truncate(150)}}</p>

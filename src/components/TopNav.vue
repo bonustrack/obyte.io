@@ -47,7 +47,7 @@
           <circle cx="12" cy="12" r="9" stroke-width="3" fill="transparent"></circle>
         </svg>
       </router-link>
-      <router-link to="/" style="font-size: 20px; color: black;">byteball</router-link>
+      <router-link to="/" style="font-size: 20px; color: black;">obyte</router-link>
       <router-link to="/assets">Assets</router-link>
       <router-link to="/attestors">Attestors</router-link>
       <router-link to="/oracles">Oracles</router-link>

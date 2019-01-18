@@ -4,7 +4,7 @@
     <p>
       The unit
       <a
-        :href="'https://explorer.byteball.org/#' + unit"
+        :href="'https://explorer.obyte.org/#' + unit"
         target="_blank"
       >
         {{unit}}
