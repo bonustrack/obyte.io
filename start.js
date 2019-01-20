@@ -1,17 +1,18 @@
 const express = require('express');
-const byteball = require('byteball');
+const kbyte = require('kbyte');
 const serveStatic = require('serve-static');
 const SocketServer = require('ws').Server;
 const db = require('./server/db');
 
-const client = new byteball.Client();
+const client = new kbyte.Client('wss://obyte.org/bb');
+setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
 let app = express();
 app.use(serveStatic(__dirname + '/dist'));
 
 app.get('/joint/:unit(*)', function (req, res) {
   const { unit } = req.params;
-  client.api.getJoint(unit, function (err, result) {
+  client.request('get_joint', unit, function(err, result) {
     res.json(result);
   });
 });
