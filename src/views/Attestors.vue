@@ -20,9 +20,7 @@
         </div>
         <div class="d-flex">
           <div>
-            <h2 v-if="attestorsHelper[attestor.unit_authors[0]]">
-              {{attestorsHelper[attestor.unit_authors[0]].name}}
-            </h2>
+            <h2>{{attestor.unit_authors[0] | name('attestor_name')}}</h2>
             <p>{{$n(attestor.count)}} attestation(s)</p>
           </div>
         </div>
@@ -33,14 +31,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import attestorsHelper from '@/helpers/attestors.json';
 
 export default {
-  data () {
-    return {
-      attestorsHelper,
-    };
-  },
   computed: {
     attestors () {
       return this.$store.state.app.attestors || [];

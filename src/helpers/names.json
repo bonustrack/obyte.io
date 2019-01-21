@@ -1,0 +1,140 @@
+[
+  {
+    "address": "H5EZTQE7ABFH27AUDTQFMZIALANK6RBG",
+    "profile": {
+      "attestor_name": "Email attestor"
+    }
+  },
+  {
+    "address": "I2ADHGP4HL6J37NQAD73J7E5SKFIXJOT",
+    "profile": {
+      "attestor_name": "Real name attestor"
+    }
+  },
+  {
+    "address": "C4O37BFHR46UP6JJ4A5PA5RIZH5IFPZF",
+    "profile": {
+      "attestor_name": "Non-US attestor"
+    }
+  },
+  {
+    "address": "BVVJ2K7ENPZZ3VYZFWQWK7ISPCATFIW3",
+    "profile": {
+      "attestor_name": "Accredited investor attestor"
+    }
+  },
+  {
+    "address": "JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725",
+    "profile": {
+      "attestor_name": "Steem attestor"
+    }
+  },
+  {
+    "address": "UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ",
+    "profile": {
+      "attestor_name": "Username attestor"
+    }
+  },
+  {
+    "address": "FOPUBEUPBC6YLIQDLKL6EW775BMV7YOH",
+    "profile": {
+      "oracle_name": "BTC Oracle"
+    }
+  },
+  {
+    "address": "JPQKPRI5FMTQRJF4ZZMYZYDQVRD55OTC",
+    "profile": {
+      "oracle_name": "Crypto exchange rates oracle"
+    }
+  },
+  {
+    "address": "GFK3RDAPQLLNCMQEVGGD2KCPZTLSG3HN",
+    "profile": {
+      "oracle_name": "Flight delays oracle"
+    }
+  },
+  {
+    "address": "TKT4UESIKTTRALRRLWS4SENSTJX6ODCW",
+    "profile": {
+      "oracle_name": "Sports oracle"
+    }
+  },
+  {
+    "address": "I2ADHGP4HL6J37NQAD73J7E5SKFIXJOT",
+    "profile": {
+      "oracle_name": "Timestamp oracle"
+    }
+  },
+  {
+    "address": "BVVJ2K7ENPZZ3VYZFWQWK7ISPCATFIW3",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "DJMMI5JYA5BWQYSXDPRZJVLW3UGL3GJS",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "FOPUBEUPBC6YLIQDLKL6EW775BMV7YOH",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "GFK3RDAPQLLNCMQEVGGD2KCPZTLSG3HN",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "H5EZTQE7ABFH27AUDTQFMZIALANK6RBG",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "I2ADHGP4HL6J37NQAD73J7E5SKFIXJOT",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "JPQKPRI5FMTQRJF4ZZMYZYDQVRD55OTC",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "OYW2XTDKSNKGSEZ27LMGNOPJSYIXHBHC",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "S7N5FE42F6ONPNDQLCF64E2MGFYKQR2I",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "TKT4UESIKTTRALRRLWS4SENSTJX6ODCW",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ",
+    "profile": {
+      "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "4GDZSXHEFVFMHCUCSHZVXBVF5T2LJHMU",
+    "profile": {
+      "witness_name": "Rogier Eijkelhof"
+    }
+  }
+]

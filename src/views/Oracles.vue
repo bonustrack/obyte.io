@@ -20,9 +20,7 @@
         </div>
         <div class="d-flex">
           <div>
-            <h2 v-if="oraclesHelper[oracle.unit_authors[0]]">
-              {{oraclesHelper[oracle.unit_authors[0]].name}}
-            </h2>
+            <h2>{{oracle.unit_authors[0] | name('oracle_name')}}</h2>
             <p>{{$n(oracle.count)}} data feed</p>
           </div>
         </div>
@@ -33,14 +31,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import oraclesHelper from '@/helpers/oracles.json';
 
 export default {
-  data () {
-    return {
-      oraclesHelper,
-    };
-  },
   computed: {
     oracles () {
       return this.$store.state.app.oracles || [];

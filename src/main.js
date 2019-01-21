@@ -9,18 +9,14 @@ import client from '@/helpers/client';
 import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
+import utils from '@/helpers/utils';
 import 'primer/index.scss';
 import '@/styles.less';
 
-// Require in a base component context
 const requireComponent = require.context('./components', true, /[\w-]+\.vue$/);
-
 requireComponent.keys().forEach(fileName => {
-  // Get component config
   const componentConfig = requireComponent(fileName);
-  // Get PascalCase name of component
   const componentName = upperFirst(camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')));
-  // Register component globally
   Vue.component(componentName, componentConfig.default || componentConfig)
 });
 
@@ -35,6 +31,10 @@ Vue.filter('truncate', function (text, stop, clamp) {
 
 Vue.filter('date', function(value, format) {
   return moment(new Date(value).getTime()).fromNow();
+});
+
+Vue.filter('name', function(value, type, fallback) {
+  return utils.getAddressName(value, type, fallback);
 });
 
 Vue.use(VueI18n);

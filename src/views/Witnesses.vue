@@ -20,6 +20,7 @@
         </div>
         <div class="d-flex">
           <div>
+            <h2>{{witness | name('witness_name')}}</h2>
             <p>#{{i + 1}}</p>
           </div>
         </div>

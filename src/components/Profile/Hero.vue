@@ -13,12 +13,7 @@
         <Avatar size="100" :address="address"/>
       </div>
       <h2>
-        <template v-if="attestorsHelper[address]">
-          {{attestorsHelper[address].name}}
-        </template>
-        <template v-else>
-          {{profile.name || 'Undefined'}}
-        </template>
+        {{profile.name || getAddressName(address) || 'Undefined'}}
         <router-link v-if="attestations.messages && attestations.messages.length" :to="'/@' + address + '/attestations'">
           <span class="tooltipped tooltipped-n" aria-label="Verified">
             <span class="octicon octicon-verified mb-1"></span>
@@ -55,15 +50,10 @@
 <script>
 import { mapActions } from 'vuex';
 import attestations from "../../store/modules/attestations";
-import attestorsHelper from '@/helpers/attestors.json';
+import utils from '@/helpers/utils';
 
 export default {
   props: ['address', 'attestations'],
-  data () {
-    return {
-      attestorsHelper,
-    };
-  },
   computed: {
     profile () {
       return this.$store.state.profiles[this.address]
@@ -100,6 +90,7 @@ export default {
     }
   },
   methods: {
+    getAddressName: (address) => utils.getAddressName(address),
     ...mapActions([
       'getProfile',
     ]),

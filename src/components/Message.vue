@@ -11,7 +11,7 @@
       </router-link>
       <div>
         <router-link :to="'/@' + message.unit_authors[0]" class="mr-1">
-          <Username :address="message.unit_authors[0]"/>
+          {{message.unit_authors[0] | name('', message.unit_authors[0])}}
         </router-link>
         <span class="Label Label--outline mr-1">
           {{message.app}}

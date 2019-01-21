@@ -1,4 +1,5 @@
 const Mnemonic = require('bitcore-mnemonic');
+const names = require('./names.json');
 
 const generateRandomSeed = () => {
   let mnemonic = new Mnemonic();
@@ -58,9 +59,22 @@ const getBalances = (unspent) => {
   return balances;
 };
 
+const getAddressName = (address, type, fallback) => {
+  let profile = {};
+  names.forEach(attestation => {
+    if (attestation.address === address) {
+      profile = { ...profile, ...attestation.profile };
+    }
+  });
+  return type
+    ? profile[type]
+    : profile.attestor_name || profile.oracle_name || profile.witness_name || fallback;
+};
+
 export default {
   generateRandomSeed,
   isSeedValid,
   getUnspent,
   getBalances,
+  getAddressName,
 };
