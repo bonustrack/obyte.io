@@ -66,6 +66,12 @@
     }
   },
   {
+    "address": "6XASCIHYUPKM67AO4LBQFY6WO24OXN5B",
+    "profile": {
+      "oracle_name": "ORider Carpool Oracle"
+    }
+  },
+  {
     "address": "BVVJ2K7ENPZZ3VYZFWQWK7ISPCATFIW3",
     "profile": {
       "witness_name": "Anton Churyumov"
