@@ -78,13 +78,25 @@ wss.on('connection', (ws) => {
         }
         case 'get_polls': {
           const query = params
-            ? ["SELECT * FROM messages WHERE app = 'poll' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
-            : ["SELECT * FROM messages WHERE app = 'poll' ORDER BY unit_creation_date DESC LIMIT 10", []];
+            ? ["SELECT * FROM polls WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
+            : ["SELECT * FROM polls ORDER BY unit_creation_date DESC LIMIT 10", []];
           db.query(query[0], query[1]).then((response) => {
-            console.log('Send get_timeline', JSON.stringify(response));
+            console.log('Send get_polls', JSON.stringify(response));
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_timeline failed', err);
+            console.log('Query get_polls failed', err);
+          });
+          break;
+        }
+        case 'get_votes': {
+          const query = params.unit
+            ? ["SELECT * FROM messages WHERE app = 'vote' AND payload->'unit' = to_jsonb(text $1) AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10", [params.poll_unit, params.unit, params.message_index]]
+            : ["SELECT * FROM messages WHERE app = 'vote' AND payload->'unit' = to_jsonb(text $1) ORDER BY unit_creation_date DESC LIMIT 10", [params.poll_unit]];
+          db.query(query[0], query[1]).then((response) => {
+            console.log('Send get_votes', JSON.stringify(response));
+            ws.send(JSON.stringify(['response', { tag, response }]));
+          }).catch((err) => {
+            console.log('Query get_votes failed', err);
           });
           break;
         }

@@ -2,6 +2,8 @@ CREATE TABLE last_known_mci (
   mci INT
 );
 
+INSERT INTO last_known_mci (mci) values (0);
+
 CREATE TABLE messages (
   unit VARCHAR(44),
   message_index SMALLINT,
