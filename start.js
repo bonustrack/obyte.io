@@ -89,9 +89,7 @@ wss.on('connection', (ws) => {
           break;
         }
         case 'get_votes': {
-          const query = params.unit
-            ? ["SELECT * FROM messages WHERE app = 'vote' AND payload->'unit' = to_jsonb(text $1) AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10", [params.poll_unit, params.unit, params.message_index]]
-            : ["SELECT * FROM messages WHERE app = 'vote' AND payload->'unit' = to_jsonb(text $1) ORDER BY unit_creation_date DESC LIMIT 10", [params.poll_unit]];
+          const query = ["SELECT * FROM messages WHERE app = 'vote' AND payload->'unit' = to_jsonb(text $1) ORDER BY unit_creation_date DESC LIMIT 10", [params]];
           db.query(query[0], query[1]).then((response) => {
             console.log('Send get_votes', JSON.stringify(response));
             ws.send(JSON.stringify(['response', { tag, response }]));
