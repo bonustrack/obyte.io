@@ -88,7 +88,7 @@ const actions = {
     });
   },
   getRate: ({commit}) => {
-    axios.get('https://api.coinmarketcap.com/v1/ticker/byteball/').then(response => {
+    axios.get('https://api.coinmarketcap.com/v1/ticker/obyte/').then(response => {
       if (response.data && response.data[0] && response.data[0].price_btc) {
         commit('saveRate', response.data[0]);
       }
