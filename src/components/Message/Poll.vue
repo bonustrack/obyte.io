@@ -17,7 +17,8 @@
     </ul>
     <div class="mt-2">
       <a :href="'byteball:AhMVGrYMCoeOHUaR9v/CZzTC34kScUeA4OBkRCxnWQM+@byteball.org/bb#poll-' + message.unit">Vote on this poll</a> or
-      <a :href="'byteball:AhMVGrYMCoeOHUaR9v/CZzTC34kScUeA4OBkRCxnWQM+@byteball.org/bb#stats-' + message.unit">see stats</a>
+      <a :href="'byteball:AhMVGrYMCoeOHUaR9v/CZzTC34kScUeA4OBkRCxnWQM+@byteball.org/bb#attested-' + message.unit">see results by attested users</a> or
+      <a :href="'byteball:AhMVGrYMCoeOHUaR9v/CZzTC34kScUeA4OBkRCxnWQM+@byteball.org/bb#stats-' + message.unit">see results by balances</a>
     </div>
   </div>
 </template>

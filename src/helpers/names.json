@@ -37,7 +37,8 @@
   {
     "address": "JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725",
     "profile": {
-      "attestor_name": "Steem attestor"
+      "attestor_name": "Steem attestor",
+      "witness_name": "Anton Churyumov"
     }
   },
   {
