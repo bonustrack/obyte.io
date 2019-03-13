@@ -112,6 +112,9 @@ export default {
     a {
       color: white !important;
     }
+    @media screen and (min-width: 768px) {
+      background-color: transparent !important;
+    }
   }
 
   a {
