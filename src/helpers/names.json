@@ -77,6 +77,12 @@
     }
   },
   {
+    "address": "AM6GTUKENBYA54FYDAKX2VLENFZIMXWG",
+    "profile": {
+      "oracle_name": "Obyte Asset Registry"
+    }
+  },
+  {
     "address": "6XASCIHYUPKM67AO4LBQFY6WO24OXN5B",
     "profile": {
       "oracle_name": "ORider carpool oracle"

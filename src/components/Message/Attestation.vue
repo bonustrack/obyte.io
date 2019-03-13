@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="w-100">
     <p>
       Attested
       <router-link :to="'/@' + message.payload.address">
         {{message.payload.address}}
       </router-link>
     </p>
-    <ul class="Box Box--condensed d-inline-block">
+    <ul class="Box Box--condensed d-inline-block w-100">
       <li class="Box-row" v-for="field in Object.keys(message.payload.profile)">
         <p class="m-0">
           <span class="text-bold">{{field}}:</span>

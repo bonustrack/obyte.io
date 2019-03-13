@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="w-100">
     <h2 class="mb-2">
       <router-link :to="'/u/' + message.unit">
         {{message.payload.question}}
       </router-link>
     </h2>
-    <ul class="Box Box--condensed d-inline-block">
+    <ul class="Box Box--condensed d-inline-block w-100">
       <li class="Box-row" v-for="choice in message.payload.choices">
         <p class="m-0">
           <label class="text-normal">

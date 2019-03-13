@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      unit: this.$route.params[0],
+      unit: this.$route.params[0] || this.$route.params.pathMatch,
       joint: null,
       messages: null,
       votes: [],
