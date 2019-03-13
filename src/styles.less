@@ -90,3 +90,12 @@ h1, h2, h3, h4, b, .btn {
   padding-top: @topnav-height;
   word-break: break-word;
 }
+
+.container {
+  max-width: 100%;
+  @media screen and (max-width: 1024px) {
+    .column.one-third {
+      width: 100%;
+    }
+  }
+}
