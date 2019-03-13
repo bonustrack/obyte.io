@@ -97,7 +97,7 @@ export default {
   //height: @topnav-height;
   line-height: calc(@topnav-height - 4px);
   background-color: @background-color;
-  position: fixed;
+  position: relative;
   overflow: hidden;
   top:0;
   left: 0;
