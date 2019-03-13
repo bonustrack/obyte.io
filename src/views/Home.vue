@@ -35,7 +35,7 @@ export default {
 @import '../vars';
 
 .hero {
-  margin-top: -@topnav-height;
+  //margin-top: -@topnav-height;
   background-image: url("../assets/img/top-left.svg"),url("../assets/img/top-right.svg");
   background-repeat: no-repeat, no-repeat;
   background-attachment: fixed;
