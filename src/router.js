@@ -41,7 +41,7 @@ const redirectToAddress = (to, from, next) => {
     value: to.params.username,
   }, (err, unit) => {
     if (err || !unit)
-      return next();
+      return next({ name: 'error', query: { error: 'STEEM_ATTESTATION_NOT_FOUND'} });
     client.api.getJoint(unit, (err, joint) => {
       if (err || !joint)
         return next();
@@ -49,7 +49,7 @@ const redirectToAddress = (to, from, next) => {
         .find(message => message.app === 'attestation')
         .payload.address;
       if (!address)
-        return next();
+        return next({ name: 'error', query: { error: 'STEEM_ATTESTATION_NOT_FOUND'} });
       next({ name: 'profile', params: { address }});
     });
   });
@@ -80,6 +80,7 @@ const router = new Router({
     { path: '/editor', name: 'editor', beforeEnter: requireAuth, component: Editor, meta: { title: 'Editor' } },
     { path: '/poll/create', name: 'create-poll', beforeEnter: requireAuth, component: CreatePoll, meta: { title: 'Create a poll' } },
     { path: '*', name: '404', component: Error404 },
+    { path: '/oops', name: 'error', component: Error404 },
   ],
 });
 
