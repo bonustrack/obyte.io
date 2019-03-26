@@ -48,7 +48,7 @@
           >
             <h3 class="mb-2">
               <a
-                href="https://byteball.market/#!/asset/order"
+                href="https://obyte.app"
                 target="_blank"
               >
                 Create your own asset
@@ -56,7 +56,7 @@
             </h3>
             <div class="mb-2">
               <a
-                href="https://byteball.market/#!/asset/order"
+                href="https://obyte.app"
                 target="_blank"
                 class="btn btn-blue"
               >

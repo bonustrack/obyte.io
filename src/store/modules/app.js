@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import axios from 'axios';
 import Mnemonic from 'bitcore-mnemonic';
 import Promise from 'bluebird';
-import { toWif, getChash160 } from 'byteball/lib/utils';
+import { toWif, getChash160 } from 'obyte/lib/utils';
 import store from '@/store';
 import utils from '@/helpers/utils';
 import client from '@/helpers/client';

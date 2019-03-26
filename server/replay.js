@@ -1,4 +1,4 @@
-const byteball = require('byteball');
+const obyte = require('obyte');
 const Promise = require('bluebird');
 const writer = require('./writer');
 const db = require('./db');
@@ -6,7 +6,7 @@ const checkpoint = require('./checkpoint.json');
 
 class Replay {
   constructor(address) {
-    this.client = new byteball.Client();
+    this.client = new obyte.Client();
     this.client.subscribe((err, message) => {
       /** Index unstable units */
       // console.log('Subscribe', message);

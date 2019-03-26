@@ -1,5 +1,5 @@
-const byteball = require('byteball');
+const obyte = require('obyte');
 
-const client = new byteball.Client();
+const client = new obyte.Client();
 
 export default client;
