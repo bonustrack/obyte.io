@@ -13,7 +13,7 @@
         <Avatar size="100" :address="address"/>
       </div>
       <h2>
-        {{profile.name || getAddressName(address) || 'Undefined'}}
+        {{profile.name || getAddressName(address) || obyteUsername || 'Undefined'}}
         <router-link v-if="attestations.messages && attestations.messages.length" :to="'/@' + address + '/attestations'">
           <span class="tooltipped tooltipped-n" aria-label="Verified">
             <span class="octicon octicon-verified mb-1"></span>
@@ -60,6 +60,18 @@ export default {
         && this.$store.state.profiles[this.address].profile
         ? this.$store.state.profiles[this.address].profile
         : {};
+    },
+    obyteUsername () {
+      let obyteUsername = null;
+      if (this.attestations.isLoaded) {
+        Object.keys(this.attestations.messages).forEach(i => {
+          const attestation = this.attestations.messages[i];
+          if (attestation.unit_authors.includes('UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ') && attestation.payload.profile.username) {
+            obyteUsername = attestation.payload.profile.username;
+          }
+        });
+      }
+      return obyteUsername;
     },
     steemUsername () {
       let steemUsername = null;
