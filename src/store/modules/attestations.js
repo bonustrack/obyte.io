@@ -40,7 +40,6 @@ const actions = {
               }
             });
           });
-          attestationsArr.reverse();
           commit('saveAttestations', { attestations: attestationsArr, address });
         });
       });
