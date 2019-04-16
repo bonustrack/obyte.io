@@ -26,9 +26,10 @@ export default {
       return this.$store.state.messages[this.$route.params.address] || [];
     },
     attestations () {
-      const attestations = this.$store.state.attestations[this.$route.params.address] || [];
+      let attestations = this.$store.state.attestations[this.$route.params.address] || [];
+      attestations = JSON.parse(JSON.stringify(attestations));
       if (attestations.messages)
-        attestations.messages = JSON.parse(JSON.stringify(attestations.messages)).reverse();
+        attestations.messages.reverse();
       return attestations;
     },
   },
