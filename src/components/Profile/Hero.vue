@@ -66,7 +66,7 @@ export default {
       if (this.attestations.isLoaded) {
         Object.keys(this.attestations.messages).forEach(i => {
           const attestation = this.attestations.messages[i];
-          if (attestation.unit_authors.includes('UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ') && attestation.payload.profile.username) {
+          if (!obyteUsername && attestation.unit_authors.includes('UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ') && attestation.payload.profile.username) {
             obyteUsername = attestation.payload.profile.username;
           }
         });
@@ -78,7 +78,7 @@ export default {
       if (this.attestations.isLoaded) {
         Object.keys(this.attestations.messages).forEach(i => {
           const attestation = this.attestations.messages[i];
-          if (attestation.unit_authors.includes('JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725') && attestation.payload.profile.steem_username) {
+          if (!steemUsername && attestation.unit_authors.includes('JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725') && attestation.payload.profile.steem_username) {
             steemUsername = attestation.payload.profile.steem_username;
           }
         });
@@ -90,7 +90,7 @@ export default {
       if (this.attestations.isLoaded) {
         Object.keys(this.attestations.messages).forEach(i => {
           const attestation = this.attestations.messages[i];
-          if (attestation.unit_authors.includes('H5EZTQE7ABFH27AUDTQFMZIALANK6RBG') && attestation.payload.profile.email) {
+          if (!email && attestation.unit_authors.includes('H5EZTQE7ABFH27AUDTQFMZIALANK6RBG') && attestation.payload.profile.email) {
             email = attestation.payload.profile.email;
           }
         });
