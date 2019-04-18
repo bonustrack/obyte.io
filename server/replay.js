@@ -6,7 +6,7 @@ const checkpoint = require('./checkpoint.json');
 
 class Replay {
   constructor(address) {
-    this.client = new obyte.Client();
+    this.client = new obyte.Client(address);
     this.client.subscribe((err, message) => {
       /** Index unstable units */
       // console.log('Subscribe', message);
@@ -92,5 +92,5 @@ class Replay {
   }
 }
 
-const replay = new Replay();
+const replay = new Replay('wss://byteball.org/ws');
 replay.start();
