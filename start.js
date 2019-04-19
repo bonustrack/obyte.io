@@ -4,7 +4,7 @@ const serveStatic = require('serve-static');
 const SocketServer = require('ws').Server;
 const db = require('./server/db');
 
-const client = new kbyte.Client('wss://byteball.org/bb');
+const client = new kbyte.Client('wss://obyte.org/bb');
 setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
 let app = express();
