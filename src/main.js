@@ -4,6 +4,7 @@ import infiniteScroll from 'vue-infinite-scroll';
 import moment from 'moment';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
+import makeBlockie from 'ethereum-blockies-base64';
 import api from '@/helpers/api';
 import client from '@/helpers/client';
 import App from '@/App.vue';
@@ -36,6 +37,8 @@ Vue.filter('date', function(value, format) {
 Vue.filter('name', function(value, type, fallback) {
   return utils.getAddressName(value, type, fallback);
 });
+
+Vue.filter('blockie', value => makeBlockie(value));
 
 Vue.use(VueI18n);
 Vue.use(infiniteScroll);
