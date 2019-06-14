@@ -27,7 +27,7 @@ class Replay {
 
   init() {
     return Promise.all([
-      this.client.api.subscribe({ subscription_id: '1', last_mci: 0 }),
+      this.client.api.subscribe({ subscription_id: '1', last_mci: 0, library_version: '1.0' }),
       this.client.api.getWitnesses(),
     ]).then(res => {
       this.subscribe = res[0];
