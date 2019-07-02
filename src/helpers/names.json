@@ -51,7 +51,7 @@
   {
     "address": "FOPUBEUPBC6YLIQDLKL6EW775BMV7YOH",
     "profile": {
-      "oracle_name": "BTC Oracle",
+      "oracle_name": "Bitcoin (BTC) oracle",
       "witness_name": "Anton Churyumov"
     }
   },
@@ -65,14 +65,14 @@
   {
     "address": "GFK3RDAPQLLNCMQEVGGD2KCPZTLSG3HN",
     "profile": {
-      "oracle_name": "Flight delays oracle",
+      "oracle_name": "Flight delay oracle",
       "witness_name": "Anton Churyumov"
     }
   },
   {
     "address": "TKT4UESIKTTRALRRLWS4SENSTJX6ODCW",
     "profile": {
-      "oracle_name": "Sports oracle",
+      "oracle_name": "Sports betting oracle",
       "witness_name": "Anton Churyumov"
     }
   },
@@ -116,6 +116,30 @@
     "address": "FAB6TH7IRAVHDLK2AAWY5YBE6CEBUACF",
     "profile": {
       "witness_name": "Fabien Marino"
+    }
+  },
+  {
+    "address": "4FIZC3KZ3ZQSSVOKFEUHKCTQWAWD6YMF",
+    "profile": {
+      "witness_name": "Raivo Malter"
+    }
+  },
+  {
+    "address": "IMMP5FWQXY6IZ53OIYQ46PHSI5T3MAYQ",
+    "profile": {
+      "witness_name": "Demelza Hays"
+    }
+  },
+  {
+    "address": "25XDFVFRP7BZ2SNSESFKUTF52W42JCSL",
+    "profile": {
+      "witness_name": "Brad Morrison"
+    }
+  },
+  {
+    "address": "65JEA52AZK34MT4JBN2RCJTQEYMHUUGJ",
+    "profile": {
+      "attestor_name": "Discord attestation"
     }
   }
 ]
