@@ -4,7 +4,9 @@
       <router-link v-if="message.payload['asset']" :to="'/u/' + message.payload['asset']">
         {{message.payload['asset']}}
       </router-link>
-      <span v-if="message.payload['inputs'][0].address">to
+      <span v-else>bytes</span>
+      <span v-if="message.payload['inputs'][0].address">
+        to
         <router-link :to="'/@' + message.payload['inputs'][0].address">
           {{message.payload['inputs'][0].address}}
         </router-link>
