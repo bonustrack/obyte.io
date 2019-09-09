@@ -19,8 +19,7 @@
       <span v-if="items.length === 0" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
       <div class="columns overflow-hidden mb-5">
         <div
-          v-for="asset in filteredList"
-          v-if=""
+          v-for="(asset, index) in filteredList" :key="index"
           class="column one-third clearfix p-0"
         >
           <div

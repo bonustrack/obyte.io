@@ -7,7 +7,7 @@
       </router-link>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
-      <li class="Box-row" v-for="field in Object.keys(message.payload.profile)">
+      <li class="Box-row" v-for="(field, index) in Object.keys(message.payload.profile)" :key="index">
         <p class="m-0">
           <span class="text-bold">{{field}}:</span>
           {{message.payload.profile[field]}}

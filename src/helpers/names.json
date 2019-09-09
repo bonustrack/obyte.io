@@ -137,6 +137,12 @@
     }
   },
   {
+    "address": "QR542JXX7VJ5UJOZDKHTJCXAYWOATID2",
+    "profile": {
+      "witness_name": "Bittrex"
+    }
+  },
+  {
     "address": "65JEA52AZK34MT4JBN2RCJTQEYMHUUGJ",
     "profile": {
       "attestor_name": "Discord attestation"

@@ -34,10 +34,21 @@
       <MessageAsset v-if="message.app === 'asset'" :message="message" />
     </div>
   </li>
+  <li
+    v-else-if="message.payload.inputs[0].type === 'issue'"
+    class="d-block width-full py-4 clearfix border-bottom"
+  >
+    <MessageAssetIssue :message="message" />
+  </li>
 </template>
 
 <script>
+import utils from '@/helpers/utils';
+
 export default {
   props: ['message'],
+  methods: {
+    textOrJSON: (json) => utils.textOrJSON(json),
+  },
 }
 </script>

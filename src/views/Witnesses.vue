@@ -5,7 +5,7 @@
     </div>
     <ul class="container-md p-responsive">
       <MessageLoading v-if="witnesses.length === 0"/>
-      <li v-for="(witness, i) in witnesses" class="d-block width-full py-4 clearfix border-bottom">
+      <li v-for="(witness, index) in witnesses" :key="index" class="d-block width-full py-4 clearfix border-bottom">
         <div class="flex-content-start mb-1">
           <router-link :to="'/@' + witness">
             <span class="float-left mr-3">
@@ -21,7 +21,7 @@
         <div class="d-flex">
           <div>
             <h2>{{witness | name('witness_name')}}</h2>
-            <p>#{{i + 1}}</p>
+            <p>#{{index + 1}}</p>
           </div>
         </div>
       </li>

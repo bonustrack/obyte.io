@@ -5,7 +5,7 @@
     </div>
     <ul class="container-md p-responsive">
       <MessageLoading v-if="attestors.length === 0"/>
-      <li v-for="attestor in attestors" class="d-block width-full py-4 clearfix border-bottom">
+      <li v-for="(attestor, index) in attestors" :key="index" class="d-block width-full py-4 clearfix border-bottom">
         <div class="flex-content-start mb-1">
           <router-link :to="'/@' + attestor.unit_authors[0]">
             <span class="float-left mr-3">
