@@ -71,10 +71,21 @@ const getAddressName = (address, type, fallback) => {
     : profile.attestor_name || profile.oracle_name || profile.witness_name || fallback;
 };
 
+const textOrJSON = (json) => {
+  if (typeof json == 'string' && json.length < 1000) {
+    try {
+      json = JSON.parse(json);
+    }
+    catch (err) {}
+  }
+  return typeof json == 'object' ? JSON.stringify(json, null, 4) : json;
+};
+
 export default {
   generateRandomSeed,
   isSeedValid,
   getUnspent,
   getBalances,
   getAddressName,
+  textOrJSON,
 };

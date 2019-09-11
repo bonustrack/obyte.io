@@ -13,7 +13,7 @@
         <p>Account name / address</p>
         <input name="username" v-model="address" type="text" style="display: none;" />
         <select v-model="address" class="form-select input-block mb-2">
-          <option v-for="user in userList" :value="user.address">
+          <option v-for="(user, index) in userList" :value="user.address" :key="index">
             {{user.name ? user.name + ' / ' + user.address : user.address}}
           </option>
         </select>

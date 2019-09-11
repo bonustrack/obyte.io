@@ -10,26 +10,31 @@
       </router-link>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
-      <li class="Box-row" v-if="field!=='asset'" v-for="field in Object.keys(message.payload)">
+      <li class="Box-row" v-if="field!=='asset'" v-for="(field, index) in Object.keys(message.payload)" :key="index">
         <p class="m-0">
-          <span class="text-bold">{{field}}:</span>
-          {{message.payload[field]}}
+          <span class="text-bold">{{field}}: </span>
+          <span class="pre">{{textOrJSON(message.payload[field])}}</span>
         </p>
       </li>
     </ul>
   </div>
   <ul v-else class="Box Box--condensed d-inline-block w-100">
-    <li class="Box-row" v-for="field in Object.keys(message.payload)">
+    <li class="Box-row" v-for="(field, index) in Object.keys(message.payload)" :key="index">
       <p class="m-0">
-        <span class="text-bold">{{field}}:</span>
-        {{message.payload[field]}}
+        <span class="text-bold">{{field}}: </span>
+        <span class="pre">{{textOrJSON(message.payload[field])}}</span>
       </p>
     </li>
   </ul>
 </template>
 
 <script>
+import utils from '@/helpers/utils';
+
 export default {
   props: ['message'],
+  methods: {
+    textOrJSON: (json) => utils.textOrJSON(json),
+  },
 }
 </script>

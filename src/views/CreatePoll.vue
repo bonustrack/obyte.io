@@ -23,8 +23,8 @@
           />
           <p>Choices</p>
           <input
-            v-for="(choice, i) in choices"
-            v-model="choices[i]"
+            v-for="(choice, index) in choices" :key="index"
+            v-model="choices[index]"
             type="text"
             class="form-control input-lg input-block mb-2"
           />

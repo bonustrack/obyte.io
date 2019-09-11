@@ -5,7 +5,7 @@
     </div>
     <ul class="container-md p-responsive">
       <MessageLoading v-if="oracles.length === 0"/>
-      <li v-for="oracle in oracles" class="d-block width-full py-4 clearfix border-bottom">
+      <li v-for="(oracle, index) in oracles" :key="index" class="d-block width-full py-4 clearfix border-bottom">
         <div class="flex-content-start mb-1">
           <router-link :to="'/@' + oracle.unit_authors[0]">
             <span class="float-left mr-3">

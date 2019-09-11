@@ -12,21 +12,21 @@
         </div>
         <div
           class="columns p-3 border-bottom"
-          v-for="(balance, key) in balances"
+          v-for="(balance, index) in balances" :key="index"
         >
           <div class="column one-half v-align-middle">
-            <p><Avatar size="24" :address="key"/> {{key}}</p>
+            <p><Avatar size="24" :address="index"/> {{index}}</p>
           </div>
           <div class="column one-fourth text-right">
             <h4>{{balance === 0 ? '-' : $n(balance)}}</h4>
-            <span v-if="key === 'bytes'">
+            <span v-if="index === 'bytes'">
               {{balance === 0 ? '-' : $n((balance / 1000000000 * app.rate.price_usd), 'currency')}}
             </span>
             <span v-else>-</span>
           </div>
           <div class="column one-fourth text-right">
-            <h4>{{key === 'bytes' ? $n(app.rate.price_usd, 'currency') : '-'}}</h4>
-            <span v-if="key === 'bytes'">
+            <h4>{{index === 'bytes' ? $n(app.rate.price_usd, 'currency') : '-'}}</h4>
+            <span v-if="index === 'bytes'">
               <span v-if="app.rate.percent_change_24h > 0" class="text-green">
                 +{{$n(app.rate.percent_change_24h)}}%
               </span>

@@ -6,7 +6,7 @@
       </router-link>
     </h2>
     <ul class="Box Box--condensed d-inline-block w-100">
-      <li class="Box-row" v-for="choice in message.payload.choices">
+      <li class="Box-row" v-for="(choice, index) in message.payload.choices" :key="index">
         <p class="m-0">
           <label class="text-normal">
             <!--<input class="mr-2" type="radio" name="hireme" value="on">-->

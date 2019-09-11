@@ -7,7 +7,7 @@
       </a>
     </p>
     <div v-if="isPoll" class="mb-4">
-      <p v-for="vote in votes">
+      <p v-for="(vote, index) in votes" :key="index">
         <router-link :to="'/@' + vote.unit_authors[0]" class="mr-1">
           {{vote.unit_authors[0] | name('', vote.unit_authors[0])}}
         </router-link> voted
