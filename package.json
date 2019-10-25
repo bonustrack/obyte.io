@@ -10,6 +10,9 @@
     "heroku-postbuild": "npm install --only=dev && npm run build",
     "electron": "electron electron.js"
   },
+  "engines" : {
+    "node" : ">=8.0.0 <11.0.0"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bitcore-mnemonic": "^1.5.0",
