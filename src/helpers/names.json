@@ -147,5 +147,11 @@
     "profile": {
       "attestor_name": "Discord attestation"
     }
+  },
+  {
+    "address": "QSYUTU5BLT6DR3CIHU6ISOATPWPTFDQA",
+    "profile": {
+      "attestor_name": "Blok company registry"
+    }
   }
 ]
