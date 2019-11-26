@@ -153,5 +153,11 @@
     "profile": {
       "attestor_name": "Blok company registry"
     }
+  },
+  {
+    "address": "2TO6NYBGX3NF5QS24MQLFR7KXYAMCIE5",
+    "profile": {
+      "witness_name": "Bosch"
+    }
   }
 ]
