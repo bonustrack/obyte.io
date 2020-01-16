@@ -58,8 +58,15 @@
   {
     "address": "JPQKPRI5FMTQRJF4ZZMYZYDQVRD55OTC",
     "profile": {
-      "oracle_name": "Crypto exchange rates oracle",
+      "oracle_name": "Cryptocurrency exchange rates oracle",
       "witness_name": "Anton Churyumov"
+    }
+  },
+  {
+    "address": "DXYWHSZ72ZDNDZ7WYZXKWBBH425C6WZN",
+    "profile": {
+      "oracle_name": "Precious metal exchange rates oracle",
+      "witness_name": "Bind Creative"
     }
   },
   {
@@ -157,7 +164,7 @@
   {
     "address": "2TO6NYBGX3NF5QS24MQLFR7KXYAMCIE5",
     "profile": {
-      "witness_name": "Bosch"
+      "witness_name": "Bosch Connectory Stuttgart"
     }
   }
 ]
