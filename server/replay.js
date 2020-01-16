@@ -6,7 +6,7 @@ const checkpoint = require('./checkpoint.json');
 
 class Replay {
   constructor(address) {
-    this.client = new obyte.Client(address);
+    this.client = new obyte.Client(address, { reconnect: true });
     this.client.subscribe((err, message) => {
       /** Index unstable units */
       // console.log('Subscribe', message);
