@@ -12,7 +12,7 @@
           ULQA63NGEZACP4N7ZMBUBISH6ZTCUS2Q
         </router-link>
       </p>
-      <a class="btn ml-2" href="byteball:ULQA63NGEZACP4N7ZMBUBISH6ZTCUS2Q">
+      <a class="btn ml-2" href="obyte:ULQA63NGEZACP4N7ZMBUBISH6ZTCUS2Q">
         Donate
       </a>
     </div>

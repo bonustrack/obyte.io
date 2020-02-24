@@ -2,7 +2,7 @@
   <div class="bg-gray overflow-hidden border-bottom">
     <div class="container-md py-5 p-responsive overflow-hidden">
       <div class="float-right">
-        <a :href="'byteball:' + address" class="btn">
+        <a :href="'obyte:' + address" class="btn">
           <svg height="16" width="16" class="mr-2 v-align-middle">
             <circle cx="8" cy="8" r="7" stroke="#ccc" stroke-width="1" fill="white" />
           </svg>

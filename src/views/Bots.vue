@@ -27,13 +27,13 @@
             style="height: 400px;"
           >
             <h3 class="mb-2">
-              <a :href="'byteball:' + bot.pairing_code">
+              <a :href="'obyte:' + bot.pairing_code">
                 {{bot.name}}
               </a>
             </h3>
             <p class="mb-3">{{bot.description | truncate(100)}}</p>
             <div class="mb-2">
-              <a :href="'byteball:' + bot.pairing_code" class="btn">
+              <a :href="'obyte:' + bot.pairing_code" class="btn">
                 Add bot
               </a>
             </div>
