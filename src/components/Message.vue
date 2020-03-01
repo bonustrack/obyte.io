@@ -26,12 +26,13 @@
     </div>
     <div class="d-flex">
       <MessagePayment v-if="message.app === 'payment'" :message="message" />
-      <MessageText v-if="message.app === 'text'" :message="message" />
-      <MessageAttestation v-if="message.app === 'attestation'" :message="message" />
-      <MessagePoll v-if="message.app === 'poll'" :message="message" />
-      <MessageVote v-if="message.app === 'vote'" :message="message" />
-      <MessageData v-if="['data', 'data_feed', 'profile', 'address_definition_change'].includes(message.app)" :message="message" />
-      <MessageAsset v-if="message.app === 'asset'" :message="message" />
+      <MessageText v-else-if="message.app === 'text'" :message="message" />
+      <MessageAttestation v-else-if="message.app === 'attestation'" :message="message" />
+      <MessagePoll v-else-if="message.app === 'poll'" :message="message" />
+      <MessageVote v-else-if="message.app === 'vote'" :message="message" />
+      <MessageAsset v-else-if="message.app === 'asset'" :message="message" />
+      <MessageDefinition v-else-if="message.app === 'definition'" :message="message" />
+      <MessageData v-else :message="message" />
     </div>
   </li>
   <li

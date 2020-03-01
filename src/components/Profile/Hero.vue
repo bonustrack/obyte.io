@@ -22,9 +22,9 @@
       </h2>
       <div class="mb-1">
         <!--<span class="octicon octicon-zap mr-1"></span>-->
-        <router-link :to="'/@' + address">
+        <a :href="'https://explorer.obyte.org/#' + address" target="_blank">
           {{address}}
-        </router-link>
+        </a>
       </div>
       <div>
         <span v-if="profile.location" class="mr-2">
