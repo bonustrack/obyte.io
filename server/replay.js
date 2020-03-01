@@ -92,5 +92,5 @@ class Replay {
   }
 }
 
-const replay = new Replay('wss://relay.bytes.cash/bb');
+const replay = new Replay('wss://obyte.org/bb');
 replay.start();

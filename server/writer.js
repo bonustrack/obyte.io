@@ -7,7 +7,7 @@ const indexJoints = (joints) => {
     const authors = objUnit.authors.map(author => author.address);
     if (objUnit.messages) {
       objUnit.messages.forEach((message, i) => {
-        if (!['payment', 'data', 'data_feed', 'attestation'].includes(message.app)) {
+        if (!['payment'].includes(message.app)) {
           arrQueries.push([
             'INSERT INTO messages (unit, message_index, unit_main_chain_index, unit_is_stable, ' +
             'unit_creation_date, unit_authors, app, payload_hash, payload_location, payload, ' +
@@ -36,7 +36,7 @@ const indexUnstableUnit = (unit) => {
   const authors = unit.authors.map(author => author.address);
   if (unit.messages) {
     unit.messages.forEach((message, i) => {
-      if (!['payment', 'data', 'data_feed', 'attestation'].includes(message.app)) {
+      if (!['payment'].includes(message.app)) {
         arrQueries.push([
           'INSERT INTO messages (unit, message_index, unit_main_chain_index, unit_is_stable, ' +
           'unit_creation_date, unit_authors, app, payload_hash, payload_location, payload, ' +
