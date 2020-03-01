@@ -1,6 +1,12 @@
 <template>
   <li
-    v-if="message.app !== 'payment'"
+    v-if="message.payload.inputs && message.payload.inputs[0].type === 'issue'"
+    class="d-block width-full py-4 clearfix border-bottom"
+  >
+    <MessageAssetIssue :message="message" />
+  </li>
+  <li
+    v-else-if="(message.app === 'payment' && filteredOutputs.length) || message.app !== 'payment'"
     class="d-block width-full py-4 clearfix border-bottom"
   >
     <div class="flex-content-start mb-1">
@@ -27,7 +33,7 @@
       </div>
     </div>
     <div class="d-flex">
-      <MessagePayment v-if="message.app === 'payment'" :message="message" />
+      <MessagePayment v-if="message.app === 'payment'" :message="message" :filteredOutputs="filteredOutputs" />
       <MessageText v-else-if="message.app === 'text'" :message="message" />
       <MessageAttestation v-else-if="message.app === 'attestation'" :message="message" />
       <MessagePoll v-else-if="message.app === 'poll'" :message="message" />
@@ -36,12 +42,6 @@
       <MessageDefinition v-else-if="message.app === 'definition'" :message="message" />
       <MessageData v-else :message="message" />
     </div>
-  </li>
-  <li
-    v-else-if="message.payload.inputs[0].type === 'issue'"
-    class="d-block width-full py-4 clearfix border-bottom"
-  >
-    <MessageAssetIssue :message="message" />
   </li>
 </template>
 
@@ -52,6 +52,14 @@ export default {
   props: ['message'],
   methods: {
     textOrJSON: (json) => utils.textOrJSON(json),
+  },
+  computed: {
+    filteredOutputs: function () {
+      let unitAuthors = this.message.unit_authors;
+      return this.message.payload.outputs.filter(function (output, index) {
+        return !unitAuthors.includes(output.address); 
+      })
+    }
   },
 }
 </script>

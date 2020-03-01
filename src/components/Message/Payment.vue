@@ -11,13 +11,6 @@
 
 <script>
 export default {
-  props: ['message'],
-  computed: {
-    filteredOutputs: function () {
-      return this.message.payload.outputs.filter(function (output, index) {
-        return !this.message.unit_authors.includes(output.address); 
-      })
-    }
-  },
+  props: ['message', 'filteredOutputs'],
 }
 </script>
