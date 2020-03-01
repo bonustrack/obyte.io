@@ -13,7 +13,7 @@ app.use(serveStatic(__dirname + '/dist'));
 app.get('/joint/:unit(*)', function (req, res) {
   const { unit } = req.params;
   client.request('get_joint', unit, function(err, result) {
-    res.json(result);
+    res.json(result.joint);
   });
 });
 
