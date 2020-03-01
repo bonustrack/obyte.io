@@ -22,6 +22,7 @@
     <div class="mt-2" v-if="message.payload.address && message.payload.definition">
       <span v-if="message.payload.definition[0] === 'autonomous agent'"><a :href="'obyte:' + message.payload.address">Interact with Autonomous Agent</a></span>
       <span v-if="message.payload.definition[1]['doc_url']"> | <a :href="message.payload.definition[1]['doc_url']" target="_blank">Documentation</a></span>
+      <span v-if="message.payload.definition[1]['base_aa']"> | <router-link :to="'/@' + message.payload.definition[1]['base_aa']">Based on AA</router-link></span>
     </div>
   </div>
 </template>
