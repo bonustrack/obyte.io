@@ -30,12 +30,9 @@
               <span class="h4 float-right">{{asset.payload.ticker}}</span>
               <span style="color: black;">{{asset.payload.shortName}}</span>
             </h3>
-            <a
-              target="_blank"
-              class="mb-3"
-               :href="'https://obyte.io/joint/' + asset.payload.asset">
-              #{{asset.payload.asset | truncate(5)}}
-            </a>
+            <router-link class="mb-3" :to="'/u/' + asset.payload.asset">
+              #{{asset.payload.asset | truncate(10)}}
+            </router-link>
             <p v-if="asset.payload.description">{{asset.payload.description | truncate(150)}}</p>
             <h6>Issuer: {{asset.payload.issuer}}</h6>
           </div>
