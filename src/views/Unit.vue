@@ -12,7 +12,8 @@
       </a>
       <span class="octicon octicon-link-external f3 ml-2"/>
     </p>
-    <div v-if="isPoll" class="mb-4">
+    <div v-if="isPoll && votes.length" class="mb-4">
+      <h3>Last 10 votes:</h3>
       <p v-for="(vote, index) in votes" :key="index">
         <router-link :to="'/@' + vote.unit_authors[0]" class="mr-1">
           <span>{{vote.unit_authors[0] | name('', vote.unit_authors[0])}}</span>
