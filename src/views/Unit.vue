@@ -2,8 +2,12 @@
   <div class="container-md p-responsive">
     <Feed :feed="{ isLoading, messages }" class="mb-4"/>
     <p class="mb-4">
+      <a :href="'https://explorer.obyte.org/#' + unit" target="_blank">
+        See unit on Explorer <span class="octicon octicon-link-external f3 ml-2"/>
+      </a>
+      |
       <a :href="'https://obyte.io/joint/' + unit" target="_blank">
-        See unit detail <span class="octicon octicon-link-external f3 ml-2"/>
+        See unit as JSON <span class="octicon octicon-link-external f3 ml-2"/>
       </a>
     </p>
     <div v-if="isPoll" class="mb-4">
