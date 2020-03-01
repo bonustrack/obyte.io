@@ -3,7 +3,7 @@
     <p v-for="(output, index) in filteredOutputs" :key="index">
       Sent {{output.amount}} {{message.asset ? message.asset : 'bytes'}} to
       <router-link :to="'/@' + output.address">
-        {{output.address}}
+        <span>{{output.address}}</span>
       </router-link>
     </p>
   </div>

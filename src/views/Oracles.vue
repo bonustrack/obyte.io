@@ -14,7 +14,7 @@
           </router-link>
           <div>
             <router-link :to="'/@' + oracle.unit_authors[0]" class="mr-1">
-              {{oracle.unit_authors[0]}}
+              <span>{{oracle.unit_authors[0]}}</span>
             </router-link>
           </div>
         </div>

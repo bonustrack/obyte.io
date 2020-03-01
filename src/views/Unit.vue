@@ -3,17 +3,19 @@
     <Feed :feed="{ isLoading, messages }" class="mb-4"/>
     <p class="mb-4">
       <a :href="'https://explorer.obyte.org/#' + unit" target="_blank">
-        See unit on Explorer <span class="octicon octicon-link-external f3 ml-2"/>
+        <span>See unit on Explorer</span>
       </a>
+      <span class="octicon octicon-link-external f3 ml-2"/>
       |
       <a :href="'https://obyte.io/joint/' + unit" target="_blank">
-        See unit as JSON <span class="octicon octicon-link-external f3 ml-2"/>
+        <span>See unit as JSON</span>
       </a>
+      <span class="octicon octicon-link-external f3 ml-2"/>
     </p>
     <div v-if="isPoll" class="mb-4">
       <p v-for="(vote, index) in votes" :key="index">
         <router-link :to="'/@' + vote.unit_authors[0]" class="mr-1">
-          {{vote.unit_authors[0] | name('', vote.unit_authors[0])}}
+          <span>{{vote.unit_authors[0] | name('', vote.unit_authors[0])}}</span>
         </router-link> voted
         <b>{{ vote.payload.choice }}</b>
       </p>

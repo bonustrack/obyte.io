@@ -3,7 +3,7 @@
     <p>
       Attested
       <router-link :to="'/@' + message.payload.address">
-        {{message.payload.address}}
+        <span>{{message.payload.address}}</span>
       </router-link>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">

@@ -6,7 +6,7 @@
     <p>
       Registered
       <router-link :to="'/u/' + message.payload.asset">
-        {{message.payload.asset}}
+        <span>{{message.payload.asset}}</span>
       </router-link>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">

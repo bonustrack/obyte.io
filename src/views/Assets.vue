@@ -31,7 +31,7 @@
               <span style="color: black;">{{asset.payload.shortName}}</span>
             </h3>
             <router-link class="mb-3" :to="'/u/' + asset.payload.asset">
-              #{{asset.payload.asset | truncate(10)}}
+              <span>#{{asset.payload.asset | truncate(10)}}</span>
             </router-link>
             <p v-if="asset.payload.description">{{asset.payload.description | truncate(150)}}</p>
             <h6>Issuer: {{asset.payload.issuer}}</h6>
