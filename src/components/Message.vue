@@ -10,15 +10,15 @@
         </span>
       </router-link>
       <div>
-        <router-link :to="'/@' + message.unit_authors[0]" class="mr-1">
+        <router-link :to="'/@' + message.unit_authors[0]">
           <span>{{message.unit_authors[0] | name('', message.unit_authors[0])}}</span>
         </router-link>
-        <span class="Label Label--outline ml-1 mr-1">
+        <span class="Label Label--outline ml-2">
           {{message.app}}
         </span>
         <router-link
           style="color: inherit !important;"
-          class="ml-1"
+          class="ml-2"
           :to="'/u/' + message.unit"
           :title="message.unit_creation_date"
         >
