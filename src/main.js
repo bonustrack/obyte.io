@@ -31,7 +31,12 @@ Vue.filter('truncate', function (text, stop, clamp) {
 });
 
 Vue.filter('date', function(value, format) {
-  return moment(new Date(value).getTime()).fromNow();
+  if (format) {
+    return moment(new Date(value).getTime()).format(format);
+  }
+  else {
+    return moment(new Date(value).getTime()).fromNow();
+  }
 });
 
 Vue.filter('name', function(value, type, fallback) {

@@ -26,7 +26,7 @@
           style="color: inherit !important;"
           class="ml-2"
           :to="'/u/' + message.unit"
-          :title="message.unit_creation_date"
+          :title="message.unit_creation_date | date('YYYY-MM-DD HH:mm \U\T\C')"
         >
           <span>{{message.unit_creation_date | date}}</span>
         </router-link>
