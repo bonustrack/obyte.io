@@ -19,6 +19,7 @@
         <router-link
           style="color: inherit !important;"
           :to="'/u/' + message.unit"
+          :title="message.unit_creation_date"
         >
           {{message.unit_creation_date | date}}
         </router-link>
