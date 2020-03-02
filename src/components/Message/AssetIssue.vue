@@ -2,7 +2,7 @@
   <div class="w-100">
     <p>Issued {{$n(message.payload['inputs'][0].amount)}}
       <router-link v-if="message.payload['asset']" :to="'/u/' + message.payload['asset']">
-        <span>{{message.payload['asset']}}</span>
+        <span>{{assetMeta[message.payload['asset']] || message.payload['asset']}}</span>
       </router-link>
       <span v-else>bytes</span>
       <span v-if="message.payload['inputs'][0].address">
@@ -16,12 +16,25 @@
 </template>
 
 <script>
-import utils from '@/helpers/utils';
+import { mapActions } from 'vuex';
 
 export default {
-  props: ['message'],
-  methods: {
-    textOrJSON: (json) => utils.textOrJSON(json),
+  props: ['message', 'filteredOutputs'],
+  methods: mapActions([
+    'getAssets',
+  ]),
+  computed: {
+    assetMeta() {
+      return this.$store.state.app.assets.reduce(function(accum, currentVal) {
+        accum[currentVal.payload.asset] = currentVal.payload.shortName +' ($'+ currentVal.payload.ticker +')';
+        return accum;
+      }, {});
+    }
+  },
+  created() {
+    if (this.$store.state.app.assets.length === 0) {
+      this.getAssets();
+    }
   },
 }
 </script>

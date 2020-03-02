@@ -40,13 +40,14 @@ Vue.filter('date', function(value, format) {
 });
 
 Vue.filter('nice', function(x) {
-  const units = ['Bytes', 'KBytes', 'MBytes', 'GBytes'];
+  const units = ['Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes'];
+  const names = ['', '', '', ' ($GBYTE)'];
   let l = 0, n = parseInt(x, 10) || 0;
   while(n >= 1000 && ++l) {
     n = n/1000;
     if (l >= units.length-1) break;
   }
-  return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
+  return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l] + names[l]);
 });
 
 Vue.filter('name', function(value, type, fallback) {
