@@ -22,9 +22,10 @@
       </h2>
       <div class="mb-1">
         <!--<span class="octicon octicon-zap mr-1"></span>-->
-        <router-link :to="'/@' + address">
-          {{address}}
-        </router-link>
+        <a :href="'https://explorer.obyte.org/#' + address" target="_blank">
+          <span>{{address}}</span>
+        </a>
+        <span class="octicon octicon-link-external f3 ml-2"/>
       </div>
       <div>
         <span v-if="profile.location" class="mr-2">
@@ -39,7 +40,7 @@
         <span v-if="steemUsername" class="mr-2">
           <span class="iconfont icon-steem mr-1"></span>
           <a :href="'https://steemit.com/@' + steemUsername" target="_blank">
-            {{steemUsername}}
+            <span>{{steemUsername}}</span>
           </a>
         </span>
       </div>

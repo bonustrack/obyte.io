@@ -14,7 +14,7 @@
           </router-link>
           <div>
             <router-link :to="'/@' + witness" class="mr-1">
-              {{witness}}
+              <span>{{witness}}</span>
             </router-link>
           </div>
         </div>

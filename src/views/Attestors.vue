@@ -14,7 +14,7 @@
           </router-link>
           <div>
             <router-link :to="'/@' + attestor.unit_authors[0]" class="mr-1">
-              {{attestor.unit_authors[0]}}
+              <span>{{attestor.unit_authors[0]}}</span>
             </router-link>
           </div>
         </div>

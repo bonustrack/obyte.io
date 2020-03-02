@@ -172,5 +172,11 @@
     "profile": {
       "witness_name": "PolloPollo"
     }
+  },
+  {
+    "address": "B7EHBQTAMLGKAVYPPY35O4X3PPKY7OML",
+    "profile": {
+      "oracle_name": "PolloPollo oracle"
+    }
   }
 ]

@@ -6,11 +6,11 @@
     <p>
       Registered
       <router-link :to="'/u/' + message.payload.asset">
-        {{message.payload.asset}}
+        <span>{{message.payload.asset}}</span>
       </router-link>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
-      <li class="Box-row" v-if="field!=='asset'" v-for="(field, index) in Object.keys(message.payload)" :key="index">
+      <li class="Box-row" v-for="(field, index) in filteredPayload" :key="index">
         <p class="m-0">
           <span class="text-bold">{{field}}: </span>
           <span class="pre">{{textOrJSON(message.payload[field])}}</span>
@@ -35,6 +35,13 @@ export default {
   props: ['message'],
   methods: {
     textOrJSON: (json) => utils.textOrJSON(json),
+  },
+  computed: {
+    filteredPayload: function () {
+      return Object.keys(this.message.payload).filter(function (field, index) {
+        return field!=='asset'; 
+      })
+    }
   },
 }
 </script>

@@ -9,6 +9,7 @@
       >
         {{unit}}
       </a>
+      <span class="octicon octicon-link-external f3 ml-2"/>
       has been successfully broadcasted
     </p>
   </div>

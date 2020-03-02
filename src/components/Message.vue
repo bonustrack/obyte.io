@@ -1,6 +1,12 @@
 <template>
   <li
-    v-if="message.app !== 'payment'"
+    v-if="message.payload.inputs && message.payload.inputs[0].type === 'issue'"
+    class="d-block width-full py-4 clearfix border-bottom"
+  >
+    <MessageAssetIssue :message="message" />
+  </li>
+  <li
+    v-else-if="(message.app === 'payment' && filteredOutputs.length) || message.app !== 'payment'"
     class="d-block width-full py-4 clearfix border-bottom"
   >
     <div class="flex-content-start mb-1">
@@ -10,35 +16,32 @@
         </span>
       </router-link>
       <div>
-        <router-link :to="'/@' + message.unit_authors[0]" class="mr-1">
-          {{message.unit_authors[0] | name('', message.unit_authors[0])}}
+        <router-link :to="'/@' + message.unit_authors[0]">
+          <span>{{message.unit_authors[0] | name('', message.unit_authors[0])}}</span>
         </router-link>
-        <span class="Label Label--outline mr-1">
+        <span class="Label Label--outline ml-2">
           {{message.app}}
         </span>
         <router-link
           style="color: inherit !important;"
+          class="ml-2"
           :to="'/u/' + message.unit"
+          :title="message.unit_creation_date | date('YYYY-MM-DD HH:mm \U\T\C')"
         >
-          {{message.unit_creation_date | date}}
+          <span>{{message.unit_creation_date | date}}</span>
         </router-link>
       </div>
     </div>
     <div class="d-flex">
-      <MessagePayment v-if="message.app === 'payment'" :message="message" />
-      <MessageText v-if="message.app === 'text'" :message="message" />
-      <MessageAttestation v-if="message.app === 'attestation'" :message="message" />
-      <MessagePoll v-if="message.app === 'poll'" :message="message" />
-      <MessageVote v-if="message.app === 'vote'" :message="message" />
-      <MessageData v-if="['data', 'data_feed', 'profile', 'address_definition_change'].includes(message.app)" :message="message" />
-      <MessageAsset v-if="message.app === 'asset'" :message="message" />
+      <MessagePayment v-if="message.app === 'payment'" :message="message" :filteredOutputs="filteredOutputs" />
+      <MessageText v-else-if="message.app === 'text'" :message="message" />
+      <MessageAttestation v-else-if="message.app === 'attestation'" :message="message" />
+      <MessagePoll v-else-if="message.app === 'poll'" :message="message" />
+      <MessageVote v-else-if="message.app === 'vote'" :message="message" />
+      <MessageAsset v-else-if="message.app === 'asset'" :message="message" />
+      <MessageDefinition v-else-if="message.app === 'definition'" :message="message" />
+      <MessageData v-else :message="message" />
     </div>
-  </li>
-  <li
-    v-else-if="message.payload.inputs[0].type === 'issue'"
-    class="d-block width-full py-4 clearfix border-bottom"
-  >
-    <MessageAssetIssue :message="message" />
   </li>
 </template>
 
@@ -47,8 +50,13 @@ import utils from '@/helpers/utils';
 
 export default {
   props: ['message'],
-  methods: {
-    textOrJSON: (json) => utils.textOrJSON(json),
+  computed: {
+    filteredOutputs: function () {
+      let unitAuthors = this.message.unit_authors;
+      return this.message.payload.outputs.filter(function (output, index) {
+        return !unitAuthors.includes(output.address); 
+      })
+    }
   },
 }
 </script>
