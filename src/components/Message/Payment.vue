@@ -25,7 +25,7 @@ export default {
   computed: {
     assetMeta() {
       return this.$store.state.app.assets.reduce(function(accum, currentVal) {
-        accum[currentVal.payload.asset] = currentVal.payload.shortName +' ($'+ currentVal.payload.ticker +')';
+        accum[currentVal.payload.asset] = currentVal.payload.name +' ($'+ currentVal.payload.ticker +')';
         return accum;
       }, {});
     }

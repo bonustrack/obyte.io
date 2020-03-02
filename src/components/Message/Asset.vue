@@ -3,7 +3,8 @@
     <p>
       Defined
       {{message.payload.cap ? $n(message.payload.cap) : 'unlimited'}}
-      <span>{{assetMeta[message.unit] || message.unit}}</span>
+      <span v-if="assetMetaData[message.unit]">{{assetMetaData[message.unit].assetName}}</span>
+      <span v-else>{{message.unit}}</span>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
       <li class="Box-row" v-for="(field, index) in filteredPayload" :key="index">
@@ -13,6 +14,9 @@
         </p>
       </li>
     </ul>
+    <div class="mt-2" v-if="assetMetaData[message.unit]">
+      <router-link :to="'/u/' + assetMetaData[message.unit].metaUnit">See Asset Registry unit</router-link>
+    </div>
   </div>
 </template>
 
@@ -34,9 +38,12 @@ export default {
         return field!=='cap'; 
       })
     },
-    assetMeta() {
+    assetMetaData() {
       return this.$store.state.app.assets.reduce(function(accum, currentVal) {
-        accum[currentVal.payload.asset] = currentVal.payload.shortName +' ($'+ currentVal.payload.ticker +')';
+        accum[currentVal.payload.asset] = {
+          assetName: currentVal.payload.name +' ($'+ currentVal.payload.ticker +')',
+          metaUnit: currentVal.unit,
+        };
         return accum;
       }, {});
     }
