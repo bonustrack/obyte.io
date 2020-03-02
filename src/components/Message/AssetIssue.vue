@@ -1,10 +1,20 @@
 <template>
   <div class="w-100">
-    <p>Issued {{$n(message.payload['inputs'][0].amount)}}
-      <router-link v-if="message.payload['asset']" :to="'/u/' + message.payload['asset']">
-        <span>{{assetMeta[message.payload['asset']] || message.payload['asset']}}</span>
-      </router-link>
-      <span v-else>bytes</span>
+    <p>
+      Issued
+      <span v-if="!message.payload['asset']" :title="message.payload['inputs'][0].amount">{{message.payload['inputs'][0].amount | niceBytes}}</span>
+      <span v-else-if="assetMetaData[message.payload['asset']]">
+        {{message.payload['inputs'][0].amount | niceAsset(assetMetaData[message.payload['asset']].decimals)}}
+        <router-link :to="'/u/' + message.payload['asset']">
+          <span>{{assetMetaData[message.payload['asset']].assetName}}</span>
+        </router-link>
+      </span>
+      <span v-else>
+        {{$n(message.payload['inputs'][0].amount)}}
+        <router-link :to="'/u/' + message.payload['asset']">
+          <span>{{message.payload['asset']}}</span>
+        </router-link>
+      </span>
       <span v-if="message.payload['inputs'][0].address">
         to
         <router-link :to="'/@' + message.payload['inputs'][0].address">
@@ -19,14 +29,18 @@
 import { mapActions } from 'vuex';
 
 export default {
-  props: ['message', 'filteredOutputs'],
+  props: ['message'],
   methods: mapActions([
     'getAssets',
   ]),
   computed: {
-    assetMeta() {
+    assetMetaData() {
       return this.$store.state.app.assets.reduce(function(accum, currentVal) {
-        accum[currentVal.payload.asset] = currentVal.payload.name +' ($'+ currentVal.payload.ticker +')';
+        accum[currentVal.payload.asset] = {
+          assetName: currentVal.payload.name +' ($'+ currentVal.payload.ticker +')',
+          decimals: currentVal.payload.decimals,
+          metaUnit: currentVal.unit,
+        };
         return accum;
       }, {});
     }

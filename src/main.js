@@ -39,15 +39,33 @@ Vue.filter('date', function(value, format) {
   }
 });
 
-Vue.filter('nice', function(x) {
-  const units = ['Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes'];
+Vue.filter('niceAsset', function(x, y) {
+  let n = parseInt(x, 10) || 0, d = parseInt(y, 10) || 0;
+  if (d) {
+    return Number(n / Math.pow(10, d)).toLocaleString();
+  }
+  return Number(n).toLocaleString();
+});
+
+Vue.filter('niceBytes', function(x) {
+  const units = ['Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Petabyte'];
   const names = ['', '', '', ' ($GBYTE)'];
   let l = 0, n = parseInt(x, 10) || 0;
   while(n >= 1000 && ++l) {
     n = n/1000;
     if (l >= units.length-1) break;
   }
-  return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l] + names[l]);
+  let amount = n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l];
+  if (names[l]) {
+    amount += names[l];
+  }
+  else if (l > 3) {
+    amount += ' ('+ Number(parseInt(x, 10)/1000000000).toLocaleString() +' $GBYTE)';
+  }
+  else {
+    amount += ' ('+ Number(parseInt(x, 10)/1000000000).toFixed(9-l*3) +' $GBYTE)';
+  }
+  return amount;
 });
 
 Vue.filter('name', function(value, type, fallback) {

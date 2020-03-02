@@ -2,9 +2,16 @@
   <div class="w-100">
     <p>
       Defined
-      {{message.payload.cap ? $n(message.payload.cap) : 'unlimited'}}
-      <span v-if="assetMetaData[message.unit]">{{assetMetaData[message.unit].assetName}}</span>
-      <span v-else>{{message.unit}}</span>
+      <span v-if="assetMetaData[message.unit]">
+        <span v-if="message.payload.cap">{{message.payload.cap | niceAsset(assetMetaData[message.unit].decimals)}}</span>
+        <span v-else>unlimited</span>
+        {{assetMetaData[message.unit].assetName}}
+      </span>
+      <span v-else>
+        <span v-if="message.payload.cap">{{$n(message.payload.cap)}}</span>
+        <span v-else>unlimited</span>
+        {{message.unit}}
+      </span>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
       <li class="Box-row" v-for="(field, index) in filteredPayload" :key="index">
@@ -42,6 +49,7 @@ export default {
       return this.$store.state.app.assets.reduce(function(accum, currentVal) {
         accum[currentVal.payload.asset] = {
           assetName: currentVal.payload.name +' ($'+ currentVal.payload.ticker +')',
+          decimals: currentVal.payload.decimals,
           metaUnit: currentVal.unit,
         };
         return accum;
