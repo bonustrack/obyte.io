@@ -50,9 +50,6 @@ import utils from '@/helpers/utils';
 
 export default {
   props: ['message'],
-  methods: {
-    textOrJSON: (json) => utils.textOrJSON(json),
-  },
   computed: {
     filteredOutputs: function () {
       let unitAuthors = this.message.unit_authors;
