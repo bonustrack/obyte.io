@@ -50,3 +50,10 @@ CREATE VIEW votes AS
   FROM messages
   WHERE app = 'vote'
   ORDER BY unit_creation_date DESC;
+
+CREATE TABLE doc_urls (
+  unit VARCHAR(44),
+  source JSONB,
+  fetch_date TIMESTAMP,
+  PRIMARY KEY(unit)
+);

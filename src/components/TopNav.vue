@@ -13,31 +13,13 @@
         <router-link to="/assets">Assets</router-link>
         <router-link to="/attestors">Attestors</router-link>
         <router-link to="/oracles">Oracles</router-link>
-        <router-link to="/bots">Bots</router-link>
+        <router-link to="/dapps">dApps</router-link>
+        <router-link to="/bots">Chatbots</router-link>
         <router-link to="/witnesses">Witnesses</router-link>
         <router-link to="/polls">Polls</router-link>
         <router-link to="/timeline">Timeline</router-link>
       </div>
       <div id="menu-profile">
-        <!--
-        <div v-if="!app.address">
-          <span v-if="!app.rate.price_usd" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
-          <a
-            v-if="app.rate.price_usd"
-            class="pr-0"
-            href="https://bittrex.com/Market/Index?MarketName=BTC-GBYTE"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="octicon octicon-graph"></span>
-            1 GB =
-            <span>
-              ${{ parseFloat(app.rate.price_usd).toFixed(0) }}
-              ({{ parseFloat(app.rate.price_btc).toFixed(3) }} BTC)
-            </span>
-          </a>
-        </div>
-        -->
         <div v-if="!app.address">
           <router-link to="/about">About</router-link>
           <router-link to="/create">Get started</router-link>
@@ -58,6 +40,25 @@
             <span class="octicon octicon-gear f3"></span>
           </router-link>
         </div>
+        <!--
+        <div v-if="!app.address">
+          <span v-if="!app.rate.USD.price" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
+          <a
+            v-if="app.rate.USD.price"
+            class="pr-0"
+            href="https://coinpaprika.com/coin/gbyte-obyte/#!exchanges"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="octicon octicon-graph"></span>
+            1 GB =
+            <span>
+              ${{ parseFloat(app.rate.USD.price).toFixed(2) }}
+              ({{ parseFloat(app.rate.BTC.price).toFixed(4) }} BTC)
+            </span>
+          </a>
+        </div>
+        -->
       </div>
     </div>
   </div>

@@ -16,6 +16,9 @@
             <router-link :to="'/@' + attestor.unit_authors[0]" class="mr-1">
               <span>{{attestor.unit_authors[0]}}</span>
             </router-link>
+            <span v-if="getVerifiedStatus(attestor.unit_authors[0])" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
+              <span class="octicon octicon-verified mb-1"></span>
+            </span>
           </div>
         </div>
         <div class="d-flex">
@@ -30,6 +33,7 @@
 </template>
 
 <script>
+import utils from '@/helpers/utils';
 import { mapActions } from 'vuex';
 
 export default {
@@ -38,9 +42,12 @@ export default {
       return this.$store.state.app.attestors || [];
     },
   },
-  methods: mapActions([
-   'getAttestors',
-  ]),
+  methods: {
+    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    ...mapActions([
+      'getAttestors',
+    ]),
+  },
   created() {
     if (this.$store.state.app.attestors.length === 0) {
       this.getAttestors();

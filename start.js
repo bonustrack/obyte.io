@@ -3,6 +3,7 @@ const kbyte = require('kbyte');
 const serveStatic = require('serve-static');
 const SocketServer = require('ws').Server;
 const db = require('./server/db');
+const writer = require('./server/writer');
 
 const client = new kbyte.Client('wss://obyte.org/bb');
 setInterval(() => client.request('heartbeat', null), 10 * 1000);
@@ -13,6 +14,15 @@ app.use(serveStatic(__dirname + '/dist'));
 app.get('/joint/:unit(*)', function (req, res) {
   const { unit } = req.params;
   client.request('get_joint', unit, function(err, result) {
+    db.query("SELECT * FROM messages WHERE unit = $1", [unit]).then((response) => {
+      if (!response.length) {
+        writer.indexJoints([result]).then(data => {
+          console.log('fetch success', data);
+        }).catch(error => {
+          console.log('fetch failure', error);
+        });
+      }
+    });
     res.json(result.joint);
   });
 });
@@ -113,6 +123,15 @@ wss.on('connection', (ws) => {
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
             console.log('Query get_oracles failed', err);
+          });
+          break;
+        }
+        case 'get_aa_metadata': {
+          db.query("SELECT * FROM doc_urls JOIN messages USING (unit) WHERE source IS NOT NULL ORDER BY unit_creation_date DESC", []).then((response) => {
+            console.log('Send get_aa_metadata', JSON.stringify(response));
+            ws.send(JSON.stringify(['response', { tag, response }]));
+          }).catch((err) => {
+            console.log('Query get_aa_metadata failed', err);
           });
           break;
         }

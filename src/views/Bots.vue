@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="container-md py-8 p-responsive text-center">
-      <h1>Bots</h1>
+      <h1>Chatbots</h1>
       <p v-if="items.length != 0">
-        {{items.length}} bots available
+        {{items.length}} chatbots available
       </p>
     </div>
     <div class="container p-responsive">
@@ -16,7 +16,7 @@
           class="form-control input-lg mb-2"
         />
       </div>
-      <span v-if="items.length === 0" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
+      <MessageBlank v-if="items.length === 0"/>
       <div class="columns overflow-hidden mb-5">
         <div
           v-for="(bot, index) in filteredList" :key="index"
@@ -34,7 +34,7 @@
             <p class="mb-3">{{bot.description | truncate(100)}}</p>
             <div class="mb-2">
               <a :href="'obyte:' + bot.pairing_code" class="btn">
-                Add bot
+                Add chatbot
               </a>
             </div>
           </div>
@@ -46,7 +46,7 @@
           >
             <h3 class="mb-2">
               <a
-                href="https://github.com/byteball/ocore/wiki/Writing-chatbots-for-Byteball"
+                href="https://developer.obyte.org/"
                 target="_blank"
               >
                 Writing chatbots for Obyte
@@ -54,7 +54,7 @@
             </h3>
             <div class="mb-2">
               <a
-                href="https://github.com/byteball/ocore/wiki/Writing-chatbots-for-Byteball"
+                href="https://developer.obyte.org/"
                 target="_blank"
                 class="btn btn-blue"
               >

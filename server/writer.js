@@ -1,3 +1,4 @@
+const axios = require('axios');
 const db = require('./db');
 
 const indexJoints = (joints) => {
@@ -20,6 +21,19 @@ const indexJoints = (joints) => {
               message.payload_uri, message.payload_uri_hash
             ],
           ]);
+          if (message.app === 'definition' && message.payload.definition && message.payload.definition[1] && message.payload.definition[1]['doc_url']) {
+            axios.get(message.payload.definition[1]['doc_url'], {timeout: 1000}).then(response => {
+              if (response.data) {
+                response.data = ['description', 'homepage_url', 'source_url', 'version'].reduce(function(accum, currentVal) {
+                  if (response.data[currentVal] && typeof response.data[currentVal] !== 'object') {
+                    accum[currentVal] = response.data[currentVal].toString().slice(0, 1000);
+                  }
+                  return accum;
+                }, {});
+                db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, JSON.stringify(response.data), new Date()]);
+              }
+            }).catch(err => console.log(err));
+          }
         }
       });
     }
