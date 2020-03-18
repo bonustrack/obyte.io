@@ -52,9 +52,6 @@
                 Source code
               </a>
             </div>
-            <!--
-            <h6>Issuer: {{dapp.payload.issuer}}</h6>
-            -->
           </div>
         </div>
         <div v-if="items.length != 0" class="column one-half clearfix p-0">
