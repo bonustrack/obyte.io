@@ -22,6 +22,7 @@ const state = {
   witnesses: [],
   attestors: [],
   oracles: [],
+  dapps: [],
   assets: [],
   bots: [],
   path: null,
@@ -71,6 +72,9 @@ const mutations = {
   saveBots (state, bots) {
     state.bots = bots;
   },
+  saveDapps (state, dapps) {
+    state.dapps = dapps;
+  },
   saveAssets (state, assets) {
     state.assets = assets;
   },
@@ -88,9 +92,9 @@ const actions = {
     });
   },
   getRate: ({commit}) => {
-    axios.get('https://api.coinmarketcap.com/v1/ticker/obyte/').then(response => {
-      if (response.data && response.data[0] && response.data[0].price_btc) {
-        commit('saveRate', response.data[0]);
+    axios.get('https://api.coinpaprika.com/v1/tickers/gbyte-obyte?quotes=USD,BTC').then(response => {
+      if (response.data && response.data.quotes) {
+        commit('saveRate', response.data.quotes);
       }
     }).catch(err => console.log(err));
   },
@@ -182,6 +186,11 @@ const actions = {
   getBots: ({ commit }) => {
     client.api.getBots().then(bots => {
       commit('saveBots', bots);
+    });
+  },
+  getDapps: ({ commit }) => {
+    api.requestAsync('get_aa_metadata', null).then(dapps => {
+      commit('saveDapps', dapps);
     });
   },
   getAssets: ({ commit }) => {

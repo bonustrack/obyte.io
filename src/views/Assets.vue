@@ -16,7 +16,7 @@
           class="form-control input-lg mb-2"
         />
       </div>
-      <span v-if="items.length === 0" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
+      <MessageBlank v-if="items.length === 0"/>
       <div class="columns overflow-hidden mb-5">
         <div
           v-for="(asset, index) in filteredList" :key="index"
@@ -44,7 +44,7 @@
           >
             <h3 class="mb-2">
               <a
-                href="https://obyte.app"
+                href="https://asset.obyte.app/"
                 target="_blank"
               >
                 Create your own asset
@@ -52,7 +52,7 @@
             </h3>
             <div class="mb-2">
               <a
-                href="https://obyte.app"
+                href="hhttps://asset.obyte.app/"
                 target="_blank"
                 class="btn btn-blue"
               >

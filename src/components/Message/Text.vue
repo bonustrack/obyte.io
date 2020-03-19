@@ -1,6 +1,6 @@
 <template>
   <Markdown v-if="$route.name === 'unit'" :text="message.payload"/>
-  <Markdown :text="message.payload | truncate(1000)" v-else/>
+  <Markdown v-else :text="message.payload | truncate(1000)"/>
 </template>
 
 <script>

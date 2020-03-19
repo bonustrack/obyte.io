@@ -59,6 +59,17 @@ const getBalances = (unspent) => {
   return balances;
 };
 
+const getVerifiedStatus = (address) => {
+  let status = false
+  names.forEach(attestation => {
+    if (attestation.address === address) {
+      status = true;
+      return;
+    }
+  });
+  return status;
+};
+
 const getAddressName = (address, type, fallback) => {
   let profile = {};
   names.forEach(attestation => {
@@ -72,6 +83,9 @@ const getAddressName = (address, type, fallback) => {
 };
 
 const textOrJSON = (json) => {
+  if (parseFloat(json) == json) {
+    return json.toString();
+  }
   if (typeof json == 'string' && json.length < 1000) {
     try {
       json = JSON.parse(json);
@@ -86,6 +100,7 @@ export default {
   isSeedValid,
   getUnspent,
   getBalances,
+  getVerifiedStatus,
   getAddressName,
   textOrJSON,
 };

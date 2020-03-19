@@ -14,11 +14,9 @@
       </div>
       <h2>
         {{profile.name || getAddressName(address) || obyteUsername || 'Undefined'}}
-        <router-link v-if="attestations.messages && attestations.messages.length" :to="'/@' + address + '/attestations'">
-          <span class="tooltipped tooltipped-n" aria-label="Verified">
-            <span class="octicon octicon-verified mb-1"></span>
-          </span>
-        </router-link>
+        <span v-if="getVerifiedStatus(address)" class="tooltipped tooltipped-n" aria-label="Verified">
+          <span class="octicon octicon-verified mb-1"></span>
+        </span>
       </h2>
       <div class="mb-1">
         <!--<span class="octicon octicon-zap mr-1"></span>-->
@@ -103,6 +101,7 @@ export default {
     }
   },
   methods: {
+    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
     getAddressName: (address) => utils.getAddressName(address),
     ...mapActions([
       'getProfile',

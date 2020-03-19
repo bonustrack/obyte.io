@@ -5,11 +5,21 @@
       <router-link :to="'/@' + message.payload.address">
         <span>{{message.payload.address}}</span>
       </router-link>
+      <span v-if="getVerifiedStatus(message.payload.address)" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
+        <span class="octicon octicon-verified mb-1"></span>
+      </span>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
+      <li class="Box-row" v-for="(field, index) in dappMetaData[message.payload.address]" :key="index">
+        <p class="m-0">
+          <span class="text-bold">{{index}}: </span>
+          <span class="pre">{{textOrJSON(dappMetaData[message.payload.address][index])}}</span>
+        </p>
+      </li>
       <li class="Box-row" v-if="message.payload.definition">
         <p class="m-0">
-          <span class="pre">{{textOrJSON(message.payload.definition)}}</span>
+          <span v-if="$route.name === 'unit'" class="pre">{{filteredDefinition}}</span>
+          <span v-else class="pre">{{filteredDefinition | truncate(1000)}}</span>
         </p>
       </li>
       <li class="Box-row" v-for="(field, index) in filteredPayload" :key="index">
@@ -22,24 +32,42 @@
     <div class="mt-2" v-if="message.payload.address && message.payload.definition">
       <span v-if="message.payload.definition[0] === 'autonomous agent'"><a :href="'obyte:' + message.payload.address">Interact with Autonomous Agent</a></span>
       <span v-if="message.payload.definition[1]['base_aa']"> | <router-link :to="'/@' + message.payload.definition[1]['base_aa']">Based on AA</router-link></span>
-      <span v-if="message.payload.definition[1]['doc_url']"> | <a :href="message.payload.definition[1]['doc_url']" target="_blank">Documentation</a><span class="octicon octicon-link-external f4 ml-2"/></span>
     </div>
   </div>
 </template>
 
 <script>
 import utils from '@/helpers/utils';
+import { mapActions } from 'vuex';
 
 export default {
   props: ['message'],
   methods: {
     textOrJSON: (json) => utils.textOrJSON(json),
+    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    ...mapActions([
+      'getDapps',
+    ]),
   },
   computed: {
+    dappMetaData() {
+      return this.$store.state.app.dapps.reduce(function(accum, currentVal) {
+        accum[currentVal.payload.address] = currentVal.source;
+        return accum;
+      }, {});
+    },
+    filteredDefinition: function () {
+      return utils.textOrJSON(this.message.payload.definition).replace(/\\n/g, '\n').replace(/\\t/g, '   ');
+    },
     filteredPayload: function () {
       return Object.keys(this.message.payload).filter(function (field, index) {
         return field!=='address' && field!=='definition'; 
       })
+    }
+  },
+  created() {
+    if (this.$store.state.app.dapps.length === 0) {
+      this.getDapps();
     }
   },
 }
