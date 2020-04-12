@@ -31,9 +31,11 @@ export default {
   computed: {
     assetMetaData() {
       return this.$store.state.app.assets.reduce(function(accum, currentVal) {
+        let assetName = currentVal.payload.name;
+        assetName += currentVal.payload.ticker ? ' ($'+ currentVal.payload.ticker +')' : '';
         accum[currentVal.payload.asset] = {
-          assetName: currentVal.payload.name +' ($'+ currentVal.payload.ticker +')',
-          decimals: currentVal.payload.decimals,
+          assetName: assetName,
+          decimals: currentVal.payload.decimals || 0,
           metaUnit: currentVal.unit,
         };
         return accum;
