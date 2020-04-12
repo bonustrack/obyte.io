@@ -29,7 +29,7 @@
             <h3>
               <span v-if="asset.payload.ticker && asset.payload.shortName" class="h4 float-right">{{asset.payload.ticker}}</span>
               <span v-if="asset.payload.shortName" style="color: black;">{{asset.payload.shortName}}</span>
-              <span v-else-if="asset.payload.name"  style="color: black;">{{asset.payload.name}}</span>
+              <span v-else-if="asset.payload.name" style="color: black;">{{asset.payload.name}}</span>
             </h3>
             <router-link class="mb-3" :to="'/u/' + asset.payload.asset">
               <span>#{{asset.payload.asset | truncate(10)}}</span>

@@ -50,7 +50,7 @@ export default {
         let assetName = currentVal.payload.name;
         assetName += currentVal.payload.ticker ? ' ($'+ currentVal.payload.ticker +')' : '';
         accum[currentVal.payload.asset] = {
-          assetName: assetName,
+          assetName,
           decimals: currentVal.payload.decimals || 0,
           metaUnit: currentVal.unit,
         };
