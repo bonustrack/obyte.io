@@ -3,5 +3,8 @@
   "extends": [
     "plugin:vue/essential",
     "@vue/airbnb"
-  ]
+  ],
+  "rules": {
+    "no-console": "off"
+  }
 }

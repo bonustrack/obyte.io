@@ -27,14 +27,15 @@
             style="height: 400px;"
           >
             <h3>
-              <span class="h4 float-right">{{asset.payload.ticker}}</span>
-              <span style="color: black;">{{asset.payload.shortName}}</span>
+              <span v-if="asset.payload.ticker && asset.payload.shortName" class="h4 float-right">{{asset.payload.ticker}}</span>
+              <span v-if="asset.payload.shortName" style="color: black;">{{asset.payload.shortName}}</span>
+              <span v-else-if="asset.payload.name" style="color: black;">{{asset.payload.name}}</span>
             </h3>
             <router-link class="mb-3" :to="'/u/' + asset.payload.asset">
               <span>#{{asset.payload.asset | truncate(10)}}</span>
             </router-link>
             <p v-if="asset.payload.description">{{asset.payload.description | truncate(150)}}</p>
-            <h6>Issuer: {{asset.payload.issuer}}</h6>
+            <h6 v-if="asset.payload.issuer">Issuer: {{asset.payload.issuer}}</h6>
           </div>
         </div>
         <div v-if="items.length != 0" class="column one-third clearfix p-0">
