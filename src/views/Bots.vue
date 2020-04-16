@@ -31,7 +31,7 @@
                 {{bot.name}}
               </a>
             </h3>
-            <p class="mb-3">{{bot.description | truncate(100)}}</p>
+            <p class="mb-3">{{bot.description | truncate(200)}}</p>
             <div class="mb-2">
               <a :href="'obyte:' + bot.pairing_code" class="btn">
                 Add chatbot

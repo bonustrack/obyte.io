@@ -38,7 +38,7 @@
               <span>#{{dapp.unit | truncate(10)}}</span>
               <span v-if="dapp.source.version" class="float-right">v{{dapp.source.version | truncate(10)}}</span>
             </router-link>
-            <p v-if="dapp.source.description">{{dapp.source.description | truncate(1000)}}</p>
+            <p v-if="dapp.source.description">{{dapp.source.description | truncate(200)}}</p>
             <div v-if="dapp.payload.definition[0] === 'autonomous agent'" class="mb-2">
               <a :href="'obyte:' + dapp.payload.address" class="btn">
                 Interact with Autonomous Agent
