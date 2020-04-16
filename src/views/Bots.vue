@@ -82,7 +82,7 @@ export default {
       return this.$store.state.app.bots || [];
     },
     filteredList() {
-      return this.$store.state.app.bots.filter(bot => {
+      return this.items.filter(bot => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(bot).toLowerCase().includes(query);
       })

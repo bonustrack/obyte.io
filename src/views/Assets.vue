@@ -78,10 +78,10 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.state.app.assets || [];
+      return this.$store.state.app.assets.filter((v,i,a)=>a.findIndex(t=>(t.payload.asset === v.payload.asset))===i) || [];
     },
     filteredList() {
-      return this.$store.state.app.assets.filter(asset => {
+      return this.items.filter(asset => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(asset).toLowerCase().includes(query);
       })

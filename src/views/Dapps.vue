@@ -98,7 +98,7 @@ export default {
       return this.$store.state.app.dapps || [];
     },
     filteredList() {
-      return this.$store.state.app.dapps.filter(dapp => {
+      return this.items.filter(dapp => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(dapp).toLowerCase().includes(query);
       })
