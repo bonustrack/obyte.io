@@ -76,7 +76,7 @@ wss.on('connection', (ws) => {
         }
         case 'get_messages': {
           const query = params.unit
-            ? ["SELECT * FROM messages WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND unit_authors ?| array[$1] AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10", [params.address ,params.unit, params.message_index]]
+            ? ["SELECT * FROM messages WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND unit_authors ?| array[$1] AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10", [params.address, params.unit, params.message_index]]
             : ["SELECT * FROM messages WHERE unit_authors ?| array[$1] ORDER BY unit_creation_date DESC LIMIT 10", [params.address]];
           db.query(query[0], query[1]).then((response) => {
             console.log('Send get_messages', JSON.stringify(response));
@@ -136,7 +136,7 @@ wss.on('connection', (ws) => {
           break;
         }
         case 'get_asset_metadata': {
-          db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| array[$1] AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", ['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG']).then((response) => {
+          db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| $1 AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", [['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG', 'O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ']]).then((response) => {
             console.log('Send get_asset_metadata', JSON.stringify(response));
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {

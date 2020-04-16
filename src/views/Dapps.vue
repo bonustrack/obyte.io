@@ -28,7 +28,7 @@
           >
             <h4 class="mb-2">
               <router-link class="mb-3" :to="'/@' + dapp.payload.address">
-                <span>{{dapp.payload.address}}</span>
+                <span>{{getAddressName(dapp.payload.address)}}</span>
               </router-link>
               <span v-if="getVerifiedStatus(dapp.payload.address)" class="tooltipped tooltipped-n float-right" aria-label="Verified">
                 <span class="octicon octicon-verified mb-1"></span>
@@ -106,6 +106,7 @@ export default {
   },
   methods: {
     getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    getAddressName: (address) => utils.getAddressName(address),
     ...mapActions([
       'getDapps',
     ]),
