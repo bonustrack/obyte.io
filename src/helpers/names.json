@@ -86,13 +86,13 @@
   {
     "address": "AM6GTUKENBYA54FYDAKX2VLENFZIMXWG",
     "profile": {
-      "oracle_name": "obyte.app asset registry"
+      "oracle_name": "Asset registry - obyte.app"
     }
   },
   {
     "address": "O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ",
     "profile": {
-      "oracle_name": "tokens.ooo asset registry"
+      "oracle_name": "Asset registry - tokens.ooo"
     }
   },
   {
