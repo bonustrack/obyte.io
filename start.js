@@ -2,6 +2,7 @@ const express = require('express');
 const kbyte = require('kbyte');
 const serveStatic = require('serve-static');
 const SocketServer = require('ws').Server;
+const moment = require('moment');
 const db = require('./server/db');
 const writer = require('./server/writer');
 
@@ -14,14 +15,21 @@ app.use(serveStatic(__dirname + '/dist'));
 app.get('/joint/:unit(*)', function (req, res) {
   const { unit } = req.params;
   client.request('get_joint', unit, function(err, result) {
-    db.query("SELECT * FROM messages WHERE unit = $1", [unit]).then((response) => {
-      if (!response.length) {
-        writer.indexJoints([result]).then(data => {
-          console.log('fetch success', data);
-        }).catch(error => {
-          console.log('fetch failure', error);
+    db.query("SELECT * FROM messages LEFT JOIN doc_urls USING (unit) WHERE messages.unit = $1", [unit]).then((messages) => {
+      let outdated_meta = false;
+      if (messages.length) {
+        messages.forEach((message, i) => {
+          if (message.fetch_date && message.fetch_date < moment().subtract(1, 'weeks')) {
+            outdated_meta = true;
+          }
         });
+        if (!outdated_meta) return;
       }
+      writer.indexJoints([result]).then(data => {
+        console.log('fetch success', data);
+      }).catch(error => {
+        console.log('fetch failure', error);
+      });
     });
     res.json(result.joint);
   });
