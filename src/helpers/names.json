@@ -86,13 +86,13 @@
   {
     "address": "AM6GTUKENBYA54FYDAKX2VLENFZIMXWG",
     "profile": {
-      "oracle_name": "obyte.app Asset Registry"
+      "oracle_name": "Asset registry - obyte.app"
     }
   },
   {
     "address": "O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ",
     "profile": {
-      "oracle_name": "tokens.ooo Asset Registry"
+      "oracle_name": "Asset registry - tokens.ooo"
     }
   },
   {
@@ -195,6 +195,12 @@
     "address": "TZNMILIDIGD7YNKU25UZN2OVSRERQWNP",
     "profile": {
       "oracle_name": "ODEX decentralized exchange"
+    }
+  },
+  {
+    "address": "JLLM2AUTHYUS5EW36YVSPDYIDDQRABU6",
+    "profile": {
+      "oracle_name": "Discount stablecoin creator"
     }
   }
 ]

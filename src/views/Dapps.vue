@@ -28,7 +28,7 @@
           >
             <h4 class="mb-2">
               <router-link class="mb-3" :to="'/@' + dapp.payload.address">
-                <span>{{getAddressName(dapp.payload.address)}}</span>
+                <span>{{getAddressName(dapp.payload.address) || dapp.payload.address}}</span>
               </router-link>
               <span v-if="getVerifiedStatus(dapp.payload.address)" class="tooltipped tooltipped-n float-right" aria-label="Verified">
                 <span class="octicon octicon-verified mb-1"></span>
@@ -98,7 +98,7 @@ export default {
       return this.$store.state.app.dapps || [];
     },
     filteredList() {
-      return this.$store.state.app.dapps.filter(dapp => {
+      return this.items.filter(dapp => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(dapp).toLowerCase().includes(query);
       })

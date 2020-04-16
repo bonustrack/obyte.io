@@ -29,9 +29,11 @@ import { mapActions } from 'vuex';
 export default {
   props: ['message', 'filteredOutputs'],
   computed: {
+    assets () {
+      return this.$store.state.app.assets || [];
+    },
     assetMetaData() {
-      return this.$store.state.app.assets.reduce(function(accum, currentVal) {
-        if (accum[currentVal.payload.asset]) return accum;
+      return this.assets.reduce(function(accum, currentVal) {
         let assetName = currentVal.payload.name;
         assetName += currentVal.payload.ticker ? ' ($'+ currentVal.payload.ticker +')' : '';
         accum[currentVal.payload.asset] = {
