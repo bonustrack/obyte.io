@@ -34,7 +34,7 @@
             <router-link class="mb-3" :to="'/u/' + asset.payload.asset">
               <span>#{{asset.payload.asset | truncate(10)}}</span>
             </router-link>
-            <p v-if="asset.payload.description">{{asset.payload.description | truncate(150)}}</p>
+            <p v-if="asset.payload.description">{{asset.payload.description | truncate(200)}}</p>
             <h6 v-if="asset.payload.issuer">Issuer: {{asset.payload.issuer}}</h6>
           </div>
         </div>

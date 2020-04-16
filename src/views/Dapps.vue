@@ -28,7 +28,7 @@
           >
             <h4 class="mb-2">
               <router-link class="mb-3" :to="'/@' + dapp.payload.address">
-                <span>{{dapp.payload.address}}</span>
+                <span>{{getAddressName(dapp.payload.address)}}</span>
               </router-link>
               <span v-if="getVerifiedStatus(dapp.payload.address)" class="tooltipped tooltipped-n float-right" aria-label="Verified">
                 <span class="octicon octicon-verified mb-1"></span>
@@ -38,7 +38,7 @@
               <span>#{{dapp.unit | truncate(10)}}</span>
               <span v-if="dapp.source.version" class="float-right">v{{dapp.source.version | truncate(10)}}</span>
             </router-link>
-            <p v-if="dapp.source.description">{{dapp.source.description | truncate(1000)}}</p>
+            <p v-if="dapp.source.description">{{dapp.source.description | truncate(200)}}</p>
             <div v-if="dapp.payload.definition[0] === 'autonomous agent'" class="mb-2">
               <a :href="'obyte:' + dapp.payload.address" class="btn">
                 Interact with Autonomous Agent
@@ -106,6 +106,7 @@ export default {
   },
   methods: {
     getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    getAddressName: (address) => utils.getAddressName(address),
     ...mapActions([
       'getDapps',
     ]),

@@ -2,7 +2,7 @@
   <!--
   <pre class="markdown-body" style="text-overflow: ellipsis; overflow: hidden;">{{JSON.stringify(message.payload, null, 4)}}</pre>
   -->
-  <div v-if="message.unit_authors[0]==='AM6GTUKENBYA54FYDAKX2VLENFZIMXWG'" class="w-100">
+  <div v-if="['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG', 'O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ'].includes(message.unit_authors[0])" class="w-100">
     <p>
       Registered
       <router-link :to="'/u/' + message.payload.asset">
