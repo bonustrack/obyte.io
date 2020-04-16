@@ -30,7 +30,7 @@ export default {
   props: ['message', 'filteredOutputs'],
   computed: {
     assets () {
-      return this.$store.state.app.assets.filter((v,i,a)=>a.findIndex(t=>(t.payload.asset === v.payload.asset))===i) || [];
+      return this.$store.state.app.assets || [];
     },
     assetMetaData() {
       return this.assets.reduce(function(accum, currentVal) {

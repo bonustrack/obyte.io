@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.state.app.assets.filter((v,i,a)=>a.findIndex(t=>(t.payload.asset === v.payload.asset))===i) || [];
+      return this.$store.state.app.assets || [];
     },
     filteredList() {
       return this.items.filter(asset => {
