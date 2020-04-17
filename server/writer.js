@@ -23,16 +23,24 @@ const indexJoints = (joints) => {
           ]);
           if (message.app === 'definition' && message.payload.definition && message.payload.definition[1] && message.payload.definition[1]['doc_url']) {
             axios.get(message.payload.definition[1]['doc_url'], {timeout: 1000}).then(response => {
-              if (response.data) {
-                response.data = ['description', 'homepage_url', 'source_url', 'version'].reduce(function(accum, currentVal) {
-                  if (response.data[currentVal] && typeof response.data[currentVal] !== 'object') {
-                    accum[currentVal] = response.data[currentVal].toString().slice(0, 1000);
+              if (typeof response.data !== 'object') throw Error('not JSON');
+              let source = {'doc_url': response.request.res.responseUrl};
+              if (['1.0'].includes(response.data.version)) {
+                source = ['description', 'homepage_url', 'source_url', 'field_descriptions'].reduce(function(accum, currentVal) {
+                  if (response.data[currentVal]) {
+                    if (typeof response.data[currentVal] === 'object')
+                      accum[currentVal] = response.data[currentVal];
+                    else
+                      accum[currentVal] = response.data[currentVal].toString().slice(0, 1000);
                   }
                   return accum;
-                }, {});
-                db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, JSON.stringify(response.data), new Date()]);
+                }, source);
               }
-            }).catch(err => console.log(err));
+              db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, JSON.stringify(source), new Date()]);
+            }).catch(err => {
+              console.log(err);
+              db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, null, new Date()]);
+            });
           }
         }
       });

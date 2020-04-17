@@ -36,7 +36,6 @@
             </h4>
             <router-link class="mb-3" :to="'/u/' + dapp.unit">
               <span>#{{dapp.unit | truncate(10)}}</span>
-              <span v-if="dapp.source.version" class="float-right">v{{dapp.source.version | truncate(10)}}</span>
             </router-link>
             <p v-if="dapp.source.description">{{dapp.source.description | truncate(200)}}</p>
             <div v-if="dapp.payload.definition[0] === 'autonomous agent'" class="mb-2">
