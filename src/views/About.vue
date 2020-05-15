@@ -4,7 +4,7 @@
       <h1 class="py-8 text-center">About</h1>
     </div>
     <div class="container-md p-responsive text-center">
-      <p><b style="color: black;">Obyte.io</b> is an <a href="https://github.com/obytescript/obyte.io/" target="_blank">open-source</a> non-financial data explorer for <a href="https://obyte.org/" target="_blank">Obyte</a>.</p>
+      <p><b style="color: black;">Obyte.io</b> is an <a href="https://github.com/bonustrack/obyte.io/" target="_blank">open-source</a> non-financial data explorer for <a href="https://obyte.org/" target="_blank">Obyte</a>.</p>
       <p>You want to support <b style="color: black;">Obyte.io</b> developement?</p>
       <p>
         Tip this address:
