@@ -17,7 +17,7 @@
   {
     "address": "OHVQ2R5B6TUR5U7WJNYLP3FIOSR7VCED",
     "profile": {
-      "attestor_name": "Real name attestor (Smart ID Estonia)"
+      "attestor_name": "Real name attestor (eID Easy)"
     }
   },
   {
@@ -195,6 +195,12 @@
     "address": "JMFXY26FN76GWJJG7N36UI2LNONOGZJV",
     "profile": {
       "witness_name": "CryptoShare Studio"
+    }
+  },
+  {
+    "address": "FL3LIHRXYE6PS7AADJLDOYZKDO2UVVNS",
+    "profile": {
+      "witness_name": "Travin Keith"
     }
   },
   {

@@ -22,7 +22,8 @@ const indexJoints = (joints) => {
             ],
           ]);
           if (message.app === 'definition' && message.payload.definition && message.payload.definition[1] && message.payload.definition[1]['doc_url']) {
-            axios.get(message.payload.definition[1]['doc_url'], {timeout: 1000}).then(response => {
+            let doc_url = String(message.payload.definition[1]['doc_url']).replace(/{{aa_address}}/g, message.payload.address);
+            axios.get(doc_url, {timeout: 1000}).then(response => {
               if (typeof response.data !== 'object') throw Error('not JSON');
               let source = {'doc_url': response.request.res.responseUrl};
               if (['1.0'].includes(response.data.version)) {
