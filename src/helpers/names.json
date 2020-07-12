@@ -15,6 +15,12 @@
     }
   },
   {
+    "address": "JFKWGRMXP3KHUAFMF4SJZVDXFL6ACC6P",
+    "profile": {
+      "attestor_name": "Real name attestor (Veriff)"
+    }
+  },
+  {
     "address": "OHVQ2R5B6TUR5U7WJNYLP3FIOSR7VCED",
     "profile": {
       "attestor_name": "Real name attestor (eID Easy)"
