@@ -222,6 +222,18 @@
     }
   },
   {
+    "address": "B22543LKSS35Z55ROU4GDN26RT6MDKWU",
+    "profile": {
+      "oracle_name": "Factory AA - oswap.io"
+    }
+  },
+  {
+    "address": "GS23D3GQNNMNJ5TL4Z5PINZ5626WASMA",
+    "profile": {
+      "oracle_name": "Pool base AA - oswap.io"
+    }
+  },
+  {
     "address": "JLLM2AUTHYUS5EW36YVSPDYIDDQRABU6",
     "profile": {
       "oracle_name": "Discount stablecoin creator"
