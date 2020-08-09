@@ -116,6 +116,7 @@
   {
     "address": "OYW2XTDKSNKGSEZ27LMGNOPJSYIXHBHC",
     "profile": {
+      "attestor_name": "GitHub attestor",
       "witness_name": "Anton Churyumov"
     }
   },
