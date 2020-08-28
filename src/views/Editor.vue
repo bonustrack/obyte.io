@@ -62,7 +62,7 @@ export default {
     },
     submitForm (e) {
       e.preventDefault();
-      console.log(this.payload);
+      //console.log(this.payload);
       this.checkForm();
       if (!this.errors.length) {
         this.isLoading = true;

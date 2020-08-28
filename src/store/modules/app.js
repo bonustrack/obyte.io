@@ -96,7 +96,7 @@ const actions = {
       if (response.data && response.data.quotes) {
         commit('saveRate', response.data.quotes);
       }
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err.response.statusText +': '+ err.response.request.res.responseUrl));
   },
   createAccount: ({ commit }, {
     name,

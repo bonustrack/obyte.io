@@ -17,6 +17,7 @@
     "bitcore-mnemonic": "^1.5.0",
     "bluebird": "^3.5.2",
     "date-fns": "^1.29.0",
+    "dotenv": "^8.2.0",
     "ethereum-blockies-base64": "^1.0.2",
     "express": "^4.16.3",
     "identicon.js": "^2.3.2",

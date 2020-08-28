@@ -94,7 +94,11 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.state.app.dapps ? Array.from(this.$store.state.app.dapps).sort((a, b) => (this.getVerifiedStatus(a.payload.address) === this.getVerifiedStatus(b.payload.address)) ? 1 : -1) : [];
+      return this.$store.state.app.dapps ? Array.from(this.$store.state.app.dapps).sort((a, b) => {
+        let va = this.getVerifiedStatus(a.payload.address);
+        let vb = this.getVerifiedStatus(b.payload.address);
+        return (va === vb ? 0 : (va < vb ? 1 : -1));
+      }) : [];
     },
     filteredList() {
       return this.items.filter(dapp => {
