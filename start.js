@@ -63,7 +63,7 @@ wss.on('connection', (ws) => {
             ? ["SELECT * FROM messages WHERE app = 'text' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
             : ["SELECT * FROM messages WHERE app = 'text' ORDER BY unit_creation_date DESC LIMIT 10", []];
           db.query(query[0], query[1]).then((response) => {
-            console.log('Send get_timeline', params.unit, params.message_index);
+            console.log('Send get_timeline', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
             console.log('Query get_timeline failed', err);
@@ -75,7 +75,7 @@ wss.on('connection', (ws) => {
             ? ["SELECT * FROM messages WHERE app != 'data_feed' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
             : ["SELECT * FROM messages WHERE app != 'data_feed' ORDER BY unit_creation_date DESC LIMIT 10", []];
           db.query(query[0], query[1]).then((response) => {
-            console.log('Send get_created', params.unit, params.message_index);
+            console.log('Send get_created', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
             console.log('Query get_created failed', err);
@@ -87,7 +87,7 @@ wss.on('connection', (ws) => {
             ? ["SELECT * FROM messages WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND unit_authors ?| array[$1] AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10", [params.address, params.unit, params.message_index]]
             : ["SELECT * FROM messages WHERE unit_authors ?| array[$1] ORDER BY unit_creation_date DESC LIMIT 10", [params.address]];
           db.query(query[0], query[1]).then((response) => {
-            console.log('Send get_messages', params.address, params.unit, params.message_index);
+            console.log('Send get_messages', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
             console.log('Query get_messages failed', err);
@@ -99,7 +99,7 @@ wss.on('connection', (ws) => {
             ? ["SELECT * FROM polls WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
             : ["SELECT * FROM polls ORDER BY unit_creation_date DESC LIMIT 10", []];
           db.query(query[0], query[1]).then((response) => {
-            console.log('Send get_polls', params.unit, params.message_index);
+            console.log('Send get_polls', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
             console.log('Query get_polls failed', err);
