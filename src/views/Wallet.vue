@@ -20,7 +20,8 @@
           </div>
           <div class="column one-fourth text-right">
             <h4 v-if="index === 'bytes'">{{balance === 0 ? '-' : balance | niceBytes}}</h4>
-            <h4 v-else>{{balance === 0 || !assetMetaData[index] ? '-' : balance | niceAsset(assetMetaData[index].decimals)}}</h4>
+            <h4 v-else-if="assetMetaData[index]">{{balance | niceAsset(assetMetaData[index].decimals)}}</h4>
+            <h4 v-else>{{balance === 0 ? '-' : balance}}</h4>
             <span v-if="index === 'bytes' && app.rate.USD">
               {{balance === 0 ? '-' : (calculateBytesPrice(balance, app.rate.USD.price) >= 0.01 ? $n(calculateBytesPrice(balance, app.rate.USD.price), 'currency') : '$'+ calculateBytesPrice(balance, app.rate.USD.price))}}
             </span>
