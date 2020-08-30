@@ -38,12 +38,12 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    attestors () {
+    attestors() {
       return this.$store.state.app.attestors || [];
     },
   },
   methods: {
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
     ...mapActions([
       'getAttestors',
     ]),
@@ -52,6 +52,6 @@ export default {
     if (this.$store.state.app.attestors.length === 0) {
       this.getAttestors();
     }
-  }
-}
+  },
+};
 </script>

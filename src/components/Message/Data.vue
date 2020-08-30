@@ -34,14 +34,12 @@ import utils from '@/helpers/utils';
 export default {
   props: ['message'],
   methods: {
-    textOrJSON: (json) => utils.textOrJSON(json),
+    textOrJSON: json => utils.textOrJSON(json),
   },
   computed: {
-    filteredPayload: function () {
-      return Object.keys(this.message.payload).filter(function (field, index) {
-        return field!=='asset'; 
-      })
-    }
+    filteredPayload() {
+      return Object.keys(this.message.payload).filter((field, index) => field !== 'asset');
+    },
   },
-}
+};
 </script>

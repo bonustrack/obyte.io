@@ -10,7 +10,7 @@ const state = {
 };
 
 const mutations = {
-  messagesLoading (state, address) {
+  messagesLoading(state, address) {
     if (!address) {
       state.created.isLoading = true;
     } else {
@@ -21,12 +21,12 @@ const mutations = {
       });
     }
   },
-  saveCreated (state, created) {
+  saveCreated(state, created) {
     state.created.isLoading = false;
     state.created.isLoaded = !created.length;
     state.created.messages = state.created.messages.concat(created);
   },
-  saveMessages (state, payload) {
+  saveMessages(state, payload) {
     Vue.set(state, payload.address, {
       isLoading: false,
       isLoaded: !payload.messages.length,
@@ -46,7 +46,7 @@ const actions = {
         const lastMessage = state.created.messages.slice().reverse()[0];
         params = { unit: lastMessage.unit, message_index: lastMessage.message_index };
       }
-      api.requestAsync('get_created', params).then(created => {
+      api.requestAsync('get_created', params).then((created) => {
         commit('saveCreated', created);
       });
     }
@@ -59,11 +59,11 @@ const actions = {
         const lastMessage = state[address].messages.slice().reverse()[0];
         params = { ...params, unit: lastMessage.unit, message_index: lastMessage.message_index };
       }
-      api.requestAsync('get_messages', params).then(messages => {
+      api.requestAsync('get_messages', params).then((messages) => {
         commit('saveMessages', { messages, address });
       });
     }
-  }
+  },
 };
 
 export default {

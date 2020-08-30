@@ -21,15 +21,15 @@
 <script>
 export default {
   props: ['definition'],
-  data () {
+  data() {
     return {
       ops: [
         '/or', '/and', '/r of set', 'weighted and', '/sig', 'hash', '/address', 'definition template',
         'seen address', 'seen definition change', 'has definition change', 'cosigned by', '/not',
         '/in data feed', 'in merkle', 'mci', 'age', '/has', 'has one', '/seen', 'has equal',
         'has one equal', 'sum',
-      ]
-    }
-  }
-}
+      ],
+    };
+  },
+};
 </script>

@@ -29,13 +29,13 @@ import { mapActions } from 'vuex';
 export default {
   props: ['message', 'filteredOutputs'],
   computed: {
-    assets () {
+    assets() {
       return this.$store.state.app.assets || [];
     },
     assetMetaData() {
-      return this.assets.reduce(function(accum, currentVal) {
+      return this.assets.reduce((accum, currentVal) => {
         let assetName = currentVal.payload.name;
-        assetName += currentVal.payload.ticker ? ' ($'+ currentVal.payload.ticker +')' : '';
+        assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
         accum[currentVal.payload.asset] = {
           assetName,
           decimals: currentVal.payload.decimals || 0,
@@ -43,7 +43,7 @@ export default {
         };
         return accum;
       }, {});
-    }
+    },
   },
   methods: mapActions([
     'getAssets',
@@ -53,5 +53,5 @@ export default {
       this.getAssets();
     }
   },
-}
+};
 </script>

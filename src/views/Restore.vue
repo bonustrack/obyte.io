@@ -83,7 +83,7 @@ import { mapActions } from 'vuex';
 import utils from '@/helpers/utils';
 
 export default {
-  data () {
+  data() {
     return {
       step: 1,
       errors: [],
@@ -91,10 +91,10 @@ export default {
       name: null,
       password: null,
       passwordConfirm: null,
-    }
+    };
   },
   computed: {
-    hasUserList () {
+    hasUserList() {
       return this.$store.state.app.hasUserList;
     },
   },
@@ -102,27 +102,27 @@ export default {
     ...mapActions([
       'createAccount',
     ]),
-    checkForm () {
+    checkForm() {
       this.errors = [];
       if (!this.seed || !utils.isSeedValid(this.seed)) {
         this.errors.push('Seed is not valid');
       }
     },
-    checkStep2Form () {
+    checkStep2Form() {
       this.errors = [];
       if (!this.password && this.password !== null) this.errors.push('Password is required');
       if (this.password.length < 8) this.errors.push('Password must be at least 8 characters');
       if (!this.passwordConfirm && this.passwordConfirm !== null) this.errors.push('Password confirm is required');
       if (this.passwordConfirm !== this.password && this.passwordConfirm !== null) this.errors.push('Password confirm not match password');
     },
-    submitForm (e) {
+    submitForm(e) {
       e.preventDefault();
       this.checkForm();
       if (!this.errors.length) {
         this.step = 2;
       }
     },
-    submitStep2Form (e) {
+    submitStep2Form(e) {
       if (!this.errors.length) {
         this.createAccount({
           seed: this.seed,
@@ -134,5 +134,5 @@ export default {
       e.preventDefault();
     },
   },
-}
+};
 </script>

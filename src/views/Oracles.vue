@@ -38,12 +38,12 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    oracles () {
+    oracles() {
       return this.$store.state.app.oracles || [];
     },
   },
   methods: {
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
     ...mapActions([
       'getOracles',
     ]),
@@ -52,6 +52,6 @@ export default {
     if (this.$store.state.app.oracles.length === 0) {
       this.getOracles();
     }
-  }
-}
+  },
+};
 </script>

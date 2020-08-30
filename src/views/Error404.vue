@@ -14,10 +14,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       error: this.$route.query.error,
-    }
+    };
   },
-}
+};
 </script>

@@ -43,32 +43,30 @@ import { mapActions } from 'vuex';
 export default {
   props: ['message'],
   methods: {
-    textOrJSON: (json) => utils.textOrJSON(json),
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    textOrJSON: json => utils.textOrJSON(json),
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
     ...mapActions([
       'getDapps',
     ]),
   },
   computed: {
     dappMetaData() {
-      return this.$store.state.app.dapps.reduce(function(accum, currentVal) {
+      return this.$store.state.app.dapps.reduce((accum, currentVal) => {
         accum[currentVal.payload.address] = currentVal.source;
         return accum;
       }, {});
     },
-    filteredDefinition: function () {
+    filteredDefinition() {
       return utils.textOrJSON(this.message.payload.definition).replace(/\\n/g, '\n').replace(/\\t/g, '   ');
     },
-    filteredPayload: function () {
-      return Object.keys(this.message.payload).filter(function (field, index) {
-        return field!=='address' && field!=='definition'; 
-      })
-    }
+    filteredPayload() {
+      return Object.keys(this.message.payload).filter((field, index) => field !== 'address' && field !== 'definition');
+    },
   },
   created() {
     if (this.$store.state.app.dapps.length === 0) {
       this.getDapps();
     }
   },
-}
+};
 </script>

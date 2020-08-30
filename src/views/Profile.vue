@@ -22,14 +22,13 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.messages[this.$route.params.address] || [];
     },
-    attestations () {
+    attestations() {
       let attestations = this.$store.state.attestations[this.$route.params.address] || [];
       attestations = JSON.parse(JSON.stringify(attestations));
-      if (attestations.messages)
-        attestations.messages.reverse();
+      if (attestations.messages) { attestations.messages.reverse(); }
       return attestations;
     },
   },
@@ -45,6 +44,6 @@ export default {
   created() {
     this.getMessages(this.$route.params.address);
     this.getAttestations(this.$route.params.address);
-  }
-}
+  },
+};
 </script>

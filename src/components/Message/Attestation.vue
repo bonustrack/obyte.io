@@ -26,7 +26,7 @@ import utils from '@/helpers/utils';
 export default {
   props: ['message'],
   methods: {
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
   },
-}
+};
 </script>

@@ -59,15 +59,15 @@ import { mapActions } from 'vuex';
 import Avatar from '@/components/Avatar';
 
 export default {
-  data () {
+  data() {
     return {
       seedIsVisible: false,
-    }
+    };
   },
   computed: {
-    app () {
+    app() {
       return this.$store.state.app || {};
     },
   },
-}
+};
 </script>

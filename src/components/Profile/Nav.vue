@@ -17,5 +17,5 @@
 <script>
 export default {
   props: ['address', 'attestations'],
-}
+};
 </script>

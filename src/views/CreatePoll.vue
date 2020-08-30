@@ -54,7 +54,7 @@ import { mapActions } from 'vuex';
 const MAX_CHOICES_PER_POLL = 128;
 
 export default {
-  data () {
+  data() {
     return {
       step: 1,
       unit: null,
@@ -63,13 +63,13 @@ export default {
       success: null,
       question: null,
       choices: [null, null],
-    }
+    };
   },
   methods: {
     ...mapActions([
       'post',
     ]),
-    checkForm () {
+    checkForm() {
       this.errors = [];
 
       const lastChoice = this.choices.slice().reverse()[0];
@@ -80,7 +80,7 @@ export default {
         this.choices.push('');
       }
     },
-    submitForm (e) {
+    submitForm(e) {
       e.preventDefault();
       if (!this.errors.length) {
         const choices = this.choices
@@ -92,11 +92,11 @@ export default {
             question: this.question,
             choices,
           };
-          this.post({ app: 'poll', payload }).then(result => {
+          this.post({ app: 'poll', payload }).then((result) => {
             this.unit = result;
             this.step = 2;
             this.isLoading = false;
-          }).catch(err => {
+          }).catch((err) => {
             this.isLoading = false;
             console.log('Error post_joint', err);
           });
@@ -104,5 +104,5 @@ export default {
       }
     },
   },
-}
+};
 </script>

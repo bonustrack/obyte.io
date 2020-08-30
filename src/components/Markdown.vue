@@ -11,9 +11,9 @@ import marked from 'marked';
 export default {
   props: ['text', 'className'],
   computed: {
-    compiledMarkdown: function () {
-      return marked(this.text, { sanitize: true })
-    }
+    compiledMarkdown() {
+      return marked(this.text, { sanitize: true });
+    },
   },
-}
+};
 </script>

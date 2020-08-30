@@ -15,7 +15,7 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    polls () {
+    polls() {
       return this.$store.state.polls.created;
     },
   },
@@ -24,6 +24,6 @@ export default {
   ]),
   created() {
     this.getPolls();
-  }
-}
+  },
+};
 </script>

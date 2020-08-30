@@ -66,7 +66,7 @@ import { mapActions } from 'vuex';
 import difference from 'lodash/difference';
 
 export default {
-  data () {
+  data() {
     return {
       isLoading: false,
       errors: [],
@@ -76,16 +76,16 @@ export default {
       location: null,
       website: null,
       email: null,
-    }
+    };
   },
   computed: {
-    profile () {
+    profile() {
       return this.$store.state.profiles[this.$store.state.app.address]
       && this.$store.state.profiles[this.$store.state.app.address].profile
         ? this.$store.state.profiles[this.$store.state.app.address].profile
         : {};
     },
-    profileDifference () {
+    profileDifference() {
       const profile = {
         name: this.name,
         about: this.about,
@@ -99,22 +99,22 @@ export default {
         }
       });
       return profile;
-    }
+    },
   },
   methods: {
     ...mapActions([
       'getProfile',
       'post',
     ]),
-    submitForm (e) {
+    submitForm(e) {
       e.preventDefault();
       if (!this.errors.length) {
         if (Object.keys(this.profileDifference).length !== 0) {
           this.isLoading = true;
-          this.post({ app: 'profile', payload: this.profileDifference }).then(result => {
+          this.post({ app: 'profile', payload: this.profileDifference }).then((result) => {
             this.isLoading = false;
             this.success = true;
-          }).catch(err => {
+          }).catch((err) => {
             this.isLoading = false;
             console.log('Error post_joint', err);
           });
@@ -122,7 +122,7 @@ export default {
       }
     },
   },
-  created () {
+  created() {
     if (Object.keys(this.profile).length !== 0) {
       this.name = this.profile.name;
       this.about = this.profile.about;
@@ -130,7 +130,7 @@ export default {
       this.website = this.profile.website;
       this.email = this.profile.email;
     } else {
-      this.getProfile(this.$store.state.app.address).then(profile => {
+      this.getProfile(this.$store.state.app.address).then((profile) => {
         this.name = profile.name;
         this.about = profile.about;
         this.location = profile.location;
@@ -138,6 +138,6 @@ export default {
         this.email = profile.email;
       });
     }
-  }
-}
+  },
+};
 </script>

@@ -71,21 +71,21 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       query: this.$route.query.q,
-    }
+    };
   },
   computed: {
-    items () {
+    items() {
       return this.$store.state.app.assets || [];
     },
     filteredList() {
-      return this.items.filter(asset => {
+      return this.items.filter((asset) => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(asset).toLowerCase().includes(query);
-      })
-    }
+      });
+    },
   },
   methods: mapActions([
     'getAssets',
@@ -94,6 +94,6 @@ export default {
     if (this.$store.state.app.assets.length === 0) {
       this.getAssets();
     }
-  }
-}
+  },
+};
 </script>

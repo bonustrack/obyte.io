@@ -31,10 +31,10 @@ const state = {
 };
 
 const mutations = {
-  saveRate (state, rate) {
+  saveRate(state, rate) {
     state.rate = rate;
   },
-  loginUser (state, {
+  loginUser(state, {
     address,
     name,
     path,
@@ -51,31 +51,31 @@ const mutations = {
     state.seed = seed;
     state.hasBackup = hasBackup;
   },
-  balancesIsLoading (state) {
+  balancesIsLoading(state) {
     state.balancesIsLoading = true;
   },
-  saveBalances (state, { unspent, balances }) {
+  saveBalances(state, { unspent, balances }) {
     state.balancesIsLoaded = true;
     state.balancesIsLoading = false;
     state.balances = balances;
     state.unspent = unspent;
   },
-  saveWitnesses (state, witnesses) {
+  saveWitnesses(state, witnesses) {
     state.witnesses = witnesses;
   },
-  saveAttestors (state, attestors) {
+  saveAttestors(state, attestors) {
     state.attestors = attestors;
   },
-  saveOracles (state, oracles) {
+  saveOracles(state, oracles) {
     state.oracles = oracles;
   },
-  saveBots (state, bots) {
+  saveBots(state, bots) {
     state.bots = bots;
   },
-  saveDapps (state, dapps) {
+  saveDapps(state, dapps) {
     state.dapps = dapps;
   },
-  saveAssets (state, assets) {
+  saveAssets(state, assets) {
     state.assets = assets;
   },
 };
@@ -83,20 +83,20 @@ const mutations = {
 const actions = {
   getBalances: ({ commit, state }) => {
     commit('balancesIsLoading');
-    client.api.getWitnesses().then(witnesses => {
-      client.api.getHistory({ witnesses, addresses: [state.address] }).then(history => {
+    client.api.getWitnesses().then((witnesses) => {
+      client.api.getHistory({ witnesses, addresses: [state.address] }).then((history) => {
         const unspent = utils.getUnspent(history, [state.address]);
         const balances = utils.getBalances(unspent);
         commit('saveBalances', { unspent, balances });
       });
     });
   },
-  getRate: ({commit}) => {
-    axios.get('https://api.coinpaprika.com/v1/tickers/gbyte-obyte?quotes=USD,BTC').then(response => {
+  getRate: ({ commit }) => {
+    axios.get('https://api.coinpaprika.com/v1/tickers/gbyte-obyte?quotes=USD,BTC').then((response) => {
       if (response.data && response.data.quotes) {
         commit('saveRate', response.data.quotes);
       }
-    }).catch(err => console.log(err.response.statusText +': '+ err.response.request.res.responseUrl));
+    }).catch(err => console.log(`${err.response.statusText}: ${err.response.request.res.responseUrl}`));
   },
   createAccount: ({ commit }, {
     name,
@@ -120,7 +120,9 @@ const actions = {
     /** Store encrypted seed on localStorage */
     let userList = localStorage.getItem('userList');
     userList = userList ? JSON.parse(userList) : [];
-    userList.push({ address, name, path, pubkey, definition, encryptedSeed, hasBackup: false });
+    userList.push({
+      address, name, path, pubkey, definition, encryptedSeed, hasBackup: false,
+    });
     localStorage.setItem('userList', JSON.stringify(userList));
 
     commit('loginUser', {
@@ -141,7 +143,7 @@ const actions = {
     } catch (e) {
       console.log(e);
     }
-    let user = userList.find(u => u.address === address);
+    const user = userList.find(u => u.address === address);
     return new Promise((resolve, reject) => {
       if (user && user.address) {
         try {
@@ -169,50 +171,48 @@ const actions = {
     });
   },
   getWitnesses: ({ commit }) => {
-    client.api.getWitnesses().then(witnesses => {
+    client.api.getWitnesses().then((witnesses) => {
       commit('saveWitnesses', witnesses);
     });
   },
   getAttestors: ({ commit }) => {
-    api.requestAsync('get_attestors', null).then(attestors => {
+    api.requestAsync('get_attestors', null).then((attestors) => {
       commit('saveAttestors', attestors);
     });
   },
   getOracles: ({ commit }) => {
-    api.requestAsync('get_oracles', null).then(oracles => {
+    api.requestAsync('get_oracles', null).then((oracles) => {
       commit('saveOracles', oracles);
     });
   },
   getBots: ({ commit }) => {
-    client.api.getBots().then(bots => {
+    client.api.getBots().then((bots) => {
       commit('saveBots', bots);
     });
   },
   getDapps: ({ commit }) => {
-    api.requestAsync('get_aa_metadata', null).then(dapps => {
+    api.requestAsync('get_aa_metadata', null).then((dapps) => {
       commit('saveDapps', dapps);
     });
   },
   getAssets: ({ commit }) => {
-    api.requestAsync('get_asset_metadata', null).then(assets => {
+    api.requestAsync('get_asset_metadata', null).then((assets) => {
       commit('saveAssets', assets);
     });
   },
-  post: ({ state }, { app, payload }) => {
-    return new Promise((resolve, reject) => {
-      const mnemonic = new Mnemonic(state.seed);
-      const xPrivKey = mnemonic.toHDPrivateKey();
-      const { privateKey } = xPrivKey.derive(state.path);
-      const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
-      const wif = toWif(privKeyBuf, false);
+  post: ({ state }, { app, payload }) => new Promise((resolve, reject) => {
+    const mnemonic = new Mnemonic(state.seed);
+    const xPrivKey = mnemonic.toHDPrivateKey();
+    const { privateKey } = xPrivKey.derive(state.path);
+    const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
+    const wif = toWif(privKeyBuf, false);
 
-      client.post.message(app, payload, wif).then(unit => {
-        resolve(unit);
-      }).catch(err => {
-        reject(err);
-      });
+    client.post.message(app, payload, wif).then((unit) => {
+      resolve(unit);
+    }).catch((err) => {
+      reject(err);
     });
-  }
+  }),
 };
 
 export default {

@@ -43,41 +43,41 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       step: 1,
       errors: [],
       payload: '# Hello world\n\nWrite something using **markdown**',
       unit: null,
       isLoading: false,
-    }
+    };
   },
   methods: {
     ...mapActions([
       'post',
     ]),
-    checkForm () {
+    checkForm() {
       this.errors = [];
       if (!this.payload && this.payload !== null) this.errors.push('Payload is required');
     },
-    submitForm (e) {
+    submitForm(e) {
       e.preventDefault();
-      //console.log(this.payload);
+      // console.log(this.payload);
       this.checkForm();
       if (!this.errors.length) {
         this.isLoading = true;
-        this.post({ app: 'text', payload: this.payload }).then(result => {
+        this.post({ app: 'text', payload: this.payload }).then((result) => {
           this.unit = result;
           this.step = 2;
           this.isLoading = false;
-        }).catch(err => {
+        }).catch((err) => {
           this.isLoading = false;
           console.log('Error post_joint', err);
         });
       }
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

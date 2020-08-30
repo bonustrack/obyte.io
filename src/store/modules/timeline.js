@@ -9,10 +9,10 @@ const state = {
 };
 
 const mutations = {
-  timelineLoading (state) {
+  timelineLoading(state) {
     state.created.isLoading = true;
   },
-  saveTimeline (state, timeline) {
+  saveTimeline(state, timeline) {
     state.created.isLoading = false;
     state.created.isLoaded = !timeline.length;
     state.created.messages = state.created.messages.concat(timeline);
@@ -28,7 +28,7 @@ const actions = {
         const lastMessage = state.created.messages.slice().reverse()[0];
         params = { unit: lastMessage.unit, message_index: lastMessage.message_index };
       }
-      api.requestAsync('get_timeline', params).then(timeline => {
+      api.requestAsync('get_timeline', params).then((timeline) => {
         commit('saveTimeline', timeline);
       });
     }

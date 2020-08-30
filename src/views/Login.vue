@@ -41,15 +41,15 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       errors: [],
       address: null,
       password: null,
-    }
+    };
   },
   computed: {
-    userList () {
+    userList() {
       let userList = [];
       try {
         userList = localStorage.getItem('userList');
@@ -67,11 +67,11 @@ export default {
     ...mapActions([
       'login',
     ]),
-    checkForm () {
+    checkForm() {
       this.errors = [];
       if (!this.password && this.password !== null) this.errors.push('Password is required');
     },
-    submitForm (e) {
+    submitForm(e) {
       e.preventDefault();
       if (!this.errors.length) {
         this.login({
@@ -80,11 +80,11 @@ export default {
         }).then(() => {
           const redirect = this.$route.query.redirect;
           this.$router.push(redirect || '/settings');
-        }).catch(e => {
+        }).catch((e) => {
           this.errors.push('Password is wrong');
         });
       }
     },
   },
-}
+};
 </script>

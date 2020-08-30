@@ -50,10 +50,10 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    app () {
+    app() {
       return this.$store.state.app;
     },
-    balances () {
+    balances() {
       return this.$store.state.app.balances && this.$store.state.app.balances.bytes
         ? this.$store.state.app.balances : { bytes: 0 };
     },
@@ -65,6 +65,6 @@ export default {
     if (!this.$store.state.app.balancesIsLoaded && !this.$store.state.app.isLoading) {
       this.getBalances();
     }
-  }
-}
+  },
+};
 </script>

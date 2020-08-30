@@ -60,11 +60,10 @@ const getBalances = (unspent) => {
 };
 
 const getVerifiedStatus = (address) => {
-  let status = false
-  names.forEach(attestation => {
+  let status = false;
+  names.forEach((attestation) => {
     if (attestation.address === address) {
       status = true;
-      return;
     }
   });
   return status;
@@ -72,7 +71,7 @@ const getVerifiedStatus = (address) => {
 
 const getAddressName = (address, type, fallback) => {
   let profile = {};
-  names.forEach(attestation => {
+  names.forEach((attestation) => {
     if (attestation.address === address) {
       profile = { ...profile, ...attestation.profile };
     }
@@ -86,13 +85,12 @@ const textOrJSON = (json) => {
   if (parseFloat(json) == json) {
     return json.toString();
   }
-  if (typeof json == 'string' && json.length < 1000) {
+  if (typeof json === 'string' && json.length < 1000) {
     try {
       json = JSON.parse(json);
-    }
-    catch (err) {}
+    } catch (err) {}
   }
-  return typeof json == 'object' ? JSON.stringify(json, null, 4) : json;
+  return typeof json === 'object' ? JSON.stringify(json, null, 4) : json;
 };
 
 export default {

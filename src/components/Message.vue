@@ -54,15 +54,13 @@ import utils from '@/helpers/utils';
 export default {
   props: ['message'],
   methods: {
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address)
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
   },
   computed: {
-    filteredOutputs: function () {
-      let unitAuthors = this.message.unit_authors;
-      return this.message.payload.outputs.filter(function (output, index) {
-        return !unitAuthors.includes(output.address); 
-      })
-    }
+    filteredOutputs() {
+      const unitAuthors = this.message.unit_authors;
+      return this.message.payload.outputs.filter((output, index) => !unitAuthors.includes(output.address));
+    },
   },
-}
+};
 </script>

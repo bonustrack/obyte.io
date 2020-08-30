@@ -9,10 +9,10 @@ const state = {
 };
 
 const mutations = {
-  pollsLoading (state) {
+  pollsLoading(state) {
     state.created.isLoading = true;
   },
-  savePolls (state, polls) {
+  savePolls(state, polls) {
     state.created.isLoading = false;
     state.created.isLoaded = !polls.length;
     state.created.messages = state.created.messages.concat(polls);
@@ -28,7 +28,7 @@ const actions = {
         const lastMessage = state.created.messages.slice().reverse()[0];
         params = { unit: lastMessage.unit, message_index: lastMessage.message_index };
       }
-      api.requestAsync('get_polls', params).then(polls => {
+      api.requestAsync('get_polls', params).then((polls) => {
         commit('savePolls', polls);
       });
     }

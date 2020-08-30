@@ -34,24 +34,22 @@ import { mapActions } from 'vuex';
 export default {
   props: ['message'],
   methods: {
-    textOrJSON: (json) => utils.textOrJSON(json),
+    textOrJSON: json => utils.textOrJSON(json),
     ...mapActions([
       'getAssets',
     ]),
   },
   computed: {
-    filteredPayload: function () {
-      return Object.keys(this.message.payload).filter(function (field, index) {
-        return field!=='cap'; 
-      })
+    filteredPayload() {
+      return Object.keys(this.message.payload).filter((field, index) => field !== 'cap');
     },
-    assets () {
+    assets() {
       return this.$store.state.app.assets || [];
     },
     assetMetaData() {
-      return this.assets.reduce(function(accum, currentVal) {
+      return this.assets.reduce((accum, currentVal) => {
         let assetName = currentVal.payload.name;
-        assetName += currentVal.payload.ticker ? ' ($'+ currentVal.payload.ticker +')' : '';
+        assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
         accum[currentVal.payload.asset] = {
           assetName,
           decimals: currentVal.payload.decimals || 0,
@@ -59,12 +57,12 @@ export default {
         };
         return accum;
       }, {});
-    }
+    },
   },
   created() {
     if (this.$store.state.app.assets.length === 0) {
       this.getAssets();
     }
   },
-}
+};
 </script>

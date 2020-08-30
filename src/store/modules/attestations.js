@@ -5,10 +5,10 @@ import client from '@/helpers/client';
 const state = {};
 
 const mutations = {
-  attestationsLoading (state, address) {
+  attestationsLoading(state, address) {
     Vue.set(state, address, { isLoading: true });
   },
-  saveAttestations (state, payload) {
+  saveAttestations(state, payload) {
     Vue.set(state, payload.address, {
       isLoading: false,
       isLoaded: true,
@@ -21,11 +21,11 @@ const actions = {
   getAttestations: ({ commit, state }, address) => {
     if (!state[address] || (state[address] && !state[address].isLoaded)) {
       commit('attestationsLoading', address);
-      client.api.getAttestations({ address }).then(attestations => {
+      client.api.getAttestations({ address }).then((attestations) => {
         const promises = attestations.map(attestation => client.api.getJoint(attestation.unit));
-        Promise.all(promises).then(joints => {
-          const attestationsArr  = [];
-          joints.forEach(joint => {
+        Promise.all(promises).then((joints) => {
+          const attestationsArr = [];
+          joints.forEach((joint) => {
             joint.joint.unit.messages.forEach((message, i) => {
               if (message.app === 'attestation') {
                 attestationsArr.push({
@@ -44,7 +44,7 @@ const actions = {
         });
       });
     }
-  }
+  },
 };
 
 export default {

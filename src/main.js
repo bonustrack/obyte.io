@@ -15,10 +15,10 @@ import 'primer/index.scss';
 import '@/styles.less';
 
 const requireComponent = require.context('./components', true, /[\w-]+\.vue$/);
-requireComponent.keys().forEach(fileName => {
+requireComponent.keys().forEach((fileName) => {
   const componentConfig = requireComponent(fileName);
   const componentName = upperFirst(camelCase(fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')));
-  Vue.component(componentName, componentConfig.default || componentConfig)
+  Vue.component(componentName, componentConfig.default || componentConfig);
 });
 
 setInterval(() => api.request('heartbeat', null), 10 * 1000);
@@ -26,51 +26,46 @@ setInterval(() => client.api.heartbeat(), 10 * 1000);
 
 Vue.config.productionTip = false;
 
-Vue.filter('truncate', function (text, stop, clamp) {
-  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
-});
+Vue.filter('truncate', (text, stop, clamp) => text.slice(0, stop) + (stop < text.length ? clamp || '...' : ''));
 
-Vue.filter('date', function(value, format) {
+Vue.filter('date', (value, format) => {
   if (format) {
     return moment(new Date(value).getTime()).format(format);
   }
-  else {
-    return moment(new Date(value).getTime()).fromNow();
-  }
+
+  return moment(new Date(value).getTime()).fromNow();
 });
 
-Vue.filter('niceAsset', function(x, y) {
-  let n = parseInt(x, 10) || 0, d = parseInt(y, 10) || 0;
+Vue.filter('niceAsset', (x, y) => {
+  let n = parseInt(x, 10) || 0,
+    d = parseInt(y, 10) || 0;
   if (d) {
     return Number(n / Math.pow(10, d)).toLocaleString();
   }
   return Number(n).toLocaleString();
 });
 
-Vue.filter('niceBytes', function(x) {
+Vue.filter('niceBytes', (x) => {
   const units = ['Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Petabyte'];
   const names = ['', '', '', ' ($GBYTE)'];
-  let l = 0, n = parseInt(x, 10) || 0;
-  while(n >= 1000 && ++l) {
-    n = n/1000;
-    if (l >= units.length-1) break;
+  let l = 0,
+    n = parseInt(x, 10) || 0;
+  while (n >= 1000 && ++l) {
+    n /= 1000;
+    if (l >= units.length - 1) break;
   }
-  let amount = n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l];
+  let amount = `${n.toFixed(n < 10 && l > 0 ? 1 : 0)} ${units[l]}`;
   if (names[l]) {
     amount += names[l];
-  }
-  else if (l > 3) {
-    amount += ' ('+ Number(parseInt(x, 10)/1000000000).toLocaleString() +' $GBYTE)';
-  }
-  else {
-    amount += ' ('+ Number(parseInt(x, 10)/1000000000).toFixed(9-l*3) +' $GBYTE)';
+  } else if (l > 3) {
+    amount += ` (${Number(parseInt(x, 10) / 1000000000).toLocaleString()} $GBYTE)`;
+  } else {
+    amount += ` (${Number(parseInt(x, 10) / 1000000000).toFixed(9 - l * 3)} $GBYTE)`;
   }
   return amount;
 });
 
-Vue.filter('name', function(value, type, fallback) {
-  return utils.getAddressName(value, type, fallback);
-});
+Vue.filter('name', (value, type, fallback) => utils.getAddressName(value, type, fallback));
 
 Vue.filter('blockie', value => makeBlockie(value));
 
@@ -80,27 +75,27 @@ Vue.use(infiniteScroll);
 const messages = {
   en: {
     message: {
-      hello: 'hello world'
-    }
+      hello: 'hello world',
+    },
   },
   ja: {
     message: {
-      hello: 'こんにちは、世界'
-    }
-  }
+      hello: 'こんにちは、世界',
+    },
+  },
 };
 
 const numberFormats = {
   'en-US': {
     currency: {
-      style: 'currency', currency: 'USD'
-    }
+      style: 'currency', currency: 'USD',
+    },
   },
   'ja-JP': {
     currency: {
-      style: 'currency', currency: 'JPY', currencyDisplay: 'symbol'
-    }
-  }
+      style: 'currency', currency: 'JPY', currencyDisplay: 'symbol',
+    },
+  },
 };
 
 // Create VueI18n instance with options

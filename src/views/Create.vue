@@ -52,7 +52,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       errors: [],
       name: null,
@@ -61,7 +61,7 @@ export default {
     };
   },
   computed: {
-    hasUserList () {
+    hasUserList() {
       return this.$store.state.app.hasUserList;
     },
   },
@@ -69,14 +69,14 @@ export default {
     ...mapActions([
       'createAccount',
     ]),
-    checkForm () {
+    checkForm() {
       this.errors = [];
       if (!this.password && this.password !== null) this.errors.push('Password is required');
       if (this.password.length < 8) this.errors.push('Password must be at least 8 characters');
       if (!this.passwordConfirm && this.passwordConfirm !== null) this.errors.push('Password confirm is required');
       if (this.passwordConfirm !== this.password && this.passwordConfirm !== null) this.errors.push('Password confirm not match password');
     },
-    submitForm (e) {
+    submitForm(e) {
       if (!this.errors.length) {
         this.createAccount({
           password: this.password,
@@ -88,7 +88,7 @@ export default {
       e.preventDefault();
     },
   },
-}
+};
 </script>
 
 <style lang="less">

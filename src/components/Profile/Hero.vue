@@ -48,22 +48,22 @@
 
 <script>
 import { mapActions } from 'vuex';
-import attestations from "../../store/modules/attestations";
+import attestations from '../../store/modules/attestations';
 import utils from '@/helpers/utils';
 
 export default {
   props: ['address', 'attestations'],
   computed: {
-    profile () {
+    profile() {
       return this.$store.state.profiles[this.address]
         && this.$store.state.profiles[this.address].profile
         ? this.$store.state.profiles[this.address].profile
         : {};
     },
-    obyteUsername () {
+    obyteUsername() {
       let obyteUsername = null;
       if (this.attestations.isLoaded) {
-        Object.keys(this.attestations.messages).forEach(i => {
+        Object.keys(this.attestations.messages).forEach((i) => {
           const attestation = this.attestations.messages[i];
           if (!obyteUsername && attestation.unit_authors.includes('UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ') && attestation.payload.profile.username) {
             obyteUsername = attestation.payload.profile.username;
@@ -72,10 +72,10 @@ export default {
       }
       return obyteUsername;
     },
-    steemUsername () {
+    steemUsername() {
       let steemUsername = null;
       if (this.attestations.isLoaded) {
-        Object.keys(this.attestations.messages).forEach(i => {
+        Object.keys(this.attestations.messages).forEach((i) => {
           const attestation = this.attestations.messages[i];
           if (!steemUsername && attestation.unit_authors.includes('JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725') && attestation.payload.profile.steem_username) {
             steemUsername = attestation.payload.profile.steem_username;
@@ -84,10 +84,10 @@ export default {
       }
       return steemUsername;
     },
-    email () {
+    email() {
       let email = null;
       if (this.attestations.isLoaded) {
-        Object.keys(this.attestations.messages).forEach(i => {
+        Object.keys(this.attestations.messages).forEach((i) => {
           const attestation = this.attestations.messages[i];
           if (!email && attestation.unit_authors.includes('H5EZTQE7ABFH27AUDTQFMZIALANK6RBG') && attestation.payload.profile.email) {
             email = attestation.payload.profile.email;
@@ -98,19 +98,19 @@ export default {
         email = this.profile.email;
       }
       return email;
-    }
+    },
   },
   methods: {
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
-    getAddressName: (address) => utils.getAddressName(address),
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
+    getAddressName: address => utils.getAddressName(address),
     ...mapActions([
       'getProfile',
     ]),
   },
   created() {
     this.getProfile(this.address);
-  }
-}
+  },
+};
 </script>
 
 <style lang="less">

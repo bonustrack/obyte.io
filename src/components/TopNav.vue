@@ -69,7 +69,7 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    app () {
+    app() {
       return this.$store.state.app;
     },
   },
@@ -85,8 +85,8 @@ export default {
     }, 5000);
     */
     this.getRate();
-  }
-}
+  },
+};
 </script>
 
 <style lang="less">

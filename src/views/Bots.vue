@@ -72,21 +72,21 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       query: this.$route.query.q,
-    }
+    };
   },
   computed: {
-    items () {
+    items() {
       return this.$store.state.app.bots || [];
     },
     filteredList() {
-      return this.items.filter(bot => {
+      return this.items.filter((bot) => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(bot).toLowerCase().includes(query);
-      })
-    }
+      });
+    },
   },
   methods: mapActions([
     'getBots',
@@ -95,6 +95,6 @@ export default {
     if (this.$store.state.app.bots.length === 0) {
       this.getBots();
     }
-  }
-}
+  },
+};
 </script>

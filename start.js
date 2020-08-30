@@ -9,13 +9,13 @@ const writer = require('./server/writer');
 const client = new kbyte.Client('wss://obyte.org/bb');
 setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
-let app = express();
-app.use(serveStatic(__dirname + '/dist'));
+const app = express();
+app.use(serveStatic(`${__dirname}/dist`));
 
-app.get('/joint/:unit(*)', function (req, res) {
+app.get('/joint/:unit(*)', (req, res) => {
   const { unit } = req.params;
-  client.request('get_joint', unit, function(err, result) {
-    db.query("SELECT * FROM messages LEFT JOIN doc_urls USING (unit) WHERE messages.unit = $1", [unit]).then((messages) => {
+  client.request('get_joint', unit, (err, result) => {
+    db.query('SELECT * FROM messages LEFT JOIN doc_urls USING (unit) WHERE messages.unit = $1', [unit]).then((messages) => {
       let outdated_meta = false;
       if (messages.length) {
         messages.forEach((message, i) => {
@@ -25,9 +25,9 @@ app.get('/joint/:unit(*)', function (req, res) {
         });
         if (!outdated_meta) return;
       }
-      writer.indexJoints([result]).then(data => {
+      writer.indexJoints([result]).then((data) => {
         console.log('fetch success', unit);
-      }).catch(error => {
+      }).catch((error) => {
         console.log('fetch failure', error);
       });
     });
@@ -35,13 +35,13 @@ app.get('/joint/:unit(*)', function (req, res) {
   });
 });
 
-app.get('*', function (req, res) {
-  res.sendFile(__dirname + '/dist/index.html')
+app.get('*', (req, res) => {
+  res.sendFile(`${__dirname}/dist/index.html`);
 });
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
-  console.log('Listening on port ' + port)
+  console.log(`Listening on port ${port}`);
 });
 
 const wss = new SocketServer({ server });
@@ -50,7 +50,7 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws) => {
   console.log('Got connection from new peer');
   ws.on('message', (message) => {
-    //console.log('Message', message);
+    // console.log('Message', message);
     let call = {};
     try { call = JSON.parse(message); } catch (e) {}
     if (call[0] && call[0] === 'request' && call[1] && call[1].command) {
@@ -84,8 +84,8 @@ wss.on('connection', (ws) => {
         }
         case 'get_messages': {
           const query = params.unit
-            ? ["SELECT * FROM messages WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND unit_authors ?| array[$1] AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10", [params.address, params.unit, params.message_index]]
-            : ["SELECT * FROM messages WHERE unit_authors ?| array[$1] ORDER BY unit_creation_date DESC LIMIT 10", [params.address]];
+            ? ['SELECT * FROM messages WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $2 AND m2.message_index = $3) AND unit_authors ?| array[$1] AND NOT (unit = $2 AND message_index = $3) ORDER BY unit_creation_date DESC LIMIT 10', [params.address, params.unit, params.message_index]]
+            : ['SELECT * FROM messages WHERE unit_authors ?| array[$1] ORDER BY unit_creation_date DESC LIMIT 10', [params.address]];
           db.query(query[0], query[1]).then((response) => {
             console.log('Send get_messages', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
@@ -96,8 +96,8 @@ wss.on('connection', (ws) => {
         }
         case 'get_polls': {
           const query = params
-            ? ["SELECT * FROM polls WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
-            : ["SELECT * FROM polls ORDER BY unit_creation_date DESC LIMIT 10", []];
+            ? ['SELECT * FROM polls WHERE unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10', [params.unit, params.message_index]]
+            : ['SELECT * FROM polls ORDER BY unit_creation_date DESC LIMIT 10', []];
           db.query(query[0], query[1]).then((response) => {
             console.log('Send get_polls', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
@@ -117,7 +117,7 @@ wss.on('connection', (ws) => {
           break;
         }
         case 'get_attestors': {
-          db.query("SELECT * FROM attestors").then((response) => {
+          db.query('SELECT * FROM attestors').then((response) => {
             console.log('Send attestors');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
@@ -126,7 +126,7 @@ wss.on('connection', (ws) => {
           break;
         }
         case 'get_oracles': {
-          db.query("SELECT * FROM oracles").then((response) => {
+          db.query('SELECT * FROM oracles').then((response) => {
             console.log('Send oracles');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
@@ -135,7 +135,7 @@ wss.on('connection', (ws) => {
           break;
         }
         case 'get_aa_metadata': {
-          db.query("SELECT * FROM doc_urls JOIN messages USING (unit) WHERE source IS NOT NULL ORDER BY unit_creation_date DESC", []).then((response) => {
+          db.query('SELECT * FROM doc_urls JOIN messages USING (unit) WHERE source IS NOT NULL ORDER BY unit_creation_date DESC', []).then((response) => {
             console.log('Send get_aa_metadata');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
@@ -145,7 +145,7 @@ wss.on('connection', (ws) => {
         }
         case 'get_asset_metadata': {
           db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| $1 AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", [['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG', 'O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ']]).then((response) => {
-            response = response.filter((v,i,a)=>a.findIndex(t=>(t.payload.asset === v.payload.asset))===i);
+            response = response.filter((v, i, a) => a.findIndex(t => (t.payload.asset === v.payload.asset)) === i);
             console.log('Send get_asset_metadata');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
@@ -156,7 +156,7 @@ wss.on('connection', (ws) => {
         case 'get_profile': {
           db.query("SELECT * FROM messages WHERE app = 'profile' AND unit_authors ?| array[$1] ORDER BY unit_creation_date", [params]).then((response) => {
             const profile = {};
-            response.forEach(p => {
+            response.forEach((p) => {
               Object.assign(profile, p.payload);
             });
             console.log('Send profile', params);

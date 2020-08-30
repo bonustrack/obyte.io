@@ -15,7 +15,7 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    timeline () {
+    timeline() {
       return this.$store.state.timeline.created;
     },
   },
@@ -24,6 +24,6 @@ export default {
   ]),
   created() {
     this.getTimeline();
-  }
-}
+  },
+};
 </script>

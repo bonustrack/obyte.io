@@ -87,29 +87,29 @@ import utils from '@/helpers/utils';
 import { mapActions } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       query: this.$route.query.q,
-    }
+    };
   },
   computed: {
-    items () {
+    items() {
       return this.$store.state.app.dapps ? Array.from(this.$store.state.app.dapps).sort((a, b) => {
-        let va = this.getVerifiedStatus(a.payload.address);
-        let vb = this.getVerifiedStatus(b.payload.address);
+        const va = this.getVerifiedStatus(a.payload.address);
+        const vb = this.getVerifiedStatus(b.payload.address);
         return (va === vb ? 0 : (va < vb ? 1 : -1));
       }) : [];
     },
     filteredList() {
-      return this.items.filter(dapp => {
+      return this.items.filter((dapp) => {
         const query = this.query ? this.query.toLowerCase() : '';
         return JSON.stringify(dapp).toLowerCase().includes(query);
-      })
-    }
+      });
+    },
   },
   methods: {
-    getVerifiedStatus: (address) => utils.getVerifiedStatus(address),
-    getAddressName: (address) => utils.getAddressName(address),
+    getVerifiedStatus: address => utils.getVerifiedStatus(address),
+    getAddressName: address => utils.getAddressName(address),
     ...mapActions([
       'getDapps',
     ]),
@@ -118,6 +118,6 @@ export default {
     if (this.$store.state.app.dapps.length === 0) {
       this.getDapps();
     }
-  }
-}
+  },
+};
 </script>

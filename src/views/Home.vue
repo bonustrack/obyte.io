@@ -18,7 +18,7 @@ import { mapActions } from 'vuex';
 
 export default {
   computed: {
-    created () {
+    created() {
       return this.$store.state.messages.created;
     },
   },
@@ -27,8 +27,8 @@ export default {
   ]),
   created() {
     this.getCreated();
-  }
-}
+  },
+};
 </script>
 
 <style lang="less" scoped>

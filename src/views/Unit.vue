@@ -29,7 +29,7 @@ import client from '@/helpers/client';
 import api from '@/helpers/api';
 
 export default {
-  data () {
+  data() {
     return {
       isLoading: false,
       unit: this.$route.params[0] || this.$route.params.pathMatch,
@@ -37,12 +37,12 @@ export default {
       messages: null,
       votes: [],
       isPoll: false,
-    }
+    };
   },
   created() {
     this.isLoading = true;
 
-    client.api.getJoint(this.unit).then(joint => {
+    client.api.getJoint(this.unit).then((joint) => {
       this.joint = joint;
       this.messages = joint.joint.unit.messages.map((message, i) => {
         if (message.app === 'poll') this.isPoll = true;
@@ -58,7 +58,7 @@ export default {
       });
 
       if (this.isPoll) {
-        api.requestAsync('get_votes', this.unit).then(votes => {
+        api.requestAsync('get_votes', this.unit).then((votes) => {
           this.votes = votes;
           this.isLoading = false;
         }).catch((error) => {
@@ -70,6 +70,6 @@ export default {
     }).catch((error) => {
       console.log('Get joint failed', error);
     });
-  }
-}
+  },
+};
 </script>
