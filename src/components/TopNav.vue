@@ -40,6 +40,7 @@
             <span class="octicon octicon-gear f3"></span>
           </router-link>
         </div>
+        <!--
         <div v-if="!app.address">
           <span v-if="!app.rate.USD" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
           <a
@@ -57,6 +58,7 @@
             </span>
           </a>
         </div>
+        -->
       </div>
     </div>
   </div>
