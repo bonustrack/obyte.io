@@ -251,5 +251,11 @@
     "profile": {
       "oracle_name": "Discount stablecoin creator"
     }
+  },
+  {
+    "address": "B3V6YX7CHAJOW3OAEFQBRN3DK6WFJNJU",
+    "profile": {
+      "oracle_name": "Asset transfer fee refunder"
+    }
   }
 ]
