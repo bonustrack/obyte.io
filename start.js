@@ -1,6 +1,6 @@
 const express = require('express');
 const kbyte = require('kbyte');
-const SocketServer = require('ws').Server; // eslint-disable-line import/no-extraneous-dependencies
+const SocketServer = require('ws').Server;
 const moment = require('moment');
 const db = require('./server/db');
 const writer = require('./server/writer');
