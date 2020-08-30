@@ -16,11 +16,11 @@
           v-for="(balance, index) in balances" :key="index"
         >
           <div class="column one-half v-align-middle">
-            <p><Avatar size="24" :address="index"/> {{index == 'bytes' ? 'Obyte Bytes' : (assetMetaData[index].assetName || index)}}</p>
+            <p><Avatar size="24" :address="index"/> {{index == 'bytes' ? 'Obyte Bytes' : (assetMetaData[index] ? assetMetaData[index].assetName : index)}}</p>
           </div>
           <div class="column one-fourth text-right">
             <h4 v-if="index === 'bytes'">{{balance === 0 ? '-' : balance | niceBytes}}</h4>
-            <h4 v-else>{{balance === 0 ? '-' : balance | niceAsset(assetMetaData[index].decimals)}}</h4>
+            <h4 v-else>{{balance === 0 || !assetMetaData[index] ? '-' : balance | niceAsset(assetMetaData[index].decimals)}}</h4>
             <span v-if="index === 'bytes' && app.rate.USD">
               {{balance === 0 ? '-' : (calculateBytesPrice(balance, app.rate.USD.price) >= 0.01 ? $n(calculateBytesPrice(balance, app.rate.USD.price), 'currency') : '$'+ calculateBytesPrice(balance, app.rate.USD.price))}}
             </span>
