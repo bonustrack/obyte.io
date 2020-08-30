@@ -1,28 +1,28 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
-import Home from '@/views/Home';
-import Profile from '@/views/Profile';
-import ProfileAttestations from '@/views/ProfileAttestations';
-import Unit from '@/views/Unit';
-import About from '@/views/About';
-import Attestors from '@/views/Attestors';
-import Oracles from '@/views/Oracles';
-import Dapps from '@/views/Dapps';
-import Bots from '@/views/Bots';
-import Witnesses from '@/views/Witnesses';
-import Polls from '@/views/Polls';
-import Timeline from '@/views/Timeline';
-import Assets from '@/views/Assets';
-import Settings from '@/views/Settings';
-import EditProfile from '@/views/EditProfile';
-import Wallet from '@/views/Wallet';
-import Create from '@/views/Create';
-import Login from '@/views/Login';
-import Editor from '@/views/Editor';
-import CreatePoll from '@/views/CreatePoll';
-import Restore from '@/views/Restore';
-import Error404 from '@/views/Error404';
+import Home from '@/views/Home.vue';
+import Profile from '@/views/Profile.vue';
+import ProfileAttestations from '@/views/ProfileAttestations.vue';
+import Unit from '@/views/Unit.vue';
+import About from '@/views/About.vue';
+import Attestors from '@/views/Attestors.vue';
+import Oracles from '@/views/Oracles.vue';
+import Dapps from '@/views/Dapps.vue';
+import Bots from '@/views/Bots.vue';
+import Witnesses from '@/views/Witnesses.vue';
+import Polls from '@/views/Polls.vue';
+import Timeline from '@/views/Timeline.vue';
+import Assets from '@/views/Assets.vue';
+import Settings from '@/views/Settings.vue';
+import EditProfile from '@/views/EditProfile.vue';
+import Wallet from '@/views/Wallet.vue';
+import Create from '@/views/Create.vue';
+import Login from '@/views/Login.vue';
+import Editor from '@/views/Editor.vue';
+import CreatePoll from '@/views/CreatePoll.vue';
+import Restore from '@/views/Restore.vue';
+import Error404 from '@/views/Error404.vue';
 import client from '@/helpers/client';
 
 Vue.use(Router);
@@ -35,6 +35,7 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+/* eslint-disable consistent-return */
 const redirectToAddress = (to, from, next) => {
   client.api.getAttestation({
     attestor_address: 'JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725',
@@ -42,16 +43,15 @@ const redirectToAddress = (to, from, next) => {
     value: to.params.username,
   }, (err, unit) => {
     if (err || !unit) { return next({ name: 'error', query: { error: 'STEEM_ATTESTATION_NOT_FOUND' } }); }
-    client.api.getJoint(unit, (err, joint) => {
-      if (err || !joint) { return next(); }
-      const address = joint.joint.unit.messages
-        .find(message => message.app === 'attestation')
-        .payload.address;
+    client.api.getJoint(unit, (err2, joint) => {
+      if (err2 || !joint) { return next(); }
+      const { address } = joint.joint.unit.messages.find(message => message.app === 'attestation').payload;
       if (!address) { return next({ name: 'error', query: { error: 'STEEM_ATTESTATION_NOT_FOUND' } }); }
       next({ name: 'profile', params: { address } });
     });
   });
 };
+/* eslint-enable consistent-return */
 
 const router = new Router({
   mode: 'history',

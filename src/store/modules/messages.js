@@ -9,6 +9,8 @@ const state = {
   },
 };
 
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 const mutations = {
   messagesLoading(state, address) {
     if (!address) {
@@ -65,6 +67,8 @@ const actions = {
     }
   },
 };
+/* eslint-enable no-param-reassign */
+/* eslint-enable no-shadow */
 
 export default {
   state,

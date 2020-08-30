@@ -1,5 +1,5 @@
 <template>
-  <div class="height-full pb-8">
+  <div class="height-full pb-12">
     <form
       v-if="step === 1"
       @submit="submitForm"
@@ -47,7 +47,31 @@ export default {
     return {
       step: 1,
       errors: [],
-      payload: '# Hello world\n\nWrite something using **markdown**',
+      payload: `# Hello world
+
+Delete this and write something using [markdown](https://guides.github.com/features/mastering-markdown/)
+
+## This is an <h2> tag
+### This is an <h3> tag
+
+*This text will be italic*
+_This will also be italic_
+
+**This text will be bold**
+__This will also be bold__
+
+_You **can** combine ~~it~~ them_
+
+\`\`\`
+   ____  __          __
+  / __ \\/ /_  __  __/ /____
+ / / / / __ \\/ / / / __/ _ \\
+/ /_/ / /_/ / /_/ / /_/  __/
+\\____/_.___/\\__, /\\__/\\___/
+           /____/
+\`\`\`
+http://obyte.org/
+`,
       unit: null,
       isLoading: false,
     };
@@ -72,7 +96,7 @@ export default {
           this.isLoading = false;
         }).catch((err) => {
           this.isLoading = false;
-          console.log('Error post_joint', err);
+          alert(`Error post_joint: ${err}`); // eslint-disable-line no-alert
         });
       }
     },

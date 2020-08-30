@@ -52,15 +52,16 @@ export default {
   computed: {
     dappMetaData() {
       return this.$store.state.app.dapps.reduce((accum, currentVal) => {
-        accum[currentVal.payload.address] = currentVal.source;
-        return accum;
+        const newArray = accum;
+        newArray[currentVal.payload.address] = currentVal.source;
+        return newArray;
       }, {});
     },
     filteredDefinition() {
       return utils.textOrJSON(this.message.payload.definition).replace(/\\n/g, '\n').replace(/\\t/g, '   ');
     },
     filteredPayload() {
-      return Object.keys(this.message.payload).filter((field, index) => field !== 'address' && field !== 'definition');
+      return Object.keys(this.message.payload).filter(field => field !== 'address' && field !== 'definition');
     },
   },
   created() {

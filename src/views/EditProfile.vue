@@ -63,7 +63,6 @@
 
 <script>
 import { mapActions } from 'vuex';
-import difference from 'lodash/difference';
 
 export default {
   data() {
@@ -111,12 +110,12 @@ export default {
       if (!this.errors.length) {
         if (Object.keys(this.profileDifference).length !== 0) {
           this.isLoading = true;
-          this.post({ app: 'profile', payload: this.profileDifference }).then((result) => {
+          this.post({ app: 'profile', payload: this.profileDifference }).then(() => {
             this.isLoading = false;
             this.success = true;
           }).catch((err) => {
             this.isLoading = false;
-            console.log('Error post_joint', err);
+            alert(`Error post_joint: ${err}`); // eslint-disable-line no-alert
           });
         }
       }

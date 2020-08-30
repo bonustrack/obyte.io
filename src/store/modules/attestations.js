@@ -4,6 +4,7 @@ import client from '@/helpers/client';
 
 const state = {};
 
+/* eslint-disable no-shadow */
 const mutations = {
   attestationsLoading(state, address) {
     Vue.set(state, address, { isLoading: true });
@@ -46,6 +47,7 @@ const actions = {
     }
   },
 };
+/* eslint-enable no-shadow */
 
 export default {
   state,

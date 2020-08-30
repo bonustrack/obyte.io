@@ -8,6 +8,8 @@ const state = {
   },
 };
 
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 const mutations = {
   pollsLoading(state) {
     state.created.isLoading = true;
@@ -34,6 +36,8 @@ const actions = {
     }
   },
 };
+/* eslint-enable no-param-reassign */
+/* eslint-enable no-shadow */
 
 export default {
   state,

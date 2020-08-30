@@ -5,6 +5,12 @@
     "@vue/airbnb"
   ],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "no-nested-ternary": "off",
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    //"no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    //"prefer-destructuring": ["error", {"object": false, "array": true}],
+    "max-len": "off", // disables line length check
+    "default-case": "off"
   }
 }

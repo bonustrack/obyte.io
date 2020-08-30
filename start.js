@@ -1,7 +1,6 @@
 const express = require('express');
 const kbyte = require('kbyte');
-const serveStatic = require('serve-static');
-const SocketServer = require('ws').Server;
+const SocketServer = require('ws').Server; // eslint-disable-line import/no-extraneous-dependencies
 const moment = require('moment');
 const db = require('./server/db');
 const writer = require('./server/writer');
@@ -10,22 +9,22 @@ const client = new kbyte.Client('wss://obyte.org/bb');
 setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
 const app = express();
-app.use(serveStatic(`${__dirname}/dist`));
+app.use(express.static(`${__dirname}/dist`));
 
 app.get('/joint/:unit(*)', (req, res) => {
   const { unit } = req.params;
   client.request('get_joint', unit, (err, result) => {
     db.query('SELECT * FROM messages LEFT JOIN doc_urls USING (unit) WHERE messages.unit = $1', [unit]).then((messages) => {
-      let outdated_meta = false;
+      let outdatedMeta = false;
       if (messages.length) {
-        messages.forEach((message, i) => {
+        messages.forEach((message) => {
           if (message.fetch_date && message.fetch_date < moment().subtract(1, 'weeks')) {
-            outdated_meta = true;
+            outdatedMeta = true;
           }
         });
-        if (!outdated_meta) return;
+        if (!outdatedMeta) return;
       }
-      writer.indexJoints([result]).then((data) => {
+      writer.indexJoints([result]).then(() => {
         console.log('fetch success', unit);
       }).catch((error) => {
         console.log('fetch failure', error);
@@ -54,9 +53,7 @@ wss.on('connection', (ws) => {
     let call = {};
     try { call = JSON.parse(message); } catch (e) {}
     if (call[0] && call[0] === 'request' && call[1] && call[1].command) {
-      const command = call[1].command;
-      const params = call[1].params ? call[1].params : null;
-      const tag = call[1].tag;
+      const { command, params, tag } = call[1];
       switch (command) {
         case 'get_timeline': {
           const query = params
@@ -145,9 +142,9 @@ wss.on('connection', (ws) => {
         }
         case 'get_asset_metadata': {
           db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| $1 AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", [['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG', 'O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ']]).then((response) => {
-            response = response.filter((v, i, a) => a.findIndex(t => (t.payload.asset === v.payload.asset)) === i);
+            const filteredResponse = response.filter((v, i, a) => a.findIndex(t => (t.payload.asset === v.payload.asset)) === i);
             console.log('Send get_asset_metadata');
-            ws.send(JSON.stringify(['response', { tag, response }]));
+            ws.send(JSON.stringify(['response', { tag, filteredResponse }]));
           }).catch((err) => {
             console.log('Query get_asset_metadata failed', err);
           });

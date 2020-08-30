@@ -98,7 +98,7 @@ export default {
             this.isLoading = false;
           }).catch((err) => {
             this.isLoading = false;
-            console.log('Error post_joint', err);
+            alert(`Error post_joint: ${err}`); // eslint-disable-line no-alert
           });
         }
       }

@@ -47,9 +47,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import attestations from '../../store/modules/attestations';
 import utils from '@/helpers/utils';
+import { mapActions } from 'vuex';
 
 export default {
   props: ['address', 'attestations'],
@@ -90,11 +89,13 @@ export default {
         Object.keys(this.attestations.messages).forEach((i) => {
           const attestation = this.attestations.messages[i];
           if (!email && attestation.unit_authors.includes('H5EZTQE7ABFH27AUDTQFMZIALANK6RBG') && attestation.payload.profile.email) {
+            // eslint-disable-next-line prefer-destructuring
             email = attestation.payload.profile.email;
           }
         });
       }
       if (this.profile.email) {
+        // eslint-disable-next-line prefer-destructuring
         email = this.profile.email;
       }
       return email;

@@ -3,6 +3,8 @@ import api from '@/helpers/api';
 
 const state = {};
 
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 const mutations = {
   profileLoading(state, address) {
     Vue.set(state, address, {
@@ -27,10 +29,12 @@ const actions = {
       api.requestAsync('get_profile', address).then((profile) => {
         commit('saveProfile', { address, profile });
         resolve(profile);
-      });
+      }).catch(reject);
     }
   }),
 };
+/* eslint-enable no-param-reassign */
+/* eslint-enable no-shadow */
 
 export default {
   state,

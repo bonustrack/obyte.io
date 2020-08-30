@@ -40,13 +40,12 @@
             <span class="octicon octicon-gear f3"></span>
           </router-link>
         </div>
-        <!--
         <div v-if="!app.address">
-          <span v-if="!app.rate.USD.price" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
+          <span v-if="!app.rate.USD" class="octicon octicon-primitive-dot anim-pulse pr-0"></span>
           <a
-            v-if="app.rate.USD.price"
+            v-else
             class="pr-0"
-            href="https://coinpaprika.com/coin/gbyte-obyte/#!exchanges"
+            href="https://coinpaprika.com/coin/gbyte-obyte/#exchanges"
             target="_blank"
             rel="noopener"
           >
@@ -58,7 +57,6 @@
             </span>
           </a>
         </div>
-        -->
       </div>
     </div>
   </div>

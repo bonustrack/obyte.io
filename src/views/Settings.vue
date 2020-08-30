@@ -55,9 +55,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import Avatar from '@/components/Avatar';
-
 export default {
   data() {
     return {

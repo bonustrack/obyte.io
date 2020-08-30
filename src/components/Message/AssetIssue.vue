@@ -39,14 +39,15 @@ export default {
     },
     assetMetaData() {
       return this.assets.reduce((accum, currentVal) => {
+        const newArray = accum;
         let assetName = currentVal.payload.name;
         assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
-        accum[currentVal.payload.asset] = {
+        newArray[currentVal.payload.asset] = {
           assetName,
           decimals: currentVal.payload.decimals || 0,
           metaUnit: currentVal.unit,
         };
-        return accum;
+        return newArray;
       }, {});
     },
   },

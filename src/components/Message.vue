@@ -59,7 +59,7 @@ export default {
   computed: {
     filteredOutputs() {
       const unitAuthors = this.message.unit_authors;
-      return this.message.payload.outputs.filter((output, index) => !unitAuthors.includes(output.address));
+      return this.message.payload.outputs.filter(output => !unitAuthors.includes(output.address));
     },
   },
 };

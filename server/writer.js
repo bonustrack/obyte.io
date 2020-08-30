@@ -28,13 +28,11 @@ const indexJoints = (joints) => {
               let source = {'doc_url': response.request.res.responseUrl};
               if (['1.0'].includes(response.data.version)) {
                 source = ['description', 'homepage_url', 'source_url', 'field_descriptions'].reduce(function(accum, currentVal) {
+                  let newArray = accum;
                   if (response.data[currentVal]) {
-                    if (typeof response.data[currentVal] === 'object')
-                      accum[currentVal] = response.data[currentVal];
-                    else
-                      accum[currentVal] = response.data[currentVal].toString().slice(0, 1000);
+                      newArray[currentVal] = (typeof response.data[currentVal] === 'object') ? response.data[currentVal] : response.data[currentVal].toString().slice(0, 1000);
                   }
-                  return accum;
+                  return newArray;
                 }, source);
               }
               db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, JSON.stringify(source), new Date()]);

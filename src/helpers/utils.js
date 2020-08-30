@@ -82,11 +82,13 @@ const getAddressName = (address, type, fallback) => {
 };
 
 const textOrJSON = (json) => {
+  // eslint-disable-next-line eqeqeq
   if (parseFloat(json) == json) {
     return json.toString();
   }
   if (typeof json === 'string' && json.length < 1000) {
     try {
+      // eslint-disable-next-line no-param-reassign
       json = JSON.parse(json);
     } catch (err) {}
   }

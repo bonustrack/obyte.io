@@ -82,7 +82,7 @@ export default {
           password: this.password,
           name: this.name,
         });
-        const redirect = this.$route.query.redirect;
+        const { redirect } = this.$route.query;
         this.$router.push(redirect || '/settings');
       }
       e.preventDefault();

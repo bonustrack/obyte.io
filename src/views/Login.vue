@@ -50,20 +50,23 @@ export default {
   },
   computed: {
     userList() {
-      let userList = [];
+      let userListData = [];
       try {
-        userList = localStorage.getItem('userList');
-        userList = JSON.parse(userList);
+        userListData = localStorage.getItem('userList');
+        userListData = JSON.parse(userListData);
       } catch (e) {
         console.log(e);
       }
-      if (userList[0]) {
-        this.address = userList[0].address;
-      }
-      return userList;
+      this.selectAddress(userListData);
+      return userListData;
     },
   },
   methods: {
+    selectAddress(userList) {
+      if (userList[0]) {
+        this.address = userList[0].address;
+      }
+    },
     ...mapActions([
       'login',
     ]),
@@ -71,16 +74,16 @@ export default {
       this.errors = [];
       if (!this.password && this.password !== null) this.errors.push('Password is required');
     },
-    submitForm(e) {
-      e.preventDefault();
+    submitForm(event) {
+      event.preventDefault();
       if (!this.errors.length) {
         this.login({
           address: this.address,
           password: this.password,
         }).then(() => {
-          const redirect = this.$route.query.redirect;
+          const { redirect } = this.$route.query;
           this.$router.push(redirect || '/settings');
-        }).catch((e) => {
+        }).catch(() => {
           this.errors.push('Password is wrong');
         });
       }

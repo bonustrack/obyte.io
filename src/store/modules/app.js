@@ -30,6 +30,8 @@ const state = {
   hasUserList: !!localStorage.getItem('userList'),
 };
 
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 const mutations = {
   saveRate(state, rate) {
     state.rate = rate;
@@ -207,13 +209,11 @@ const actions = {
     const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
     const wif = toWif(privKeyBuf, false);
 
-    client.post.message(app, payload, wif).then((unit) => {
-      resolve(unit);
-    }).catch((err) => {
-      reject(err);
-    });
+    client.post.message(app, payload, wif).then(resolve).catch(reject);
   }),
 };
+/* eslint-enable no-param-reassign */
+/* eslint-enable no-shadow */
 
 export default {
   state,

@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     filteredPayload() {
-      return Object.keys(this.message.payload).filter((field, index) => field !== 'asset');
+      return Object.keys(this.message.payload).filter(field => field !== 'asset');
     },
   },
 };

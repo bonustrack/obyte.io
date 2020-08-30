@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import utils from '@/helpers/utils';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
