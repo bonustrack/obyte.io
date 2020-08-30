@@ -40,9 +40,9 @@ Vue.filter('niceAsset', (x, y) => {
   const n = parseInt(x, 10) || 0;
   const d = parseInt(y, 10) || 0;
   if (d) {
-    return Number(n / (10 ** d)).toLocaleString();
+    return Number(n / (10 ** d)).toFixed(d);
   }
-  return Number(n).toLocaleString();
+  return Number(n).toString();
 });
 
 Vue.filter('niceBytes', (x) => {
@@ -59,7 +59,7 @@ Vue.filter('niceBytes', (x) => {
   if (names[l]) {
     amount += names[l];
   } else if (l > 3) {
-    amount += ` (${Number(parseInt(x, 10) / 1000000000).toLocaleString()} $GBYTE)`;
+    amount += ` (${Number(parseInt(x, 10) / 1000000000).toString()} $GBYTE)`;
   } else {
     amount += ` (${Number(parseInt(x, 10) / 1000000000).toFixed(9 - (l * 3))} $GBYTE)`;
   }

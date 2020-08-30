@@ -226,6 +226,12 @@
     }
   },
   {
+    "address": "LEKLYHEWFLFOZTN3SYFETQU4B4742SZU",
+    "profile": {
+      "oracle_name": "ODEX orderbook matcher"
+    }
+  },
+  {
     "address": "B22543LKSS35Z55ROU4GDN26RT6MDKWU",
     "profile": {
       "oracle_name": "Factory AA - Oswap.io"
