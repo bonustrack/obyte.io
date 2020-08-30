@@ -9,7 +9,6 @@
       <li class="Box-row" v-for="(choice, index) in message.payload.choices" :key="index">
         <p class="m-0">
           <label class="text-normal">
-            <!--<input class="mr-2" type="radio" name="hireme" value="on">-->
             {{choice}}
           </label>
         </p>

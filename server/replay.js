@@ -92,5 +92,5 @@ class Replay {
   }
 }
 
-const replay = new Replay('wss://obyte.org/bb');
+const replay = new Replay(process.env.RELAY_WS || 'wss://obyte.org/bb');
 replay.start();

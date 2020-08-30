@@ -5,7 +5,7 @@ const moment = require('moment');
 const db = require('./server/db');
 const writer = require('./server/writer');
 
-const client = new kbyte.Client('wss://obyte.org/bb');
+const client = new kbyte.Client(process.env.RELAY_WS || 'wss://obyte.org/bb');
 setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
 const app = express();
