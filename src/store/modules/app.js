@@ -24,6 +24,8 @@ const state = {
   oracles: [],
   dapps: [],
   assets: [],
+  assetsIsLoading: false,
+  assetsIsLoaded: false,
   bots: [],
   path: null,
   definition: null,
@@ -77,7 +79,12 @@ const mutations = {
   saveDapps(state, dapps) {
     state.dapps = dapps;
   },
+  assetsIsLoading(state) {
+    state.assetsIsLoading = true;
+  },
   saveAssets(state, assets) {
+    state.assetsIsLoaded = true;
+    state.assetsIsLoading = false;
     state.assets = assets;
   },
 };
@@ -198,6 +205,7 @@ const actions = {
     });
   },
   getAssets: ({ commit }) => {
+    commit('assetsIsLoading');
     api.requestAsync('get_asset_metadata', null).then((assets) => {
       commit('saveAssets', assets);
     });

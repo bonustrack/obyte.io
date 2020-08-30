@@ -52,7 +52,7 @@ export default {
     },
   },
   created() {
-    if (this.$store.state.app.assets.length === 0) {
+    if (!this.$store.state.app.assetsIsLoaded && !this.$store.state.app.assetsIsLoading) {
       this.getAssets();
     }
   },
