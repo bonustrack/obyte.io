@@ -65,9 +65,17 @@
           <span class="pre">{{message.payload.order2.signed_message.price | niceBytes}}</span>
         </p>
       </li>
+      <li v-if="message.payload.order1.authors[0].address != message.payload.order1.signed_message.address" class="Box-row">
+        <p class="m-0">
+          <span class="text-bold">Maker signing address: </span>
+          <router-link :to="'/@' + message.payload.order1.authors[0].address">
+            <span>{{message.payload.order1.authors[0].address}}</span>
+          </router-link>
+        </p>
+      </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Maker address: </span>
+          <span class="text-bold">Maker wallet address: </span>
           <router-link :to="'/@' + message.payload.order1.signed_message.address">
             <span>{{message.payload.order1.signed_message.address}}</span>
           </router-link>
@@ -75,14 +83,22 @@
       </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Maker fee: </span>
+          <span class="text-bold">Maker trade fee: </span>
           <span v-if="message.payload.order1.signed_message.matcher_fee_asset === 'base'" class="pre">{{message.payload.order1.signed_message.matcher_fee | niceBytes}}</span>
           <span v-if="message.payload.order1.signed_message.matcher_fee_asset !== 'base' && assetMetaData[message.payload.order1.signed_message.matcher_fee_asset]" class="pre">{{message.payload.order1.signed_message.matcher_fee | niceAsset(assetMetaData[message.payload.order1.signed_message.matcher_fee_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.matcher_fee_asset].assetName}}</span>
         </p>
       </li>
+      <li v-if="message.payload.order2.authors[0].address != message.payload.order2.signed_message.address" class="Box-row">
+        <p class="m-0">
+          <span class="text-bold">Taker signing address: </span>
+          <router-link :to="'/@' + message.payload.order2.authors[0].address">
+            <span>{{message.payload.order2.authors[0].address}}</span>
+          </router-link>
+        </p>
+      </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Taker address: </span>
+          <span class="text-bold">Taker wallet address: </span>
           <router-link :to="'/@' + message.payload.order2.signed_message.address">
             <span>{{message.payload.order2.signed_message.address}}</span>
           </router-link>
@@ -90,7 +106,7 @@
       </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Taker fee: </span>
+          <span class="text-bold">Taker trade fee: </span>
           <span v-if="message.payload.order2.signed_message.matcher_fee_asset === 'base'" class="pre">{{message.payload.order2.signed_message.matcher_fee | niceBytes}}</span>
           <span v-if="message.payload.order2.signed_message.matcher_fee_asset !== 'base' && assetMetaData[message.payload.order2.signed_message.matcher_fee_asset]" class="pre">{{message.payload.order2.signed_message.matcher_fee | niceAsset(assetMetaData[message.payload.order2.signed_message.matcher_fee_asset].decimals)}} {{assetMetaData[message.payload.order2.signed_message.matcher_fee_asset].assetName}}</span>
         </p>
@@ -121,16 +137,18 @@ export default {
     },
     odexMatch(message) {
       if (!message.payload.order1 || !message.payload.order2) return false;
-      const order1Address = message.payload.order1.authors[0].address || null;
-      const order2Address = message.payload.order2.authors[0].address || null;
-      if (!order1Address || !order2Address) return false;
+      if (!message.payload.order1.authors[0] || !message.payload.order1.authors[0].address) return false;
+      if (!message.payload.order2.authors[0] || !message.payload.order2.authors[0].address) return false;
       const order1Message = message.payload.order1.signed_message || null;
       const order2Message = message.payload.order2.signed_message || null;
       if (!order1Message || !order2Message) return false;
+      if (!order1Message.address || !order2Message.address) return false;
       if (!order1Message.matcher || !order2Message.matcher) return false;
       if (order1Message.matcher !== order2Message.matcher) return false;
+      if (!order1Message.aa || !order2Message.aa) return false;
+      if (order1Message.aa !== order2Message.aa) return false;
       if (!message.unit_authors.includes(order1Message.matcher)) return false;
-      return order1Address === order1Message.address && order2Address === order2Message.address;
+      return true;
     },
     textOrJSON: json => utils.textOrJSON(json),
     getVerifiedStatus: address => utils.getVerifiedStatus(address),
