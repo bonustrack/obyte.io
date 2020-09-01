@@ -8,6 +8,7 @@ class Replay {
   constructor(address) {
     this.client = new obyte.Client(address, { reconnect: true });
     this.client.subscribe((err, message) => {
+      if (err) return console.error(err);
       /** Index unstable units */
       // console.log('Subscribe', message);
       if (message[0] === 'justsaying' && message[1].subject === 'joint') {
@@ -61,7 +62,7 @@ class Replay {
           Promise.delay(60000).then(() => this.replay());
         });
       }
-    }).catch(err => console.error('Error query last_known_mci'));
+    }).catch(err => console.error('Error query last_known_mci', err));
   }
 
   handleCatchup(catchup) {
@@ -82,8 +83,8 @@ class Replay {
             console.log('Joints loaded');
             return writer.indexJoints(joints).then(() => {
               console.log('handleCatchup indexJoints success', joints);
-            }).catch(error => {
-              console.error('handleCatchup indexJoints error', error);
+            }).catch(err => {
+              console.error('handleCatchup indexJoints error', err);
             });
           });
         });

@@ -61,14 +61,14 @@ export default {
         api.requestAsync('get_votes', this.unit).then((votes) => {
           this.votes = votes;
           this.isLoading = false;
-        }).catch((error) => {
-          console.error('Get votes failed', error);
+        }).catch((err) => {
+          console.error('Get votes failed', err);
         });
       } else {
         this.isLoading = false;
       }
-    }).catch((error) => {
-      console.error('Get joint failed', error);
+    }).catch((err) => {
+      console.error('Get joint failed', err);
     });
   },
 };

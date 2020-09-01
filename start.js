@@ -30,8 +30,8 @@ app.get('/joint/:unit(*)', (req, res) => {
       }
       writer.indexJoints([result]).then(() => {
         console.log('express indexJoints success', unit);
-      }).catch((error) => {
-        console.error('express indexJoints failure', error);
+      }).catch((err2) => {
+        console.error('express indexJoints failure', err2);
       });
     });
     return res.json(result.joint);
