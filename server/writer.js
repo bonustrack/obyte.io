@@ -3,9 +3,7 @@ const db = require('./db');
 
 const indexJoints = (joints) => {
   const arrQueries = [];
-  if (!joints || !Object.keys(joints)) throw Error('no joints');
   joints.forEach(joint => {
-    if (!joint || !joint.joint) throw Error('no joint');
     const objUnit = joint.joint.unit;
     const authors = objUnit.authors.map(author => author.address);
     if (objUnit.messages) {

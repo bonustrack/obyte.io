@@ -14,7 +14,7 @@ app.use(express.static(`${__dirname}/dist`));
 app.get('/joint/:unit(*)', (req, res) => {
   const { unit } = req.params;
   client.request('get_joint', unit, (err, result) => {
-    if (!result) return res.json({ error: 'unit not found' });
+    if (!result.joint) return res.json({ "error": result });
     db.query('SELECT * FROM messages LEFT JOIN doc_urls USING (unit) WHERE messages.unit = $1', [unit]).then((messages) => {
       let outdatedMeta = false;
       if (messages.length) {
