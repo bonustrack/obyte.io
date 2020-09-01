@@ -82,7 +82,7 @@ class Replay {
           return Promise.all(promises).then(joints => {
             console.log('Joints loaded');
             return writer.indexJoints(joints).then(() => {
-              console.log('handleCatchup indexJoints success', joints);
+              console.log('handleCatchup indexJoints success');
             }).catch(err => {
               console.error('handleCatchup indexJoints error', err);
             });
