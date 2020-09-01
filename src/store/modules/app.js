@@ -105,7 +105,7 @@ const actions = {
       if (response.data && response.data.quotes) {
         commit('saveRate', response.data.quotes);
       }
-    }).catch(err => console.log(`${err.response.statusText}: ${err.response.request.res.responseUrl}`));
+    }).catch(err => console.error(err.response.statusText, err.response.request.res.responseUrl));
   },
   createAccount: ({ commit }, {
     name,
@@ -150,7 +150,7 @@ const actions = {
       userList = localStorage.getItem('userList');
       userList = JSON.parse(userList);
     } catch (e) {
-      console.log(e);
+      console.error('Error localStorage', e);
     }
     const user = userList.find(u => u.address === address);
     return new Promise((resolve, reject) => {
@@ -159,7 +159,7 @@ const actions = {
           const decipher = crypto.createDecipher('aes192', password);
           let decrypted = decipher.update(user.encryptedSeed, 'hex', 'utf8');
           decrypted += decipher.final('utf8');
-          // console.log('Decrypted', decrypted);
+
           commit('loginUser', {
             address: user.address,
             name: user.name,
@@ -173,7 +173,7 @@ const actions = {
           store.dispatch('getWitnesses');
           resolve();
         } catch (e) {
-          console.log('Error password', e);
+          console.error('Error password', e);
           reject();
         }
       }

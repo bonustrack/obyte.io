@@ -35,29 +35,38 @@ const requireAuth = (to, from, next) => {
   }
 };
 
-/* eslint-disable consistent-return */
 const redirectToAddress = (to, from, next) => {
   client.api.getAttestation({
-    attestor_address: 'JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725',
-    field: 'steem_username',
-    value: to.params.username,
+    attestor_address: to.meta.attestor_address,
+    field: to.meta.field,
+    value: to.params.handle,
   }, (err, unit) => {
-    if (err || !unit) { return next({ name: 'error', query: { error: 'STEEM_ATTESTATION_NOT_FOUND' } }); }
-    client.api.getJoint(unit, (err2, joint) => {
+    if (err || !unit) { return next({ name: 'error', query: { error: 'ATTESTATION_NOT_FOUND' } }); }
+    return client.api.getJoint(unit, (err2, joint) => {
       if (err2 || !joint) { return next(); }
       const { address } = joint.joint.unit.messages.find(message => message.app === 'attestation').payload;
-      if (!address) { return next({ name: 'error', query: { error: 'STEEM_ATTESTATION_NOT_FOUND' } }); }
-      next({ name: 'profile', params: { address } });
+      if (!address) { return next({ name: 'error', query: { error: 'ATTESTATION_NOT_FOUND' } }); }
+      return next({ name: 'profile', params: { address } });
     });
   });
 };
-/* eslint-enable consistent-return */
 
 const router = new Router({
   mode: 'history',
   routes: [
     { path: '/', name: 'home', component: Home },
-    { path: '/steem/:username', name: 'profile-steem', beforeEnter: redirectToAddress },
+    {
+      path: '/email/:handle', name: 'profile-email', meta: { attestor_address: 'H5EZTQE7ABFH27AUDTQFMZIALANK6RBG', field: 'email' }, beforeEnter: redirectToAddress,
+    },
+    {
+      path: '/github/:handle', name: 'profile-github', meta: { attestor_address: 'OYW2XTDKSNKGSEZ27LMGNOPJSYIXHBHC', field: 'github_username' }, beforeEnter: redirectToAddress,
+    },
+    {
+      path: '/steem/:handle', name: 'profile-steem', meta: { attestor_address: 'JEDZYC2HMGDBIDQKG3XSTXUSHMCBK725', field: 'steem_username' }, beforeEnter: redirectToAddress,
+    },
+    {
+      path: '/username/:handle', name: 'profile-username', meta: { attestor_address: 'UENJPVZ7HVHM6QGVGT6MWOJGGRTUTJXQ', field: 'username' }, beforeEnter: redirectToAddress,
+    },
     {
       path: '/@:address', name: 'profile', component: Profile, meta: { title: 'Profile' },
     },

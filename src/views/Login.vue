@@ -55,7 +55,7 @@ export default {
         userListData = localStorage.getItem('userList');
         userListData = JSON.parse(userListData);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
       this.selectAddress(userListData);
       return userListData;

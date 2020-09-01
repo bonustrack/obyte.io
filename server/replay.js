@@ -54,14 +54,14 @@ class Replay {
           console.log('Got catchup');
           this.handleCatchup(catchup).then(() => {
             console.log('Finish, will wait and replay again');
-            Promise.delay(3000).then(() => this.replay());
+            Promise.delay(5000).then(() => this.replay());
           });
         }).catch(err => {
-          console.log('Error catchup, will wait retry', err);
-          Promise.delay(3000).then(() => this.replay());
+          console.error('Error catchup, will wait retry', err);
+          Promise.delay(60000).then(() => this.replay());
         });
       }
-    }).catch(err => console.log('Error query last_known_mci'));
+    }).catch(err => console.error('Error query last_known_mci'));
   }
 
   handleCatchup(catchup) {
@@ -80,10 +80,10 @@ class Replay {
           const promises = hashTree.balls.map((ball) => this.client.api.getJoint(ball.unit));
           return Promise.all(promises).then(joints => {
             console.log('Joints loaded');
-            return writer.indexJoints(joints).then(data => {
-              console.log('success, COMMIT was executed', data);
+            return writer.indexJoints(joints).then(() => {
+              console.log('handleCatchup indexJoints success', joints);
             }).catch(error => {
-              console.log('failure, ROLLBACK was executed', error);
+              console.error('handleCatchup indexJoints error', error);
             });
           });
         });

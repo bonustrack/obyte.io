@@ -62,13 +62,13 @@ export default {
           this.votes = votes;
           this.isLoading = false;
         }).catch((error) => {
-          console.log('Get votes failed', error);
+          console.error('Get votes failed', error);
         });
       } else {
         this.isLoading = false;
       }
     }).catch((error) => {
-      console.log('Get joint failed', error);
+      console.error('Get joint failed', error);
     });
   },
 };

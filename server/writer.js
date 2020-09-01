@@ -37,7 +37,7 @@ const indexJoints = (joints) => {
               }
               db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, JSON.stringify(source), new Date()]);
             }).catch(err => {
-              console.log(err.response.statusText +': '+ doc_url);
+              console.error(err.response.statusText, doc_url);
               db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, null, new Date()]);
             });
           }

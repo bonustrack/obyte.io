@@ -14,6 +14,10 @@ app.use(express.static(`${__dirname}/dist`));
 app.get('/joint/:unit(*)', (req, res) => {
   const { unit } = req.params;
   client.request('get_joint', unit, (err, result) => {
+    if (err) {
+      console.error('express get_joint error', err);
+      return res.json({ error: err });
+    }
     db.query('SELECT * FROM messages LEFT JOIN doc_urls USING (unit) WHERE messages.unit = $1', [unit]).then((messages) => {
       let outdatedMeta = false;
       if (messages.length) {
@@ -25,12 +29,12 @@ app.get('/joint/:unit(*)', (req, res) => {
         if (!outdatedMeta) return;
       }
       writer.indexJoints([result]).then(() => {
-        console.log('fetch success', unit);
+        console.log('express indexJoints success', unit);
       }).catch((error) => {
-        console.log('fetch failure', error);
+        console.error('express indexJoints failure', error);
       });
     });
-    res.json(result.joint);
+    return res.json(result.joint);
   });
 });
 
@@ -40,7 +44,7 @@ app.get('*', (req, res) => {
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log('Listening on port', port);
 });
 
 const wss = new SocketServer({ server });
@@ -63,7 +67,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_timeline', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_timeline failed', err);
+            console.error('Query get_timeline failed', err);
           });
           break;
         }
@@ -75,7 +79,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_created', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_created failed', err);
+            console.error('Query get_created failed', err);
           });
           break;
         }
@@ -87,7 +91,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_messages', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_messages failed', err);
+            console.error('Query get_messages failed', err);
           });
           break;
         }
@@ -99,7 +103,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_polls', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_polls failed', err);
+            console.error('Query get_polls failed', err);
           });
           break;
         }
@@ -109,7 +113,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_votes', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_votes failed', err);
+            console.error('Query get_votes failed', err);
           });
           break;
         }
@@ -118,7 +122,7 @@ wss.on('connection', (ws) => {
             console.log('Send attestors');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_attestors failed', err);
+            console.error('Query get_attestors failed', err);
           });
           break;
         }
@@ -127,7 +131,7 @@ wss.on('connection', (ws) => {
             console.log('Send oracles');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_oracles failed', err);
+            console.error('Query get_oracles failed', err);
           });
           break;
         }
@@ -136,7 +140,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_aa_metadata');
             ws.send(JSON.stringify(['response', { tag, response }]));
           }).catch((err) => {
-            console.log('Query get_aa_metadata failed', err);
+            console.error('Query get_aa_metadata failed', err);
           });
           break;
         }
@@ -146,7 +150,7 @@ wss.on('connection', (ws) => {
             console.log('Send get_asset_metadata');
             ws.send(JSON.stringify(['response', { tag, response: assets }]));
           }).catch((err) => {
-            console.log('Query get_asset_metadata failed', err);
+            console.error('Query get_asset_metadata failed', err);
           });
           break;
         }
@@ -159,13 +163,13 @@ wss.on('connection', (ws) => {
             console.log('Send profile', params);
             ws.send(JSON.stringify(['response', { tag, response: profile }]));
           }).catch((err) => {
-            console.log('Query profile failed', err);
+            console.error('Query profile failed', err);
           });
           break;
         }
       }
     }
   });
-  ws.on('error', () => console.log('Error on connection with peer'));
+  ws.on('error', () => console.error('Error on connection with peer'));
   ws.on('close', () => console.log('Connection with peer closed'));
 });
