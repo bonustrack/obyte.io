@@ -59,9 +59,10 @@ const indexUnstableUnit = (unit) => {
     unit.messages.forEach((message, i) => {
       if (!['payment'].includes(message.app)) {
         arrQueries.push([
-          'INSERT IGNORE INTO messages (unit, message_index, unit_main_chain_index, unit_is_stable, ' +
+          'INSERT INTO messages (unit, message_index, unit_main_chain_index, unit_is_stable, ' +
           'unit_creation_date, unit_authors, app, payload_hash, payload_location, payload, ' +
-          'payload_uri, payload_uri_hash) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)',
+          'payload_uri, payload_uri_hash) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ' +
+          'ON CONFLICT DO NOTHING',
           [
             unit.unit, i, unit.main_chain_index, 0,
             new Date(unit.timestamp * 1000), JSON.stringify(authors), message.app,
