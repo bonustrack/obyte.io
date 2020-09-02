@@ -39,7 +39,7 @@ const redirectToAddress = (to, from, next) => {
   client.api.getAttestation({
     attestor_address: to.meta.attestor_address,
     field: to.meta.field,
-    value: to.params.handle,
+    value: to.name === 'profile-username' ? to.params.handle.replace(/@/g, '') : to.params.handle,
   }, (err, unit) => {
     if (err || !unit) { return next({ name: 'error', query: { error: 'ATTESTATION_NOT_FOUND' } }); }
     return client.api.getJoint(unit, (err2, joint) => {
