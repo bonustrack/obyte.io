@@ -23,7 +23,7 @@
     "identicon.js": "^2.3.3",
     "kbyte": "0.0.5",
     "lodash": "^4.17.20",
-    "marked": "^0.4.0",
+    "marked": "^0.7.0",
     "moment": "^2.27.0",
     "obyte": "^0.1.9",
     "octicons": "^7.4.0",
