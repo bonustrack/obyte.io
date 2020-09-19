@@ -61,8 +61,8 @@ wss.on('connection', (ws) => {
       switch (command) {
         case 'get_timeline': {
           const query = params
-            ? ["SELECT * FROM messages WHERE app = 'text' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) AND NOT unit_authors ?& $3 ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index, hideFromTimeline]]
-            : ["SELECT * FROM messages WHERE app = 'text' AND NOT unit_authors ?& $1 ORDER BY unit_creation_date DESC LIMIT 10", [hideFromTimeline]];
+            ? ["SELECT * FROM messages WHERE app = 'text' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) AND NOT unit_authors ?| $3 ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index, hideFromTimeline]]
+            : ["SELECT * FROM messages WHERE app = 'text' AND NOT unit_authors ?| $1 ORDER BY unit_creation_date DESC LIMIT 10", [hideFromTimeline]];
           db.query(query[0], query[1]).then((response) => {
             console.log('Send get_timeline', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
