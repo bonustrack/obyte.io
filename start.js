@@ -8,6 +8,9 @@ const writer = require('./server/writer');
 const client = new kbyte.Client(process.env.RELAY_WS || 'wss://obyte.org/bb');
 setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
+const hideFromTimeline = ['RD7NA7Y36HCI7IFUUOSKBE5IG3MPKVY7', 'R3GLJ26HT2VTMIJUO3ZU5EYXOUCYJKEH'];
+const assetRegistries = ['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG', 'O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ'];
+
 const app = express();
 app.use(express.static(`${__dirname}/dist`));
 
@@ -58,8 +61,8 @@ wss.on('connection', (ws) => {
       switch (command) {
         case 'get_timeline': {
           const query = params
-            ? ["SELECT * FROM messages WHERE app = 'text' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index]]
-            : ["SELECT * FROM messages WHERE app = 'text' ORDER BY unit_creation_date DESC LIMIT 10", []];
+            ? ["SELECT * FROM messages WHERE app = 'text' AND unit_creation_date <= (SELECT unit_creation_date FROM messages m2 WHERE m2.unit = $1 AND m2.message_index = $2) AND NOT (unit = $1 AND message_index = $2) AND NOT unit_authors ?& $3 ORDER BY unit_creation_date DESC LIMIT 10", [params.unit, params.message_index, hideFromTimeline]]
+            : ["SELECT * FROM messages WHERE app = 'text' AND NOT unit_authors ?& $1 ORDER BY unit_creation_date DESC LIMIT 10", [hideFromTimeline]];
           db.query(query[0], query[1]).then((response) => {
             console.log('Send get_timeline', params);
             ws.send(JSON.stringify(['response', { tag, response }]));
@@ -142,7 +145,7 @@ wss.on('connection', (ws) => {
           break;
         }
         case 'get_asset_metadata': {
-          db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| $1 AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", [['AM6GTUKENBYA54FYDAKX2VLENFZIMXWG', 'O6H6ZIFI57X3PLTYHOCVYPP5A553CYFQ']]).then((response) => {
+          db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| $1 AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", [assetRegistries]).then((response) => {
             const assets = response.filter((v, i, a) => a.findIndex(t => (t.payload.asset === v.payload.asset)) === i);
             console.log('Send get_asset_metadata');
             ws.send(JSON.stringify(['response', { tag, response: assets }]));
