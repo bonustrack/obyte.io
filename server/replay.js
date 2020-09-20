@@ -17,6 +17,7 @@ class Replay {
           console.log('Indexed unstable unit messages', objUnit.unit);
         });
       }
+      return true;
     });
   }
 
@@ -30,15 +31,14 @@ class Replay {
     return Promise.all([
       this.client.api.subscribe({ subscription_id: '1', last_mci: 0, library_version: '1.0' }),
       this.client.api.getWitnesses(),
-    ]).then(res => {
-      this.subscribe = res[0];
-      this.witnesses = res[1];
+    ]).then((res) => {
+      [this.subscribe, this.witnesses] = res;
       return new Promise(resolve => resolve());
     });
   }
 
   replay() {
-    db.query('SELECT mci FROM last_known_mci').then(mci => {
+    db.query('SELECT mci FROM last_known_mci').then((mci) => {
       console.log('Last known mci', mci[0].mci);
       if (mci[0].mci === 0) {
         console.log('Got checkpoint');
@@ -51,13 +51,13 @@ class Replay {
           last_stable_mci: mci[0].mci,
           last_known_mci: mci[0].mci + 1,
           witnesses: this.witnesses,
-        }).then(catchup => {
+        }).then((catchup) => {
           console.log('Got catchup');
           this.handleCatchup(catchup).then(() => {
             console.log('Finish, will wait and replay again');
             Promise.delay(5000).then(() => this.replay());
           });
-        }).catch(err => {
+        }).catch((err) => {
           console.error('Error catchup, will wait retry', err);
           Promise.delay(60000).then(() => this.replay());
         });
@@ -68,27 +68,28 @@ class Replay {
   handleCatchup(catchup) {
     /** Get Hash Tree */
     const lastBallJoints = catchup.stable_last_ball_joints ? catchup.stable_last_ball_joints.slice().reverse() : [];
-    const unstableMcJoints = catchup.unstable_mc_joints || [];
+    // const unstableMcJoints = catchup.unstable_mc_joints || [];
     return Promise.each(lastBallJoints, (joint, index) => {
       if (index !== 0) {
         return this.client.api.getHashTree({
           from_ball: lastBallJoints[index - 1].ball,
-          to_ball: joint.ball
-        }).then(hashTree => {
+          to_ball: joint.ball,
+        }).then((hashTree) => {
           console.log('Hash tree loaded from', lastBallJoints[index - 1].unit.main_chain_index, 'to', joint.unit.main_chain_index);
 
           /** Get Joints */
-          const promises = hashTree.balls.map((ball) => this.client.api.getJoint(ball.unit));
-          return Promise.all(promises).then(joints => {
+          const promises = hashTree.balls.map(ball => this.client.api.getJoint(ball.unit));
+          return Promise.all(promises).then((joints) => {
             console.log('Joints loaded');
             return writer.indexJoints(joints).then(() => {
               console.log('handleCatchup indexJoints success');
-            }).catch(err => {
+            }).catch((err) => {
               console.error('handleCatchup indexJoints error', err);
             });
           });
         });
       }
+      return true;
     });
   }
 }

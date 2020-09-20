@@ -3,7 +3,7 @@ const db = require('./db');
 
 const indexJoints = (joints) => {
   const arrQueries = [];
-  joints.forEach(joint => {
+  joints.forEach((joint) => {
     const objUnit = joint.joint.unit;
     const authors = objUnit.authors.map(author => author.address);
     if (objUnit.messages) {
@@ -18,26 +18,26 @@ const indexJoints = (joints) => {
               objUnit.unit, i, objUnit.main_chain_index, joint.joint.ball ? 1 : 0,
               new Date(objUnit.timestamp * 1000), JSON.stringify(authors), message.app,
               message.payload_hash, message.payload_location, JSON.stringify(message.payload),
-              message.payload_uri, message.payload_uri_hash
+              message.payload_uri, message.payload_uri_hash,
             ],
           ]);
-          if (message.app === 'definition' && message.payload.definition && message.payload.definition[1] && message.payload.definition[1]['doc_url']) {
-            let doc_url = String(message.payload.definition[1]['doc_url']).replace(/{{aa_address}}/g, message.payload.address);
-            axios.get(doc_url, {timeout: 1000}).then(response => {
+          if (message.app === 'definition' && message.payload.definition && message.payload.definition[1] && message.payload.definition[1].doc_url) {
+            const docUrl = String(message.payload.definition[1].doc_url).replace(/{{aa_address}}/g, message.payload.address);
+            axios.get(docUrl, { timeout: 1000 }).then((response) => {
               if (typeof response.data !== 'object') throw Error('not JSON');
-              let source = {'doc_url': response.request.res.responseUrl};
+              let source = { doc_url: response.request.res.responseUrl };
               if (['1.0'].includes(response.data.version)) {
-                source = ['description', 'homepage_url', 'source_url', 'field_descriptions'].reduce(function(accum, currentVal) {
-                  let newArray = accum;
+                source = ['description', 'homepage_url', 'source_url', 'field_descriptions'].reduce((accum, currentVal) => {
+                  const newArray = accum;
                   if (response.data[currentVal]) {
-                      newArray[currentVal] = (typeof response.data[currentVal] === 'object') ? response.data[currentVal] : response.data[currentVal].toString().slice(0, 1000);
+                    newArray[currentVal] = (typeof response.data[currentVal] === 'object') ? response.data[currentVal] : response.data[currentVal].toString().slice(0, 1000);
                   }
                   return newArray;
                 }, source);
               }
               db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, JSON.stringify(source), new Date()]);
-            }).catch(err => {
-              console.error(err.response.statusText, doc_url);
+            }).catch((err) => {
+              console.error(err.response.statusText, docUrl);
               db.query('INSERT INTO doc_urls (unit, source, fetch_date) VALUES($1,$2,$3) ON CONFLICT ON CONSTRAINT doc_urls_pkey DO UPDATE SET source = $2, fetch_date = $3', [objUnit.unit, null, new Date()]);
             });
           }
@@ -47,7 +47,7 @@ const indexJoints = (joints) => {
   });
   arrQueries.push([
     'UPDATE last_known_mci SET mci = $1',
-    [joints.slice().reverse()[0].joint.unit.main_chain_index]
+    [joints.slice().reverse()[0].joint.unit.main_chain_index],
   ]);
   return db.tx(t => t.batch(arrQueries.map(query => t.none(query[0], query[1]))));
 };
@@ -67,7 +67,7 @@ const indexUnstableUnit = (unit) => {
             unit.unit, i, unit.main_chain_index, 0,
             new Date(unit.timestamp * 1000), JSON.stringify(authors), message.app,
             message.payload_hash, message.payload_location, JSON.stringify(message.payload),
-            message.payload_uri, message.payload_uri_hash
+            message.payload_uri, message.payload_uri_hash,
           ],
         ]);
       }
