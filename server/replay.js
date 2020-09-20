@@ -69,6 +69,7 @@ class Replay {
     /** Get Hash Tree */
     const lastBallJoints = catchup.stable_last_ball_joints ? catchup.stable_last_ball_joints.slice().reverse() : [];
     // const unstableMcJoints = catchup.unstable_mc_joints || [];
+    // eslint-disable-next-line consistent-return
     return Promise.each(lastBallJoints, (joint, index) => {
       if (index !== 0) {
         return this.client.api.getHashTree({
@@ -89,7 +90,6 @@ class Replay {
           });
         });
       }
-      return true;
     });
   }
 }
