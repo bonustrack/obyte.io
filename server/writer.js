@@ -49,6 +49,7 @@ const indexJoints = (joints) => {
     'UPDATE last_known_mci SET mci = $1',
     [joints.slice().reverse()[0].joint.unit.main_chain_index],
   ]);
+  console.log('indexJoints queries', arrQueries.length);
   return db.tx(t => t.batch(arrQueries.map(query => t.none(query[0], query[1]))));
 };
 
@@ -73,6 +74,7 @@ const indexUnstableUnit = (unit) => {
       }
     });
   }
+  console.log('indexUnstableUnit queries', arrQueries.length);
   return db.tx(t => t.batch(arrQueries.map(query => t.none(query[0], query[1]))));
 };
 
