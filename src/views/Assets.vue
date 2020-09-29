@@ -43,21 +43,23 @@
             class="Box d-flex flex-column box-shadow m-2 p-4"
             style="height: 400px;"
           >
-            <h3 class="mb-2">
+            <h3 class="mb-2">Create your own asset</h3>
+            <div class="mb-2">
               <a
                 href="https://asset.obyte.app/"
                 target="_blank"
+                class="btn btn-blue"
               >
-                Create your own asset
+                obyte.app
               </a>
-            </h3>
+            </div>
             <div class="mb-2">
               <a
-                href="hhttps://asset.obyte.app/"
+                href="https://asset.obyte.app/"
                 target="_blank"
                 class="btn btn-blue"
               >
-                Learn more
+                tokens.ooo
               </a>
             </div>
           </div>
