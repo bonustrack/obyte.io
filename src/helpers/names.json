@@ -225,7 +225,7 @@
   {
     "address": "FVRZTCFXIDQ3EYRGQSLE5AMWUQF4PRYJ",
     "profile": {
-      "oracle_name": "ODEX decentralized exchange"
+      "oracle_name": "ODEX decentralized exchange AA"
     }
   },
   {
@@ -237,7 +237,7 @@
   {
     "address": "B22543LKSS35Z55ROU4GDN26RT6MDKWU",
     "profile": {
-      "oracle_name": "Factory AA - Oswap.io"
+      "oracle_name": "Pool factory AA - Oswap.io"
     }
   },
   {
@@ -249,13 +249,79 @@
   {
     "address": "JLLM2AUTHYUS5EW36YVSPDYIDDQRABU6",
     "profile": {
-      "oracle_name": "Discount stablecoin creator"
+      "oracle_name": "Stablecoin base AA - Discount Stablecoins"
     }
   },
   {
     "address": "B3V6YX7CHAJOW3OAEFQBRN3DK6WFJNJU",
     "profile": {
-      "oracle_name": "Asset transfer fee refunder"
+      "oracle_name": "Asset transfer fee refunder AA"
+    }
+  },
+  {
+    "address": "GV5YXIIRH3DH5FTEECW7IS2EQTAYJJ6S",
+    "profile": {
+      "oracle_name": "Bank AA"
+    }
+  },
+  {
+    "address": "B7RBGEW7FEASSWNTOQSDQXIKG56EJAFP",
+    "profile": {
+      "oracle_name": "Coin factory AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP",
+    "profile": {
+      "oracle_name": "Curve base AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "GEZGVY4T3LK6N4NJAKNHNQIVAI5OYHPC",
+    "profile": {
+      "oracle_name": "Deposits base AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF",
+    "profile": {
+      "oracle_name": "Governance base AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "I3EA42PJ352JBF5EGOXV2UYT46WCAUEJ",
+    "profile": {
+      "oracle_name": "T1 arbitrage factory AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "7DTJZNB3MHSBVI72CKXRIKONJYBV7I2Z",
+    "profile": {
+      "oracle_name": "T1 arbitrage base AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "P5CS22H3DNZ35RTY7TFAGRUDQRHRIK7T",
+    "profile": {
+      "oracle_name": "T1 arbitrage governance AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "VXY4L4NGFQ773NOQKUFFVJEWLZUBCYHI",
+    "profile": {
+      "oracle_name": "Buffer base AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "5WPGSR5KPKLLRWU75B3FM6O4M7CPYOEA",
+    "profile": {
+      "oracle_name": "T2 arbitrage factory AA - Bonded Stablecoins"
+    }
+  },
+  {
+    "address": "WURQLCAXAX3WCVCFYJ3A2PQU4ZB3ALG7",
+    "profile": {
+      "oracle_name": "T2 arbitrage base AA - Bonded Stablecoins"
     }
   }
 ]
