@@ -11,11 +11,14 @@ class Replay {
       if (err) return console.error(err);
       /** Index unstable units */
       // console.log('Subscribe', message);
-      if (message[0] === 'justsaying' && message[1].subject === 'joint') {
+      if (message[0] && message[0] === 'justsaying' && message[1] && message[1].subject && message[1].subject === 'joint') {
         const objUnit = message[1].body.unit;
         writer.indexUnstableUnit(objUnit).then(() => {
           console.log('Indexed unstable unit messages', objUnit.unit);
         });
+      }
+      else {
+        console.log('unhandled message', message);
       }
       return true;
     });
