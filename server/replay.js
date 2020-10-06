@@ -11,14 +11,55 @@ class Replay {
       if (err) return console.error(err);
       /** Index unstable units */
       // console.log('Subscribe', message);
-      if (message[0] && message[0] === 'justsaying' && message[1] && message[1].subject && message[1].subject === 'joint') {
-        const objUnit = message[1].body.unit;
-        writer.indexUnstableUnit(objUnit).then(() => {
-          console.log('Indexed unstable unit messages', objUnit.unit);
-        });
-      }
-      else {
-        console.log('unhandled message', message);
+      if (message[0] && message[1]) {
+        switch (message[0]) {
+          case 'request':
+            if (message[1].tag && message[1].command) {
+              if (message[1].command === 'subscribe') {
+                this.client.send(['response', {
+                  tag: message[1].tag,
+                  command: message[1].command,
+                  response: {
+                    error: "I'm light, cannot subscribe you to updates",
+                  },
+                }]);
+              } else if (message[1].command === 'heartbeat') {
+                this.client.send(['response', {
+                  tag: message[1].tag,
+                  command: message[1].command,
+                  response: null,
+                }]);
+              } else if (message[1].command.startsWith('light/')) {
+                this.client.send(['response', {
+                  tag: message[1].tag,
+                  command: message[1].command,
+                  response: {
+                    error: "I'm light myself, can't serve you",
+                  },
+                }]);
+              } else {
+                console.log('unhandled command', message);
+              }
+            } else {
+              console.log('unhandled request', message);
+            }
+            break;
+          case 'justsaying':
+            if (message[1].subject && message[1].subject === 'joint') {
+              const objUnit = message[1].body.unit;
+              writer.indexUnstableUnit(objUnit).then(() => {
+                console.log('Indexed unstable unit messages', objUnit.unit);
+              });
+            } else {
+              console.log('unhandled justsaying', message);
+            }
+            break;
+          default:
+            console.log('unhandled message', message);
+            break;
+        }
+      } else {
+        console.log('unknown message', message);
       }
       return true;
     });
