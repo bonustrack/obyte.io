@@ -1,8 +1,11 @@
 const obyte = require('obyte');
+const kbyte = require('kbyte');
 const Promise = require('bluebird');
 const writer = require('./writer');
 const db = require('./db');
 const checkpoint = require('./checkpoint.json');
+
+const client = new kbyte.Client(process.env.RELAY_WS || 'wss://obyte.org/bb');
 
 class Replay {
   constructor(address) {
@@ -16,30 +19,30 @@ class Replay {
           case 'request':
             if (message[1].tag && message[1].command) {
               if (message[1].command === 'subscribe') {
-                this.client.api.send(['response', {
+                client.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: {
                     error: "I'm light, cannot subscribe you to updates",
                   },
                 }]);
-                console.log('Somebody tried to subscribe');
+                console.log('Subscribe request');
               } else if (message[1].command === 'heartbeat') {
-                this.client.api.send(['response', {
+                client.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: null,
                 }]);
-                console.log('Heartbeat response');
+                console.log('Heartbeat request');
               } else if (message[1].command.startsWith('light/')) {
-                this.client.api.send(['response', {
+                client.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: {
                     error: "I'm light myself, can't serve you",
                   },
                 }]);
-                console.log('Somebody tried to request data', message);
+                console.log('Light wallet request', message);
               } else {
                 console.error('unhandled command', message);
               }
