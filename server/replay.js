@@ -23,12 +23,14 @@ class Replay {
                     error: "I'm light, cannot subscribe you to updates",
                   },
                 }]);
+                console.log('Somebody tried to subscribe');
               } else if (message[1].command === 'heartbeat') {
                 this.client.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: null,
                 }]);
+                console.log('Heartbeat response');
               } else if (message[1].command.startsWith('light/')) {
                 this.client.send(['response', {
                   tag: message[1].tag,
@@ -37,11 +39,12 @@ class Replay {
                     error: "I'm light myself, can't serve you",
                   },
                 }]);
+                console.log('Somebody tried to request data', message);
               } else {
-                console.log('unhandled command', message);
+                console.error('unhandled command', message);
               }
             } else {
-              console.log('unhandled request', message);
+              console.error('unhandled request', message);
             }
             break;
           case 'justsaying':
@@ -51,15 +54,15 @@ class Replay {
                 console.log('Indexed unstable unit messages', objUnit.unit);
               });
             } else {
-              console.log('unhandled justsaying', message);
+              console.error('unhandled justsaying', message);
             }
             break;
           default:
-            console.log('unhandled message', message);
+            console.error('unhandled message', message);
             break;
         }
       } else {
-        console.log('unknown message', message);
+        console.error('unknown message', message);
       }
       return true;
     });
