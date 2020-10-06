@@ -6,6 +6,7 @@ const db = require('./db');
 const checkpoint = require('./checkpoint.json');
 
 const client = new kbyte.Client(process.env.RELAY_WS || 'wss://obyte.org/bb');
+setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
 class Replay {
   constructor(address) {
@@ -73,6 +74,7 @@ class Replay {
 
   start() {
     this.init().then(() => {
+      setInterval(() => this.client.heartbeat(), 10 * 1000);
       this.replay();
     });
   }
