@@ -55,7 +55,7 @@ class Replay {
           console.log('Got catchup');
           this.handleCatchup(catchup).then(() => {
             console.log('Finish, will wait and replay again');
-            Promise.delay(5000).then(() => this.replay());
+            Promise.delay(3000).then(() => this.replay());
           });
         }).catch((err) => {
           console.error('Error catchup, will wait retry', err);
