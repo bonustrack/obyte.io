@@ -27,14 +27,14 @@ class Replay {
                     error: "I'm light, cannot subscribe you to updates",
                   },
                 }]);
-                console.log('Subscribe request');
+                console.log('Got subscribe request');
               } else if (message[1].command === 'heartbeat') {
                 client.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: null,
                 }]);
-                console.log('Heartbeat request');
+                console.log('Got heartbeat request');
               } else if (message[1].command.startsWith('light/')) {
                 client.send(['response', {
                   tag: message[1].tag,
@@ -43,7 +43,7 @@ class Replay {
                     error: "I'm light myself, can't serve you",
                   },
                 }]);
-                console.log('Light wallet request', message);
+                console.log('Got light wallet request', message);
               } else {
                 console.error('unhandled command', message);
               }
