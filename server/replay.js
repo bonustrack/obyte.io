@@ -16,7 +16,7 @@ class Replay {
           case 'request':
             if (message[1].tag && message[1].command) {
               if (message[1].command === 'subscribe') {
-                this.client.send(['response', {
+                this.client.api.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: {
@@ -25,14 +25,14 @@ class Replay {
                 }]);
                 console.log('Somebody tried to subscribe');
               } else if (message[1].command === 'heartbeat') {
-                this.client.send(['response', {
+                this.client.api.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: null,
                 }]);
                 console.log('Heartbeat response');
               } else if (message[1].command.startsWith('light/')) {
-                this.client.send(['response', {
+                this.client.api.send(['response', {
                   tag: message[1].tag,
                   command: message[1].command,
                   response: {
