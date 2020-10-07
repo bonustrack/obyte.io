@@ -1,13 +1,13 @@
 const obyte = require('obyte');
-const kbyte = require('kbyte');
+// const kbyte = require('kbyte');
 const Promise = require('bluebird');
 const crypto = require('crypto');
 const writer = require('./writer');
 const db = require('./db');
 const checkpoint = require('./checkpoint.json');
 
-const client = new kbyte.Client(process.env.RELAY_WS || 'wss://obyte.org/bb');
-setInterval(() => client.request('heartbeat', null), 10 * 1000);
+// const client = new kbyte.Client(process.env.RELAY_WS || 'wss://obyte.org/bb');
+// setInterval(() => client.request('heartbeat', null), 10 * 1000);
 
 class Replay {
   constructor(address) {
@@ -21,29 +21,29 @@ class Replay {
           case 'request':
             if (message[1].tag && message[1].command) {
               if (message[1].command === 'subscribe') {
-                client.send(['response', {
-                  tag: message[1].tag,
-                  command: message[1].command,
-                  response: {
-                    error: "I'm light, cannot subscribe you to updates",
-                  },
-                }]);
+                // client.send(['response', {
+                //   tag: message[1].tag,
+                //   command: message[1].command,
+                //   response: {
+                //     error: "I'm light, cannot subscribe you to updates",
+                //   },
+                // }]);
                 console.log('Got subscribe request');
               } else if (message[1].command === 'heartbeat') {
-                client.send(['response', {
-                  tag: message[1].tag,
-                  command: message[1].command,
-                  response: null,
-                }]);
+                // client.send(['response', {
+                //   tag: message[1].tag,
+                //   command: message[1].command,
+                //   response: null,
+                // }]);
                 console.log('Got heartbeat request');
               } else if (message[1].command.startsWith('light/')) {
-                client.send(['response', {
-                  tag: message[1].tag,
-                  command: message[1].command,
-                  response: {
-                    error: "I'm light myself, can't serve you",
-                  },
-                }]);
+                // client.send(['response', {
+                //   tag: message[1].tag,
+                //   command: message[1].command,
+                //   response: {
+                //     error: "I'm light myself, can't serve you",
+                //   },
+                // }]);
                 console.log('Got light wallet request', message);
               } else {
                 console.error('unhandled command', message);
@@ -75,7 +75,7 @@ class Replay {
 
   start() {
     this.init().then(() => {
-      setInterval(() => this.client.api.heartbeat(), 10 * 1000);
+      setInterval(() => this.client.api.heartbeat(), 14 * 1000);
       this.replay();
     });
   }
@@ -108,11 +108,11 @@ class Replay {
           console.log('Got catchup');
           this.handleCatchup(catchup).then(() => {
             console.log('Finish, will wait and replay again');
-            Promise.delay(10000).then(() => this.replay());
+            Promise.delay(6000).then(() => this.replay());
           });
         }).catch((err) => {
           console.error('Error catchup, will wait retry', err);
-          Promise.delay(60000).then(() => this.replay());
+          Promise.delay(90000).then(() => this.replay());
         });
       }
     }).catch(err => console.error('Error query last_known_mci', err));

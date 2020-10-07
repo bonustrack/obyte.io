@@ -40,7 +40,6 @@ export default {
         newArray[currentVal.payload.asset] = {
           assetName,
           decimals: currentVal.payload.decimals || 0,
-          metaUnit: currentVal.unit,
         };
         return newArray;
       }, {});

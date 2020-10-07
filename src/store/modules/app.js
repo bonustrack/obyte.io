@@ -101,11 +101,12 @@ const actions = {
     });
   },
   getRate: ({ commit }) => {
-    axios.get('https://api.coinpaprika.com/v1/tickers/gbyte-obyte?quotes=USD,BTC').then((response) => {
+    const apiUrl = 'https://api.coinpaprika.com/v1/tickers/gbyte-obyte?quotes=USD,BTC';
+    axios.get(apiUrl).then((response) => {
       if (response.data && response.data.quotes) {
         commit('saveRate', response.data.quotes);
       }
-    }).catch(err => console.error(err.response.statusText, err.response.request.res.responseUrl));
+    }).catch(err => console.error('getRate', err.message || err, apiUrl));
   },
   createAccount: ({ commit }, {
     name,

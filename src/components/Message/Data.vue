@@ -29,45 +29,9 @@
       </span>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
-      <li v-if="odexOrderType(message) === 'buy'" class="Box-row">
-        <p class="m-0">
-          <span class="text-bold">Buy amount: </span>
-          <span class="pre">{{message.payload.order1.signed_message.sell_amount | niceAsset(assetMetaData[message.payload.order1.signed_message.sell_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.sell_asset].assetName}}</span>
-        </p>
-      </li>
-      <li v-if="odexOrderType(message) === 'buy'" class="Box-row">
-        <p class="m-0">
-          <span class="text-bold">Unit price: </span>
-          <span class="pre">{{(message.payload.order2.signed_message.sell_amount/message.payload.order1.signed_message.sell_amount) * (10 ** assetMetaData[message.payload.order1.signed_message.sell_asset].decimals) | niceBytes}}</span>
-        </p>
-      </li>
-      <li v-if="odexOrderType(message) === 'buy'" class="Box-row">
-        <p class="m-0">
-          <span class="text-bold">Total price: </span>
-          <span class="pre">{{message.payload.order2.signed_message.sell_amount | niceBytes}}</span>
-        </p>
-      </li>
-      <li v-if="odexOrderType(message) === 'sell'" class="Box-row">
-        <p class="m-0">
-          <span class="text-bold">Sell amount: </span>
-          <span class="pre">{{message.payload.order2.signed_message.sell_amount | niceAsset(assetMetaData[message.payload.order1.signed_message.buy_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.buy_asset].assetName}}</span>
-        </p>
-      </li>
-      <li v-if="odexOrderType(message) === 'sell'" class="Box-row">
-        <p class="m-0">
-          <span class="text-bold">Unit price: </span>
-          <span class="pre">{{(message.payload.order2.signed_message.price/message.payload.order2.signed_message.sell_amount) * (10 ** assetMetaData[message.payload.order1.signed_message.buy_asset].decimals) | niceBytes}}</span>
-        </p>
-      </li>
-      <li v-if="odexOrderType(message) === 'sell'" class="Box-row">
-        <p class="m-0">
-          <span class="text-bold">Total price: </span>
-          <span class="pre">{{message.payload.order2.signed_message.price | niceBytes}}</span>
-        </p>
-      </li>
       <li v-if="message.payload.order1.authors[0].address != message.payload.order1.signed_message.address" class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Maker signing address: </span>
+          <span class="text-bold">Maker signed by: </span>
           <router-link :to="'/@' + message.payload.order1.authors[0].address">
             <span>{{message.payload.order1.authors[0].address}}</span>
           </router-link>
@@ -75,7 +39,7 @@
       </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Maker wallet address: </span>
+          <span class="text-bold">Maker address: </span>
           <router-link :to="'/@' + message.payload.order1.signed_message.address">
             <span>{{message.payload.order1.signed_message.address}}</span>
           </router-link>
@@ -83,14 +47,31 @@
       </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Maker trade fee: </span>
+          <span class="text-bold">Maker sells: </span>
+          <span v-if="message.payload.order1.signed_message.sell_asset === 'base'" class="pre">{{message.payload.order1.signed_message.sell_amount | niceBytes}}</span>
+          <span v-else-if="message.payload.order1.signed_message.sell_asset !== 'base' && assetMetaData[message.payload.order1.signed_message.sell_asset]" class="pre">{{message.payload.order1.signed_message.sell_amount | niceAsset(assetMetaData[message.payload.order1.signed_message.sell_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.sell_asset].assetName}}</span>
+          <span v-else>Calculating ...</span>
+        </p>
+      </li>
+      <li class="Box-row">
+        <p class="m-0">
+          <span class="text-bold">Maker price: </span>
+          <span v-if="message.payload.order1.signed_message.buy_asset === 'base' && assetMetaData[message.payload.order1.signed_message.sell_asset]" class="pre">{{message.payload.order1.signed_message.price * (10 ** assetMetaData[message.payload.order1.signed_message.sell_asset].decimals) | niceBytes}}</span>
+          <span v-else-if="message.payload.order1.signed_message.buy_asset !== 'base' && assetMetaData[message.payload.order1.signed_message.sell_asset] && assetMetaData[message.payload.order1.signed_message.buy_asset]" class="pre">{{message.payload.order1.signed_message.price * (10 ** assetMetaData[message.payload.order1.signed_message.sell_asset].decimals) | niceAsset(assetMetaData[message.payload.order1.signed_message.buy_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.buy_asset].assetName}}</span>
+          <span v-else>Calculating ...</span>
+        </p>
+      </li>
+      <li class="Box-row">
+        <p class="m-0">
+          <span class="text-bold">Maker fee: </span>
           <span v-if="message.payload.order1.signed_message.matcher_fee_asset === 'base'" class="pre">{{message.payload.order1.signed_message.matcher_fee | niceBytes}}</span>
-          <span v-if="message.payload.order1.signed_message.matcher_fee_asset !== 'base' && assetMetaData[message.payload.order1.signed_message.matcher_fee_asset]" class="pre">{{message.payload.order1.signed_message.matcher_fee | niceAsset(assetMetaData[message.payload.order1.signed_message.matcher_fee_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.matcher_fee_asset].assetName}}</span>
+          <span v-else-if="message.payload.order1.signed_message.matcher_fee_asset !== 'base' && assetMetaData[message.payload.order1.signed_message.matcher_fee_asset]" class="pre">{{message.payload.order1.signed_message.matcher_fee | niceAsset(assetMetaData[message.payload.order1.signed_message.matcher_fee_asset].decimals)}} {{assetMetaData[message.payload.order1.signed_message.matcher_fee_asset].assetName}}</span>
+          <span v-else>Calculating ...</span>
         </p>
       </li>
       <li v-if="message.payload.order2.authors[0].address != message.payload.order2.signed_message.address" class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Taker signing address: </span>
+          <span class="text-bold">Taker signed by: </span>
           <router-link :to="'/@' + message.payload.order2.authors[0].address">
             <span>{{message.payload.order2.authors[0].address}}</span>
           </router-link>
@@ -98,7 +79,7 @@
       </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Taker wallet address: </span>
+          <span class="text-bold">Taker address: </span>
           <router-link :to="'/@' + message.payload.order2.signed_message.address">
             <span>{{message.payload.order2.signed_message.address}}</span>
           </router-link>
@@ -106,9 +87,26 @@
       </li>
       <li class="Box-row">
         <p class="m-0">
-          <span class="text-bold">Taker trade fee: </span>
+          <span class="text-bold">Taker sells: </span>
+          <span v-if="message.payload.order2.signed_message.sell_asset === 'base'" class="pre">{{message.payload.order2.signed_message.sell_amount | niceBytes}}</span>
+          <span v-else-if="message.payload.order2.signed_message.sell_asset !== 'base' && assetMetaData[message.payload.order2.signed_message.sell_asset]" class="pre">{{message.payload.order2.signed_message.sell_amount | niceAsset(assetMetaData[message.payload.order2.signed_message.sell_asset].decimals)}} {{assetMetaData[message.payload.order2.signed_message.sell_asset].assetName}}</span>
+          <span v-else>Calculating ...</span>
+        </p>
+      </li>
+      <li class="Box-row">
+        <p class="m-0">
+          <span class="text-bold">Taker price: </span>
+          <span v-if="message.payload.order2.signed_message.buy_asset === 'base' && assetMetaData[message.payload.order2.signed_message.sell_asset]" class="pre">{{message.payload.order2.signed_message.price * (10 ** assetMetaData[message.payload.order2.signed_message.sell_asset].decimals) | niceBytes}}</span>
+          <span v-else-if="message.payload.order2.signed_message.buy_asset !== 'base' && assetMetaData[message.payload.order2.signed_message.sell_asset] && assetMetaData[message.payload.order2.signed_message.buy_asset]" class="pre">{{message.payload.order2.signed_message.price * (10 ** assetMetaData[message.payload.order2.signed_message.sell_asset].decimals) | niceAsset(assetMetaData[message.payload.order2.signed_message.buy_asset].decimals)}} {{assetMetaData[message.payload.order2.signed_message.buy_asset].assetName}}</span>
+          <span v-else>Calculating ...</span>
+        </p>
+      </li>
+      <li class="Box-row">
+        <p class="m-0">
+          <span class="text-bold">Taker fee: </span>
           <span v-if="message.payload.order2.signed_message.matcher_fee_asset === 'base'" class="pre">{{message.payload.order2.signed_message.matcher_fee | niceBytes}}</span>
-          <span v-if="message.payload.order2.signed_message.matcher_fee_asset !== 'base' && assetMetaData[message.payload.order2.signed_message.matcher_fee_asset]" class="pre">{{message.payload.order2.signed_message.matcher_fee | niceAsset(assetMetaData[message.payload.order2.signed_message.matcher_fee_asset].decimals)}} {{assetMetaData[message.payload.order2.signed_message.matcher_fee_asset].assetName}}</span>
+          <span v-else-if="message.payload.order2.signed_message.matcher_fee_asset !== 'base' && assetMetaData[message.payload.order2.signed_message.matcher_fee_asset]" class="pre">{{message.payload.order2.signed_message.matcher_fee | niceAsset(assetMetaData[message.payload.order2.signed_message.matcher_fee_asset].decimals)}} {{assetMetaData[message.payload.order2.signed_message.matcher_fee_asset].assetName}}</span>
+          <span v-else>Calculating ...</span>
         </p>
       </li>
     </ul>
@@ -130,11 +128,6 @@ import { mapActions } from 'vuex';
 export default {
   props: ['message'],
   methods: {
-    odexOrderType(message) {
-      if (message.payload.order1.signed_message.buy_asset === 'base' && message.payload.order1.signed_message.sell_asset !== 'base' && this.assetMetaData[message.payload.order1.signed_message.sell_asset]) return 'buy';
-      if (message.payload.order1.signed_message.buy_asset !== 'base' && message.payload.order1.signed_message.sell_asset === 'base' && this.assetMetaData[message.payload.order1.signed_message.buy_asset]) return 'sell';
-      return null;
-    },
     odexMatch(message) {
       if (!message.payload.order1 || !message.payload.order2) return false;
       if (!message.payload.order1.authors[0] || !message.payload.order1.authors[0].address) return false;
@@ -168,10 +161,11 @@ export default {
         newArray[currentVal.payload.asset] = {
           assetName,
           decimals: currentVal.payload.decimals || 0,
-          metaUnit: currentVal.unit,
         };
         return newArray;
-      }, {});
+      }, {
+        base: { assetName: 'Gigabytes ($GBYTE)', decimals: 9 },
+      });
     },
     filteredPayload() {
       return Object.keys(this.message.payload).filter(field => field !== 'asset');
