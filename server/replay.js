@@ -1,6 +1,7 @@
 const obyte = require('obyte');
 const kbyte = require('kbyte');
 const Promise = require('bluebird');
+const crypto = require('crypto');
 const writer = require('./writer');
 const db = require('./db');
 const checkpoint = require('./checkpoint.json');
@@ -81,7 +82,7 @@ class Replay {
 
   init() {
     return Promise.all([
-      this.client.api.subscribe({ subscription_id: '1', last_mci: 0, library_version: '1.0' }),
+      this.client.api.subscribe({ subscription_id: crypto.randomBytes(30).toString('base64'), last_mci: 0, library_version: '1.0' }),
       this.client.api.getWitnesses(),
     ]).then((res) => {
       [this.subscribe, this.witnesses] = res;
