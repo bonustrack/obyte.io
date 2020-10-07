@@ -74,7 +74,7 @@ class Replay {
 
   start() {
     this.init().then(() => {
-      setInterval(() => this.client.heartbeat(), 10 * 1000);
+      setInterval(() => this.client.api.heartbeat(), 10 * 1000);
       this.replay();
     });
   }
