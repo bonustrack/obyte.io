@@ -20,7 +20,7 @@
   </div>
   <div v-else-if="odexMatch(message)" class="w-100">
     <p>
-      Matched order on
+      Matched orders on
       <router-link :to="'/@' + message.payload.order1.signed_message.aa">
         <span>{{message.payload.order1.signed_message.aa}}</span>
       </router-link>
