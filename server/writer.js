@@ -45,9 +45,10 @@ const indexJoints = (joints) => {
       });
     }
   });
+  const lastKnownMci = joints.slice().reverse()[0].joint.unit.main_chain_index;
   arrQueries.push([
-    'UPDATE last_known_mci SET mci = $1',
-    [joints.slice().reverse()[0].joint.unit.main_chain_index],
+    'UPDATE last_known_mci SET mci = $1 WHERE mci < $2',
+    [lastKnownMci, lastKnownMci],
   ]);
   console.log('indexJoints queries', arrQueries.length);
   return db.tx(t => t.batch(arrQueries.map(query => t.none(query[0], query[1]))));
