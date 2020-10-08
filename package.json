@@ -24,7 +24,7 @@
     "kbyte": "0.0.5",
     "lodash": "^4.17.20",
     "marked": "^0.7.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.1",
     "obyte": "^0.1.9",
     "octicons": "^7.4.0",
     "pg": "^7.18.2",
@@ -34,7 +34,7 @@
     "vue": "^2.6.12",
     "vue-i18n": "^7.8.1",
     "vue-infinite-scroll": "^2.0.2",
-    "vue-router": "^3.4.3",
+    "vue-router": "^3.4.6",
     "vuex": "^3.5.1",
     "websocket": "^1.0.32",
     "ws": "^7.3.1"
