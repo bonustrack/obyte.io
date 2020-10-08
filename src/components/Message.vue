@@ -17,7 +17,7 @@
       </router-link>
       <div>
         <router-link :to="'/@' + message.unit_authors[0]">
-          <span>{{message.unit_authors[0] | name('', message.unit_authors[0])}}</span>
+          <span class="monospace">{{message.unit_authors[0] | name('', message.unit_authors[0])}}</span>
         </router-link>
         <span v-if="getVerifiedStatus(message.unit_authors[0])" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
           <span class="octicon octicon-verified mb-1"></span>

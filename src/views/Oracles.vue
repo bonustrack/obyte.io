@@ -14,7 +14,7 @@
           </router-link>
           <div>
             <router-link :to="'/@' + oracle.unit_authors[0]" class="mr-1">
-              <span>{{oracle.unit_authors[0]}}</span>
+              <span class="monospace">{{oracle.unit_authors[0]}}</span>
             </router-link>
             <span v-if="getVerifiedStatus(oracle.unit_authors[0])" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
               <span class="octicon octicon-verified mb-1"></span>

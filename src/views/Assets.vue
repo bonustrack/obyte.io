@@ -3,7 +3,7 @@
     <div class="container-md py-8 p-responsive text-center">
       <h1>Assets</h1>
       <p v-if="items.length != 0">
-        {{items.length}} assets available
+        {{filteredList.length}} assets available
       </p>
     </div>
     <div class="container p-responsive">
@@ -27,15 +27,15 @@
             style="height: 400px;"
           >
             <h3>
-              <span v-if="asset.payload.ticker && asset.payload.shortName" class="h4 float-right">{{asset.payload.ticker}}</span>
-              <span v-if="asset.payload.shortName" style="color: black;">{{asset.payload.shortName}}</span>
-              <span v-else-if="asset.payload.name" style="color: black;">{{asset.payload.name}}</span>
+              <span v-if="asset.ticker && asset.shortName" class="h4 float-right">{{asset.ticker}}</span>
+              <span v-if="asset.shortName" style="color: black;">{{asset.shortName}}</span>
+              <span v-else-if="asset.name" style="color: black;">{{asset.name}}</span>
             </h3>
-            <router-link class="mb-3" :to="'/u/' + asset.payload.asset">
-              <span>#{{asset.payload.asset | truncate(10)}}</span>
+            <router-link class="mb-3" :to="'/u/' + asset.assetId">
+              <span class="monospace">#{{asset.assetId | truncate(22)}}</span>
             </router-link>
-            <p v-if="asset.payload.description">{{asset.payload.description | truncate(200)}}</p>
-            <h6 v-if="asset.payload.issuer">Issuer: {{asset.payload.issuer}}</h6>
+            <p v-if="asset.description">{{asset.description | truncate(200)}}</p>
+            <h6 v-if="asset.issuer">Issuer: {{asset.issuer}}</h6>
           </div>
         </div>
         <div v-if="items.length != 0" class="column one-third clearfix p-0">
@@ -55,7 +55,7 @@
             </div>
             <div class="mb-2">
               <a
-                href="https://asset.obyte.app/"
+                href="https://tokens.ooo/"
                 target="_blank"
                 class="btn btn-blue"
               >
@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.state.app.assets || [];
+      return this.$store.state.app.assets ? this.$store.state.app.assets : [];
     },
     filteredList() {
       return this.items.filter((asset) => {

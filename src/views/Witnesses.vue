@@ -14,7 +14,7 @@
           </router-link>
           <div>
             <router-link :to="'/@' + witness" class="mr-1">
-              <span>{{witness}}</span>
+              <span class="monospace">{{witness}}</span>
             </router-link>
             <span v-if="getVerifiedStatus(witness)" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
               <span class="octicon octicon-verified mb-1"></span>

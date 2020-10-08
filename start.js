@@ -146,7 +146,25 @@ wss.on('connection', (ws) => {
         }
         case 'get_asset_metadata': {
           db.query("SELECT * FROM messages WHERE app = 'data' AND unit_authors ?| $1 AND payload->'asset' IS NOT NULL ORDER BY unit_creation_date DESC", [assetRegistries]).then((response) => {
-            const assets = response.filter((v, i, a) => a.findIndex(t => (t.payload.asset === v.payload.asset)) === i);
+            const assets = response
+              .filter((v, i, a) => a.findIndex(t => (t.payload.asset === v.payload.asset)) === i)
+              .reduce((accum, currentVal) => {
+                const newArray = accum;
+                let assetName = currentVal.payload.name;
+                assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
+                newArray.push({
+                  assetId: currentVal.payload.asset,
+                  assetName,
+                  shortName: currentVal.payload.shortName,
+                  name: currentVal.payload.name,
+                  ticker: currentVal.payload.ticker,
+                  decimals: currentVal.payload.decimals || 0,
+                  metaUnit: currentVal.unit,
+                  description: currentVal.payload.description,
+                  issuer: currentVal.payload.issuer,
+                });
+                return newArray;
+              }, []);
             console.log('Send get_asset_metadata');
             ws.send(JSON.stringify(['response', { tag, response: assets }]));
           }).catch((err) => {

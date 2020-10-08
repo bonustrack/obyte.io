@@ -1,10 +1,11 @@
 <template>
   <div class="w-100">
-    <h2 class="mb-2">
+    <h3 v-if="message.payload.question.length <= 256" class="mb-2">
       <router-link :to="'/u/' + message.unit">
         <span>{{message.payload.question}}</span>
       </router-link>
-    </h2>
+    </h3>
+    <span v-if="message.payload.question.length > 256">{{message.payload.question}}</span>
     <ul class="Box Box--condensed d-inline-block w-100">
       <li class="Box-row" v-for="(choice, index) in message.payload.choices" :key="index">
         <p class="m-0">

@@ -12,12 +12,12 @@
       <span v-else>
         {{$n(output.amount)}}
         <router-link :to="'/u/' + message.payload.asset">
-          <span>{{message.payload.asset}}</span>
+          <span class="monospace">{{message.payload.asset}}</span>
         </router-link>
       </span>
       to
       <router-link :to="'/@' + output.address">
-        <span>{{output.address}}</span>
+        <span class="monospace">{{output.address}}</span>
       </router-link>
     </p>
   </div>
@@ -29,18 +29,10 @@ import { mapActions } from 'vuex';
 export default {
   props: ['message', 'filteredOutputs'],
   computed: {
-    assets() {
-      return this.$store.state.app.assets || [];
-    },
     assetMetaData() {
-      return this.assets.reduce((accum, currentVal) => {
+      return this.$store.state.app.assets.reduce((accum, currentVal) => {
         const newArray = accum;
-        let assetName = currentVal.payload.name;
-        assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
-        newArray[currentVal.payload.asset] = {
-          assetName,
-          decimals: currentVal.payload.decimals || 0,
-        };
+        newArray[currentVal.assetId] = currentVal;
         return newArray;
       }, {});
     },

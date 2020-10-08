@@ -3,7 +3,7 @@
     <div class="container-md py-8 p-responsive text-center">
       <h1>Chatbots</h1>
       <p v-if="items.length != 0">
-        {{items.length}} chatbots available
+        {{filteredList.length}} chatbots available
       </p>
     </div>
     <div class="container p-responsive">

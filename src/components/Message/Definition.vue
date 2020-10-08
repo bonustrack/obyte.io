@@ -3,7 +3,7 @@
     <p v-if="message.payload.address">
       Deployed
       <router-link :to="'/@' + message.payload.address">
-        <span>{{message.payload.address}}</span>
+        <span class="monospace">{{message.payload.address}}</span>
       </router-link>
       <span v-if="getVerifiedStatus(message.payload.address)" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
         <span class="octicon octicon-verified mb-1"></span>

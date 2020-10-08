@@ -3,7 +3,7 @@
     <div class="container-md py-8 p-responsive text-center">
       <h1>dApps (Autonomous Agents)</h1>
       <p v-if="items.length != 0">
-        {{items.length}} dApps available
+        {{filteredList.length}} dApps available
       </p>
     </div>
     <div class="container p-responsive">
@@ -35,7 +35,7 @@
               </span>
             </h4>
             <router-link class="mb-3" :to="'/u/' + dapp.unit">
-              <span>#{{dapp.unit | truncate(10)}}</span>
+              <span class="monospace">#{{dapp.unit | truncate(22)}}</span>
             </router-link>
             <p v-if="dapp.source.description">{{dapp.source.description | truncate(200)}}</p>
             <div v-if="dapp.payload.definition[0] === 'autonomous agent'" class="mb-2">

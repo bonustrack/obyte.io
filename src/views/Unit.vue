@@ -16,7 +16,7 @@
       <h3>Last 10 votes:</h3>
       <p v-for="(vote, index) in votes" :key="index">
         <router-link :to="'/@' + vote.unit_authors[0]" class="mr-1">
-          <span>{{vote.unit_authors[0] | name('', vote.unit_authors[0])}}</span>
+          <span class="monospace">{{vote.unit_authors[0] | name('', vote.unit_authors[0])}}</span>
         </router-link> voted
         <b>{{ vote.payload.choice }}</b>
       </p>

@@ -21,7 +21,7 @@
       <div class="mb-1">
         <!--<span class="octicon octicon-zap mr-1"></span>-->
         <a :href="'https://explorer.obyte.org/#' + address" target="_blank">
-          <span>{{address}}</span>
+          <span class="monospace">{{address}}</span>
         </a>
         <span class="octicon octicon-link-external f3 ml-2"/>
       </div>

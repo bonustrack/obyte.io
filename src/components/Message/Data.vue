@@ -6,7 +6,7 @@
     <p>
       Registered
       <router-link :to="'/u/' + message.payload.asset">
-        <span>{{message.payload.asset}}</span>
+        <span class="monospace">{{message.payload.asset}}</span>
       </router-link>
     </p>
     <ul class="Box Box--condensed d-inline-block w-100">
@@ -22,7 +22,7 @@
     <p>
       Matched orders on
       <router-link :to="'/@' + message.payload.order1.signed_message.aa">
-        <span>{{message.payload.order1.signed_message.aa}}</span>
+        <span class="monospace">{{message.payload.order1.signed_message.aa}}</span>
       </router-link>
       <span v-if="getVerifiedStatus(message.payload.order1.signed_message.aa)" class="tooltipped tooltipped-n ml-1" aria-label="Verified">
         <span class="octicon octicon-verified mb-1"></span>
@@ -33,7 +33,7 @@
         <p class="m-0">
           <span class="text-bold">Maker signed by: </span>
           <router-link :to="'/@' + message.payload.order1.authors[0].address">
-            <span>{{message.payload.order1.authors[0].address}}</span>
+            <span class="monospace">{{message.payload.order1.authors[0].address}}</span>
           </router-link>
         </p>
       </li>
@@ -41,7 +41,7 @@
         <p class="m-0">
           <span class="text-bold">Maker address: </span>
           <router-link :to="'/@' + message.payload.order1.signed_message.address">
-            <span>{{message.payload.order1.signed_message.address}}</span>
+            <span class="monospace">{{message.payload.order1.signed_message.address}}</span>
           </router-link>
         </p>
       </li>
@@ -73,7 +73,7 @@
         <p class="m-0">
           <span class="text-bold">Taker signed by: </span>
           <router-link :to="'/@' + message.payload.order2.authors[0].address">
-            <span>{{message.payload.order2.authors[0].address}}</span>
+            <span class="monospace">{{message.payload.order2.authors[0].address}}</span>
           </router-link>
         </p>
       </li>
@@ -81,7 +81,7 @@
         <p class="m-0">
           <span class="text-bold">Taker address: </span>
           <router-link :to="'/@' + message.payload.order2.signed_message.address">
-            <span>{{message.payload.order2.signed_message.address}}</span>
+            <span class="monospace">{{message.payload.order2.signed_message.address}}</span>
           </router-link>
         </p>
       </li>
@@ -150,22 +150,14 @@ export default {
     ]),
   },
   computed: {
-    assets() {
-      return this.$store.state.app.assets || [];
-    },
     assetMetaData() {
-      return this.assets.reduce((accum, currentVal) => {
+      const assets = this.$store.state.app.assets.reduce((accum, currentVal) => {
         const newArray = accum;
-        let assetName = currentVal.payload.name;
-        assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
-        newArray[currentVal.payload.asset] = {
-          assetName,
-          decimals: currentVal.payload.decimals || 0,
-        };
+        newArray[currentVal.assetId] = currentVal;
         return newArray;
-      }, {
-        base: { assetName: 'Gigabytes ($GBYTE)', decimals: 9 },
-      });
+      }, {});
+      assets.base = { assetName: 'Gigabytes ($GBYTE)', decimals: 9 };
+      return assets;
     },
     filteredPayload() {
       return Object.keys(this.message.payload).filter(field => field !== 'asset');

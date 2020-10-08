@@ -12,13 +12,13 @@
       <span v-else>
         {{$n(message.payload['inputs'][0].amount)}}
         <router-link :to="'/u/' + message.payload['asset']">
-          <span>{{message.payload['asset']}}</span>
+          <span class="monospace">{{message.payload['asset']}}</span>
         </router-link>
       </span>
       <span v-if="message.payload['inputs'][0].address">
         to
         <router-link :to="'/@' + message.payload['inputs'][0].address">
-          <span>{{message.payload['inputs'][0].address}}</span>
+          <span class="monospace">{{message.payload['inputs'][0].address}}</span>
         </router-link>
       </span>
     </p>
@@ -34,18 +34,10 @@ export default {
     'getAssets',
   ]),
   computed: {
-    assets() {
-      return this.$store.state.app.assets || [];
-    },
     assetMetaData() {
-      return this.assets.reduce((accum, currentVal) => {
+      return this.$store.state.app.assets.reduce((accum, currentVal) => {
         const newArray = accum;
-        let assetName = currentVal.payload.name;
-        assetName += currentVal.payload.ticker ? ` ($${currentVal.payload.ticker})` : '';
-        newArray[currentVal.payload.asset] = {
-          assetName,
-          decimals: currentVal.payload.decimals || 0,
-        };
+        newArray[currentVal.assetId] = currentVal;
         return newArray;
       }, {});
     },

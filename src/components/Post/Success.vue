@@ -7,7 +7,7 @@
         :href="'https://explorer.obyte.org/#' + unit"
         target="_blank"
       >
-        {{unit}}
+        <span class="monospace">{{unit}}</span>
       </a>
       <span class="octicon octicon-link-external f3 ml-2"/>
       has been successfully broadcasted
