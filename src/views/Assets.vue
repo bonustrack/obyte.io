@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.state.app.assets ? this.$store.state.app.assets : [];
+      return this.$store.state.app.assets || [];
     },
     filteredList() {
       return this.items.filter((asset) => {
