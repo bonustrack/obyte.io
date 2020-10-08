@@ -7,12 +7,13 @@
 
 <script>
 import marked from 'marked';
+import sanitizeHtml from 'sanitize-html';
 
 export default {
   props: ['text', 'className'],
   computed: {
     compiledMarkdown() {
-      return marked(this.text, { sanitize: true });
+      return marked(sanitizeHtml(this.text));
     },
   },
 };
