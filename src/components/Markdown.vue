@@ -13,7 +13,7 @@ export default {
   props: ['text', 'className'],
   computed: {
     compiledMarkdown() {
-      return marked(sanitizeHtml(this.text));
+      return sanitizeHtml(marked(this.text));
     },
   },
 };
