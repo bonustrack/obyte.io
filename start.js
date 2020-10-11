@@ -6,7 +6,7 @@ const db = require('./server/db');
 const writer = require('./server/writer');
 
 if (process.env.SINGLE_PROCESS) {
-  const replay = require('./server/replay'); // eslint-disable-line global-require
+  const { replay } = require('./server/replay'); // eslint-disable-line global-require
   replay.start();
 }
 
