@@ -10,7 +10,7 @@
     "heroku-postbuild": "npm install --only=dev && npm run build"
   },
   "engines": {
-    "node": ">=8.0.0 <11.0.0"
+    "node": "^8 || ^10"
   },
   "dependencies": {
     "axios": "^0.18.1",

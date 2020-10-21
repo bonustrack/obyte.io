@@ -247,6 +247,12 @@
     }
   },
   {
+    "address": "7AUBFK4YAUGUF3RWWYRFXXF7BBWY2V7Y",
+    "profile": {
+      "oracle_name": "Pool share token locking - Oswap.io"
+    }
+  },
+  {
     "address": "JLLM2AUTHYUS5EW36YVSPDYIDDQRABU6",
     "profile": {
       "oracle_name": "Stablecoin base AA - Discount Stablecoins"
