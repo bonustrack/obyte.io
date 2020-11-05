@@ -1,12 +1,6 @@
 <template>
   <li
-    v-if="message.payload.inputs && message.payload.inputs[0].type === 'issue'"
-    class="d-block width-full py-4 clearfix border-bottom"
-  >
-    <MessageAssetIssue :message="message" />
-  </li>
-  <li
-    v-else-if="(message.app === 'payment' && filteredOutputs.length) || message.app !== 'payment'"
+    v-if="(message.app === 'payment' && filteredOutputs.length) || message.app !== 'payment'"
     class="d-block width-full py-4 clearfix border-bottom"
   >
     <div class="flex-content-start mb-1">
