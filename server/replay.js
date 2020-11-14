@@ -12,37 +12,11 @@ class Replay {
       if (err) return console.error(err);
       /** Index unstable units */
       // console.log('Subscribe', message);
-      if (message[0] && message[1]) {
-        switch (message[0]) {
-          case 'request':
-            if (message[1].tag && message[1].command) {
-              if (message[1].command === 'subscribe') {
-                console.log('Got subscribe request');
-              } else if (message[1].command === 'heartbeat') {
-                console.log('Got heartbeat request');
-              } else if (message[1].command.startsWith('light/')) {
-                console.log('Got light wallet request', message);
-              } else {
-                console.error('unhandled command', message);
-              }
-            } else {
-              console.error('unhandled request', message);
-            }
-            break;
-          case 'justsaying':
-            if (message[1].subject && message[1].subject === 'joint') {
-              const objUnit = message[1].body.unit;
-              writer.indexUnstableUnit(objUnit).then(() => {
-                console.log('Indexed unstable unit messages', objUnit.unit);
-              });
-            } else {
-              console.error('unhandled justsaying', message);
-            }
-            break;
-          default:
-            console.error('unhandled message', message);
-            break;
-        }
+      if (message[0] && message[1] && message[0] === 'justsaying' && message[1].subject && message[1].subject === 'joint') {
+        const objUnit = message[1].body.unit;
+        writer.indexUnstableUnit(objUnit).then(() => {
+          console.log('Indexed unstable unit messages', objUnit.unit);
+        });
       } else {
         console.error('unknown message', message);
       }
