@@ -271,13 +271,13 @@
     }
   },
   {
-    "address": "B7RBGEW7FEASSWNTOQSDQXIKG56EJAFP",
+    "address": "SAG5CJZAUSEYOEFN7FJTC23F5ZGNUR37",
     "profile": {
       "oracle_name": "Coin factory AA - Bonded Stablecoins"
     }
   },
   {
-    "address": "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP",
+    "address": "3RNNDX57C36E76JLG2KAQSIASAYVGAYG",
     "profile": {
       "oracle_name": "Curve base AA - Bonded Stablecoins"
     }
@@ -289,19 +289,19 @@
     }
   },
   {
-    "address": "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF",
+    "address": "UUPBIWDWQ7Q4WXS5CWSEKUQE34FG6L55",
     "profile": {
       "oracle_name": "Governance base AA - Bonded Stablecoins"
     }
   },
   {
-    "address": "I3EA42PJ352JBF5EGOXV2UYT46WCAUEJ",
+    "address": "PO3W4UIMSLEQLRT434PYPZAF6VPGB7WW",
     "profile": {
       "oracle_name": "T1 arbitrage factory AA - Bonded Stablecoins"
     }
   },
   {
-    "address": "7DTJZNB3MHSBVI72CKXRIKONJYBV7I2Z",
+    "address": "WQBLYBRAMJVXDWS7BGTUNUTW2STO6LYP",
     "profile": {
       "oracle_name": "T1 arbitrage base AA - Bonded Stablecoins"
     }
