@@ -19,7 +19,7 @@
     "date-fns": "^1.30.1",
     "dotenv": "^8.2.0",
     "ethereum-blockies-base64": "^1.0.2",
-    "express": "^4.17.1",
+    "express": "^4.22.1",
     "identicon.js": "^2.3.3",
     "kbyte": "0.0.5",
     "lodash": "^4.17.20",
@@ -40,13 +40,13 @@
     "ws": "^7.3.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.12.1",
-    "@vue/cli-plugin-eslint": "^3.12.1",
-    "@vue/cli-service": "^3.12.1",
+    "@vue/cli-plugin-babel": "^5.0.9",
+    "@vue/cli-plugin-eslint": "^5.0.9",
+    "@vue/cli-service": "^5.0.9",
     "@vue/eslint-config-airbnb": "^3.0.5",
-    "less": "^2.7.3",
+    "less": "^4.5.1",
     "less-loader": "^4.0.5",
-    "node-sass": "^4.14.1",
+    "node-sass": "^9.0.0",
     "sass-loader": "^7.3.1",
     "vue-template-compiler": "^2.6.12"
   },
